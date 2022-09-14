@@ -1,0 +1,355 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://resources/fonts/italic.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/fonts/bold.tres" type="DynamicFont" id=2]
+[ext_resource path="res://resources/fonts/normal.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/GameInfo.gd" type="Script" id=4]
+[ext_resource path="res://scenes/media/VideoControls.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/icons/play.svg" type="Texture" id=6]
+
+[node name="GameInfo" type="PopupDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 4.0
+margin_right = -2.0
+margin_bottom = -4.0
+
+[node name="InfoScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 300.0
+margin_bottom = 592.0
+rect_min_size = Vector2( 300, 0 )
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoScrollContainer"]
+margin_right = 300.0
+margin_bottom = 592.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AgeRatingContainer" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_right = 300.0
+margin_bottom = 23.0
+
+[node name="Name" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/AgeRatingContainer"]
+unique_name_in_owner = true
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+text = "<game name>"
+autowrap = true
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 300.0
+margin_bottom = 31.0
+
+[node name="Description" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 35.0
+margin_right = 300.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 1 )
+text = "<game description>"
+autowrap = true
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 62.0
+margin_right = 300.0
+margin_bottom = 66.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 70.0
+margin_right = 300.0
+margin_bottom = 119.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer"]
+margin_right = 86.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Developer: 
+"
+
+[node name="Developer" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 90.0
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game developer>"
+autowrap = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 123.0
+margin_right = 300.0
+margin_bottom = 172.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 80.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Publisher: 
+"
+
+[node name="Publisher" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+margin_left = 84.0
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game publisher>"
+autowrap = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 176.0
+margin_right = 300.0
+margin_bottom = 225.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 104.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Release date: 
+"
+
+[node name="ReleaseDate" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+margin_left = 108.0
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game release date>"
+autowrap = true
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 229.0
+margin_right = 300.0
+margin_bottom = 278.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 57.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Rating: 
+"
+
+[node name="Rating" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+margin_left = 61.0
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game rating>"
+autowrap = true
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 282.0
+margin_right = 300.0
+margin_bottom = 331.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer5"]
+margin_right = 63.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Genres: 
+"
+
+[node name="Genres" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
+margin_left = 67.0
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game genres>"
+autowrap = true
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 335.0
+margin_right = 300.0
+margin_bottom = 384.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer6"]
+margin_right = 63.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Players: 
+"
+
+[node name="NumPlayers" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+margin_left = 67.0
+margin_right = 300.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game num players>"
+autowrap = true
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 388.0
+margin_right = 300.0
+margin_bottom = 437.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer7"]
+margin_right = 72.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Favorite? 
+"
+
+[node name="Favorite" type="CheckBox" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer7"]
+unique_name_in_owner = true
+margin_left = 76.0
+margin_right = 300.0
+margin_bottom = 24.0
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+disabled = true
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="HBoxContainer/InfoScrollContainer/VBoxContainer"]
+margin_top = 441.0
+margin_right = 300.0
+margin_bottom = 490.0
+
+[node name="Label" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer9"]
+margin_right = 83.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 3 )
+text = "Play count:
+"
+
+[node name="PlayCount" type="Label" parent="HBoxContainer/InfoScrollContainer/VBoxContainer/HBoxContainer9"]
+unique_name_in_owner = true
+margin_left = 87.0
+margin_right = 300.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+text = "<game play count> (<game last played>)"
+autowrap = true
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_left = 304.0
+margin_right = 308.0
+margin_bottom = 592.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 312.0
+margin_right = 1016.0
+margin_bottom = 592.0
+size_flags_horizontal = 3
+
+[node name="MediaViewer" type="Control" parent="HBoxContainer/VBoxContainer2"]
+margin_right = 704.0
+margin_bottom = 405.0
+size_flags_vertical = 3
+
+[node name="NoMedia" type="Label" parent="HBoxContainer/VBoxContainer2/MediaViewer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 0.635294, 0.635294, 0.635294, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "No game media available to show"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="TextureRoot" type="VBoxContainer" parent="HBoxContainer/VBoxContainer2/MediaViewer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MediaTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer2/MediaViewer/TextureRoot"]
+unique_name_in_owner = true
+margin_right = 704.0
+margin_bottom = 378.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/MediaViewer/TextureRoot"]
+margin_top = 382.0
+margin_right = 704.0
+margin_bottom = 405.0
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2/MediaViewer/TextureRoot/HBoxContainer"]
+margin_right = 46.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 2 )
+text = "Type: "
+
+[node name="MediaLabel" type="Label" parent="HBoxContainer/VBoxContainer2/MediaViewer/TextureRoot/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 50.0
+margin_right = 704.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+autowrap = true
+
+[node name="VideoControls" parent="HBoxContainer/VBoxContainer2/MediaViewer" instance=ExtResource( 5 )]
+unique_name_in_owner = true
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 409.0
+margin_right = 704.0
+margin_bottom = 413.0
+
+[node name="MediaScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+margin_top = 417.0
+margin_right = 704.0
+margin_bottom = 542.0
+rect_min_size = Vector2( 0, 125 )
+follow_focus = true
+
+[node name="MediaPreviewContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/MediaScrollContainer"]
+unique_name_in_owner = true
+margin_right = 704.0
+margin_bottom = 125.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer2"]
+margin_top = 546.0
+margin_right = 704.0
+margin_bottom = 550.0
+
+[node name="PlayButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+margin_left = 604.0
+margin_top = 554.0
+margin_right = 704.0
+margin_bottom = 592.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 8
+text = "Play"
+icon = ExtResource( 6 )
+
+[connection signal="popup_hide" from="." to="." method="_on_GameInfo_popup_hide"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/PlayButton" to="." method="_on_PlayButton_pressed"]

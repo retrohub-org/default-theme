@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/icons/play.svg" type="Texture" id=1]
+[ext_resource path="res://scenes/media/VideoControls.gd" type="Script" id=2]
+[ext_resource path="res://assets/icons/pause.svg" type="Texture" id=3]
+
+[node name="VideoControls" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Player" type="VideoPlayer" parent="."]
+unique_name_in_owner = true
+margin_right = 1024.0
+margin_bottom = 556.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="."]
+margin_top = 560.0
+margin_right = 1024.0
+margin_bottom = 564.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 568.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="PlayPause" type="TextureButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+toggle_mode = true
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 3 )
+expand = true
+stretch_mode = 3
+
+[node name="Progress" type="HSlider" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 36.0
+margin_top = 8.0
+margin_right = 1024.0
+margin_bottom = 24.0
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 0.001
+scrollable = false
+
+[node name="ProgressUpdater" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[connection signal="finished" from="Player" to="." method="_on_Player_finished"]
+[connection signal="focus_entered" from="HBoxContainer/PlayPause" to="." method="_on_PlayPause_focus_entered"]
+[connection signal="focus_exited" from="HBoxContainer/PlayPause" to="." method="_on_PlayPause_focus_exited"]
+[connection signal="toggled" from="HBoxContainer/PlayPause" to="." method="_on_PlayPause_toggled"]
+[connection signal="drag_ended" from="HBoxContainer/Progress" to="." method="_on_Progress_drag_ended"]
+[connection signal="drag_started" from="HBoxContainer/Progress" to="." method="_on_Progress_drag_started"]
+[connection signal="value_changed" from="HBoxContainer/Progress" to="." method="_on_Progress_value_changed"]
+[connection signal="timeout" from="ProgressUpdater" to="." method="_on_ProgressUpdater_timeout"]
