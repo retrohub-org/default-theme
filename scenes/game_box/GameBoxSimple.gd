@@ -36,7 +36,7 @@ func _on_GameBoxSimple_focus_entered():
 	n_more_info_root.visible = true
 	n_play_container.visible = true
 
-func _on_GameBoxImage_focus_exited():
+func _on_GameBoxSimple_focus_exited():
 	n_more_info_root.visible = false
 	n_play_container.visible = false
 
