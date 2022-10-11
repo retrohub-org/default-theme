@@ -88,5 +88,6 @@ margin_bottom = 32.0
 texture = ExtResource( 5 )
 
 [connection signal="focus_entered" from="." to="." method="_on_GameBoxSimple_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_GameBoxSimple_focus_exited"]
 [connection signal="pressed" from="." to="." method="_on_GameBoxSimple_pressed"]
 [connection signal="pressed" from="MoreInfo" to="." method="_on_MoreInfo_pressed"]
