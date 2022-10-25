@@ -23,7 +23,7 @@ func _on_show_game_info(data: RetroHubGameData):
 func _on_SystemBar_system_selected(data: RetroHubSystemData, should_focus: bool):
 	var selected = false
 	for child in get_children():
-		child.visible = child.game_data.system_name == data.name
+		child.visible = child.game_data.system == data
 		if should_focus and child.visible and not selected:
 			child.grab_focus()
 			selected = true
