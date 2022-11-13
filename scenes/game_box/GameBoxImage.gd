@@ -15,6 +15,7 @@ func set_game_data(_game_data: RetroHubGameData):
 
 func _ready():
 	RetroHub.connect("app_returning", self, "_on_app_returning")
+	RetroHubMedia.connect("media_loaded", self, "_on_media_loaded")
 
 	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
 
@@ -23,6 +24,21 @@ func _on_app_returning(_unused: RetroHubSystemData, data: RetroHubGameData):
 		print("Grabbing focus")
 		grab_focus()
 		_on_GameBoxImage_focus_entered()
+
+func _on_media_loaded(media_data: RetroHubGameMediaData, _game_data: RetroHubGameData, types: int):
+	if game_data == _game_data and not n_media.texture:
+		if types == RetroHubMedia.Type.TITLE_SCREEN and media_data.title_screen:
+			n_media.texture = media_data.title_screen
+			return
+		else:
+			RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.SCREENSHOT)
+		if types == RetroHubMedia.Type.SCREENSHOT and media_data.screenshot:
+			n_media.texture = media_data.screenshot
+			return
+		else:
+			RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.LOGO)
+		if types == RetroHubMedia.Type.LOGO and media_data.logo:
+			n_media.texture = media_data.logo
 
 func _on_game_data_updated(data: RetroHubGameData):
 	if game_data == data:
@@ -46,19 +62,9 @@ func _gui_input(event):
 
 func _on_GameBoxImage_visibility_changed():
 	if visible and not n_media.texture:
-		var media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.TITLE_SCREEN)
-		if media_data.title_screen:
-			n_media.texture = media_data.title_screen
-			return
-		media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.SCREENSHOT)
-		if media_data.screenshot:
-			n_media.texture = media_data.screenshot
-			return
-		media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.LOGO)
-		if media_data.logo:
-			n_media.texture = media_data.logo
-			return
+		RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.TITLE_SCREEN)
 	else:
+		RetroHubMedia.cancel_media_data_async(game_data)
 		n_media.texture = null
 
 func _on_MoreInfo_pressed():
