@@ -65,7 +65,7 @@ func show_game_data():
 	n_description.text = "(no description)" if game_data.description.empty() else game_data.description
 	n_developer.text = "Unknown" if game_data.developer.empty() else game_data.developer
 	n_publisher.text = "Unknown" if game_data.publisher.empty() else game_data.publisher
-	n_release_date.text = "Unknown" if game_data.release_date.empty() else game_data.release_date
+	n_release_date.text = "Unknown" if game_data.release_date.empty() else RegionUtils.localize_date(game_data.release_date)
 	n_rating.text = str(int(stepify(game_data.rating, 0.01) * 100)) + "%"
 	n_genres.text = "Unknown" if game_data.genres.empty() else game_data.genres[0]
 	n_num_players.text = "Unknown" if game_data.num_players.empty() else handle_num_players()
@@ -96,7 +96,7 @@ func handle_play_count() -> String:
 	if last_played.empty() or last_played == "null":
 		result += " (never played)"
 	else:
-		result += " (last played at " + last_played + ")"
+		result += " (last played at " + RegionUtils.localize_date(last_played) + ")"
 	return result
 
 func show_game_media():
