@@ -30,6 +30,11 @@ var scroll_vertical : float = 0
 var scroll_horizontal : float = 0
 export(float) var scroll_speed : float = 500
 
+var media_types : int = RetroHubMedia.Type.SCREENSHOT | \
+	RetroHubMedia.Type.TITLE_SCREEN | RetroHubMedia.Type.LOGO | \
+	RetroHubMedia.Type.BOX_RENDER | RetroHubMedia.Type.SUPPORT_RENDER | \
+	RetroHubMedia.Type.VIDEO
+
 func _on_GamesGrid_show_game_info(data: RetroHubGameData):
 	game_data = data
 	last_focused = get_focus_owner()
@@ -103,7 +108,7 @@ func show_game_media():
 	for child in n_media_preview_cont.get_children():
 		n_media_preview_cont.remove_child(child)
 		child.free()
-	var media := RetroHubMedia.retrieve_media_data(game_data)
+	var media := RetroHubMedia.retrieve_media_data(game_data, media_types)
 	if not media:
 		n_no_media.visible = true
 		n_texture_root.visible = false
