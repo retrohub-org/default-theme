@@ -46,13 +46,18 @@ func _gui_input(event):
 
 func _on_GameBoxImage_visibility_changed():
 	if visible and not n_media.texture:
-		var media_data = RetroHubMedia.retrieve_media_data(game_data)
+		var media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.TITLE_SCREEN)
 		if media_data.title_screen:
 			n_media.texture = media_data.title_screen
-		elif media_data.screenshot:
+			return
+		media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.SCREENSHOT)
+		if media_data.screenshot:
 			n_media.texture = media_data.screenshot
-		elif media_data.logo:
+			return
+		media_data = RetroHubMedia.retrieve_media_data(game_data, RetroHubMedia.Type.LOGO)
+		if media_data.logo:
 			n_media.texture = media_data.logo
+			return
 	else:
 		n_media.texture = null
 
