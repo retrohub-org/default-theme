@@ -27,17 +27,17 @@ func _on_app_returning(_unused: RetroHubSystemData, data: RetroHubGameData):
 
 func _on_media_loaded(media_data: RetroHubGameMediaData, _game_data: RetroHubGameData, types: int):
 	if game_data == _game_data and not n_media.texture:
-		if types == RetroHubMedia.Type.TITLE_SCREEN and media_data.title_screen:
-			n_media.texture = media_data.title_screen
-			return
-		else:
-			RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.SCREENSHOT)
-		if types == RetroHubMedia.Type.SCREENSHOT and media_data.screenshot:
-			n_media.texture = media_data.screenshot
-			return
-		else:
-			RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.LOGO)
-		if types == RetroHubMedia.Type.LOGO and media_data.logo:
+		if types == RetroHubMedia.Type.TITLE_SCREEN:
+			if media_data.title_screen:
+				n_media.texture = media_data.title_screen
+			else:
+				RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.SCREENSHOT)
+		elif types == RetroHubMedia.Type.SCREENSHOT:
+			if media_data.screenshot:
+				n_media.texture = media_data.screenshot
+			else:
+				RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.LOGO)
+		elif types == RetroHubMedia.Type.LOGO and media_data.logo:
 			n_media.texture = media_data.logo
 
 func _on_game_data_updated(data: RetroHubGameData):
