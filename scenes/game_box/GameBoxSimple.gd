@@ -29,6 +29,7 @@ func _on_game_data_updated(data: RetroHubGameData):
 
 func _gui_input(event):
 	if event.is_action_pressed("rh_major_option"):
+		get_tree().set_input_as_handled()
 		_on_MoreInfo_pressed()
 
 func _on_GameBoxSimple_focus_entered():
@@ -43,6 +44,8 @@ func _on_GameBoxSimple_focus_exited():
 func _on_GameBoxSimple_pressed():
 	RetroHub.launch_game()
 
-
 func _on_MoreInfo_pressed():
 	emit_signal("show_game_info", game_data)
+
+func set_preview_mode(preview_mode: int):
+	pass
