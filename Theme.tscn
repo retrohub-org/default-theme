@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Logic.gd" type="Script" id=1]
 [ext_resource path="res://scenes/SystemBar.tscn" type="PackedScene" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://scenes/GameInfo.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=9]
 [ext_resource path="res://GameInfoHelper.gd" type="Script" id=10]
+[ext_resource path="res://scenes/sort_filter_popup/SortFilterPopup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/controller_icons/assets/key/alt.png" type="Texture" id=12]
+[ext_resource path="res://scenes/GamesGridManager.gd" type="Script" id=13]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -45,11 +48,11 @@ unique_name_in_owner = true
 anchor_left = 0.164
 anchor_top = 0.244
 anchor_right = 0.836
-anchor_bottom = 0.922
-margin_left = -0.436005
-margin_top = 0.0999908
-margin_right = 0.435974
-margin_bottom = 0.299988
+anchor_bottom = 0.857
+margin_left = 0.0639954
+margin_top = 0.599991
+margin_right = 0.935974
+margin_bottom = -0.200012
 
 [node name="Label" type="Label" parent="NoGames"]
 anchor_left = 0.5
@@ -109,26 +112,18 @@ text = "to open the main menu."
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="GamesGridManager" type="Control" parent="."]
 anchor_left = 0.064
 anchor_top = 0.223
 anchor_right = 0.936
-anchor_bottom = 0.957
+anchor_bottom = 0.888
 margin_left = 0.463997
 margin_top = 0.199997
 margin_right = -0.46405
-margin_bottom = -0.200012
+margin_bottom = 0.199951
 theme = SubResource( 6 )
-follow_focus = true
-scroll_horizontal_enabled = false
-
-[node name="GamesGrid" parent="ScrollContainer" instance=ExtResource( 7 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 892.0
-margin_bottom = 440.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+script = ExtResource( 13 )
+games_grid = ExtResource( 7 )
 
 [node name="GameInfo" parent="." instance=ExtResource( 8 )]
 anchor_left = 0.0771484
@@ -175,6 +170,44 @@ margin_bottom = 31.0
 custom_fonts/font = ExtResource( 6 )
 text = "for scrolling information"
 
-[connection signal="system_selected" from="SystemBar" to="ScrollContainer/GamesGrid" method="_on_SystemBar_system_selected"]
-[connection signal="show_game_info" from="ScrollContainer/GamesGrid" to="GameInfo" method="_on_GamesGrid_show_game_info"]
-[connection signal="popup_hide" from="GameInfo" to="." method="_on_GameInfo_popup_hide"]
+[node name="HFlowContainer2" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -197.0
+margin_top = -65.0
+margin_right = -41.0
+margin_bottom = -25.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ControllerTextureRect" type="TextureRect" parent="HFlowContainer2"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+texture = ExtResource( 12 )
+expand = true
+script = ExtResource( 4 )
+path = "rh_minor_option"
+
+[node name="Label" type="Label" parent="HFlowContainer2"]
+margin_left = 44.0
+margin_top = 13.0
+margin_right = 156.0
+margin_bottom = 27.0
+text = "Sort/filter options"
+
+[node name="SortFilterPopup" parent="." instance=ExtResource( 11 )]
+anchor_right = 0.346
+anchor_bottom = 0.412
+margin_left = 690.0
+margin_top = 403.0
+margin_right = 650.696
+margin_bottom = 333.8
+
+[connection signal="system_selected" from="SystemBar" to="GamesGridManager" method="_on_SystemBar_system_selected"]
+[connection signal="show_game_info" from="GamesGridManager" to="GameInfo" method="_on_show_game_info"]
+[connection signal="setting_changed" from="SortFilterPopup" to="GamesGridManager" method="_on_SortFilterPopup_setting_changed"]
