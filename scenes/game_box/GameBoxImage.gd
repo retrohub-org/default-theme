@@ -7,6 +7,8 @@ onready var n_label := $"%Label"
 onready var n_more_info_root := $"%MoreInfoRoot"
 onready var n_play_container := $"%PlayContainer"
 
+var _preview_mode : int
+
 var game_data : RetroHubGameData setget set_game_data
 
 func set_game_data(_game_data: RetroHubGameData):
@@ -30,12 +32,12 @@ func _on_media_loaded(media_data: RetroHubGameMediaData, _game_data: RetroHubGam
 		if types == RetroHubMedia.Type.TITLE_SCREEN:
 			if media_data.title_screen:
 				n_media.texture = media_data.title_screen
-			else:
+			elif _preview_mode == 0:
 				RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.SCREENSHOT)
 		elif types == RetroHubMedia.Type.SCREENSHOT:
 			if media_data.screenshot:
 				n_media.texture = media_data.screenshot
-			else:
+			elif _preview_mode == 0:
 				RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.LOGO)
 		elif types == RetroHubMedia.Type.LOGO and media_data.logo:
 			n_media.texture = media_data.logo
@@ -58,14 +60,36 @@ func _on_GameBoxImage_focus_exited():
 
 func _gui_input(event):
 	if event.is_action_pressed("rh_major_option"):
+		get_tree().set_input_as_handled()
 		_on_MoreInfo_pressed()
 
 func _on_GameBoxImage_visibility_changed():
-	if visible and not n_media.texture:
-		RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.TITLE_SCREEN)
+	_preview_mode = RetroHubConfig.get_theme_config("preview_mode", 0)
+	if is_visible_in_tree() and not n_media.texture:
+		RetroHubMedia.retrieve_media_data_async(game_data, get_internal_preview_type())
 	else:
 		RetroHubMedia.cancel_media_data_async(game_data)
 		n_media.texture = null
 
 func _on_MoreInfo_pressed():
 	emit_signal("show_game_info", game_data)
+
+func get_internal_preview_type():
+	match _preview_mode:
+		2: # Screenshot
+			return RetroHubMedia.Type.SCREENSHOT
+		3: # Game Logo
+			return RetroHubMedia.Type.LOGO
+		4: # Nothing
+			return 0
+		0, 1, _: # Auto, title screen or unknown
+			return RetroHubMedia.Type.TITLE_SCREEN
+
+func set_preview_mode(preview_mode: int):
+	if _preview_mode == preview_mode:
+		return
+	n_media.texture = null
+	_on_GameBoxImage_visibility_changed()
+
+func set_preview_video(preview_video: bool):
+	pass # TODO: Implement

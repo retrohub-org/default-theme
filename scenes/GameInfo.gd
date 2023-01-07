@@ -35,7 +35,7 @@ var media_types : int = RetroHubMedia.Type.SCREENSHOT | \
 	RetroHubMedia.Type.BOX_RENDER | RetroHubMedia.Type.SUPPORT_RENDER | \
 	RetroHubMedia.Type.VIDEO
 
-func _on_GamesGrid_show_game_info(data: RetroHubGameData):
+func _on_show_game_info(data: RetroHubGameData):
 	game_data = data
 	last_focused = get_focus_owner()
 	RetroHub.set_curr_game_data(data)
@@ -53,7 +53,7 @@ func _on_game_data_updated(data: RetroHubGameData):
 func _unhandled_input(event):
 	if visible:
 		get_tree().set_input_as_handled()
-		if event.is_action("rh_back"):
+		if event.is_action("rh_back") or event.is_action_pressed("rh_major_option"):
 			hide()
 		if event.is_action("rh_rstick_up") or event.is_action("rh_rstick_down"):
 			scroll_vertical = Input.get_axis("rh_rstick_up", "rh_rstick_down")
