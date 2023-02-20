@@ -32,7 +32,7 @@ func _on_app_returning(_unused: RetroHubSystemData, data: RetroHubGameData):
 func _on_media_loaded(media_data: RetroHubGameMediaData, _game_data: RetroHubGameData, types: int):
 	if game_data == _game_data:
 		if (types & RetroHubMedia.Type.VIDEO) and media_data.video:
-			n_video.stream = media_data.video
+			n_video.get_video_player().stream = media_data.video
 			if has_focus():
 				n_anim.play("Fade In Video")
 		if not n_media.texture:
@@ -61,7 +61,7 @@ func _on_GameBoxImage_focus_entered():
 	n_more_info_root.visible = true
 	n_play_container.visible = true
 	if RetroHubConfig.get_theme_config("preview_video", true):
-		if n_video.stream:
+		if n_video.get_video_player().stream:
 			n_anim.play("Fade In Video")
 		else:
 			RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.VIDEO)
@@ -83,8 +83,8 @@ func _on_GameBoxImage_visibility_changed():
 	else:
 		RetroHubMedia.cancel_media_data_async(game_data)
 		n_media.texture = null
-		if n_video.stream:
-			n_video.stream = null
+		if n_video.get_video_player().stream:
+			n_video.get_video_player().stream = null
 
 func _on_MoreInfo_pressed():
 	emit_signal("show_game_info", game_data)
