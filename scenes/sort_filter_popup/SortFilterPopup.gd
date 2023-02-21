@@ -19,7 +19,7 @@ func _ready():
 func _unhandled_input(event):
 	if visible:
 		get_tree().set_input_as_handled()
-		if event.is_action_pressed("rh_minor_option"):
+		if event.is_action_pressed("rh_theme_menu"):
 			hide()
 			if is_instance_valid(last_focused_control):
 				last_focused_control.grab_focus()
@@ -35,7 +35,7 @@ func _unhandled_input(event):
 			else:
 				n_tabs.current_tab += 1
 			grab_focus()
-	elif event.is_action_pressed("rh_minor_option"):
+	elif event.is_action_pressed("rh_theme_menu"):
 		last_focused_control = get_focus_owner()
 		popup()
 

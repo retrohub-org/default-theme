@@ -1,6 +1,7 @@
 extends Button
 
 signal show_game_info(game_data)
+signal game_selected(game_data)
 
 onready var n_label := $"%Label"
 onready var n_more_info_root := $"%MoreInfoRoot"
@@ -14,7 +15,6 @@ func set_game_data(_game_data: RetroHubGameData):
 
 func _ready():
 	RetroHub.connect("app_returning", self, "_on_app_returning")
-	
 	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
 
 func _on_app_returning(_unused: RetroHubSystemData, data: RetroHubGameData):
@@ -34,6 +34,7 @@ func _gui_input(event):
 
 func _on_GameBoxSimple_focus_entered():
 	RetroHub.set_curr_game_data(game_data)
+	emit_signal("game_selected", game_data)
 	n_more_info_root.visible = true
 	n_play_container.visible = true
 

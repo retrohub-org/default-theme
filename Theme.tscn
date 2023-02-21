@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Logic.gd" type="Script" id=1]
 [ext_resource path="res://scenes/SystemBar.tscn" type="PackedScene" id=2]
@@ -8,11 +8,12 @@
 [ext_resource path="res://resources/fonts/normal.tres" type="DynamicFont" id=6]
 [ext_resource path="res://scenes/GamesGrid.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/GameInfo.tscn" type="PackedScene" id=8]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=9]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=9]
 [ext_resource path="res://GameInfoHelper.gd" type="Script" id=10]
 [ext_resource path="res://scenes/sort_filter_popup/SortFilterPopup.tscn" type="PackedScene" id=11]
-[ext_resource path="res://addons/controller_icons/assets/key/alt.png" type="Texture" id=12]
+[ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=12]
 [ext_resource path="res://scenes/GamesGridManager.gd" type="Script" id=13]
+[ext_resource path="res://scenes/MiniGameStats.tscn" type="PackedScene" id=14]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -119,8 +120,8 @@ anchor_right = 0.936
 anchor_bottom = 0.888
 margin_left = 0.463997
 margin_top = 0.199997
-margin_right = -0.46405
-margin_bottom = 0.199951
+margin_right = -0.463989
+margin_bottom = -17.8
 theme = SubResource( 6 )
 script = ExtResource( 13 )
 games_grid = ExtResource( 7 )
@@ -175,25 +176,37 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -197.0
-margin_top = -65.0
-margin_right = -41.0
-margin_bottom = -25.0
+margin_left = -982.0
+margin_top = -70.0
+margin_right = -37.0
+margin_bottom = -20.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="ControllerTextureRect" type="TextureRect" parent="HFlowContainer2"]
+[node name="MiniGameStats" parent="HFlowContainer2" instance=ExtResource( 14 )]
+anchor_right = 0.0
+margin_right = 785.0
+margin_bottom = 50.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HFlowContainer2"]
+margin_left = 789.0
+margin_top = 10.0
+margin_right = 945.0
+margin_bottom = 50.0
+size_flags_vertical = 8
+
+[node name="ControllerTextureRect" type="TextureRect" parent="HFlowContainer2/HBoxContainer2"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
 texture = ExtResource( 12 )
 expand = true
 script = ExtResource( 4 )
-path = "rh_minor_option"
+path = "rh_theme_menu"
 
-[node name="Label" type="Label" parent="HFlowContainer2"]
+[node name="Label" type="Label" parent="HFlowContainer2/HBoxContainer2"]
 margin_left = 44.0
 margin_top = 13.0
 margin_right = 156.0
@@ -209,5 +222,6 @@ margin_right = 650.696
 margin_bottom = 333.8
 
 [connection signal="system_selected" from="SystemBar" to="GamesGridManager" method="_on_SystemBar_system_selected"]
+[connection signal="game_selected" from="GamesGridManager" to="HFlowContainer2/MiniGameStats" method="_on_GamesGridManager_game_selected"]
 [connection signal="show_game_info" from="GamesGridManager" to="GameInfo" method="_on_show_game_info"]
 [connection signal="setting_changed" from="SortFilterPopup" to="GamesGridManager" method="_on_SortFilterPopup_setting_changed"]

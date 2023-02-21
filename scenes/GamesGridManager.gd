@@ -1,6 +1,7 @@
 extends Control
 
 signal show_game_info(game_data)
+signal game_selected(game_data)
 
 export(PackedScene) var games_grid: PackedScene
 var curr_grid : Control = null
@@ -13,10 +14,14 @@ func _on_system_received(data: RetroHubSystemData):
 	var grid : Control = games_grid.instance()
 	grid.system_data = data
 	grid.connect("show_game_info", self, "_on_show_game_info")
+	grid.connect("game_selected", self, "_on_game_selected")
 	add_child(grid)
 
 func _on_show_game_info(data: RetroHubGameData):
 	emit_signal("show_game_info", data)
+
+func _on_game_selected(data: RetroHubGameData):
+	emit_signal("game_selected", data)
 
 func _on_SystemBar_system_selected(data: RetroHubSystemData, should_focus: bool):
 	for child in get_children():

@@ -37,6 +37,7 @@ func _on_app_returning(data: RetroHubSystemData, _unused: RetroHubGameData):
 	set_system_idx(system_list.find(data), false)
 
 func set_system_idx(_system_idx: int, should_focus: bool):
+	RetroHubMedia._clear_media_cache()
 	if _system_idx < 0:
 		system_idx = system_list.size() - 1
 	else:
