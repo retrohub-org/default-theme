@@ -1,6 +1,7 @@
 extends Button
 
 signal show_game_info(game_data)
+signal game_selected(game_data)
 
 onready var n_media := $"%Media"
 onready var n_video := $"%Video"
@@ -58,6 +59,7 @@ func _on_GameBoxImage_pressed():
 
 func _on_GameBoxImage_focus_entered():
 	RetroHub.set_curr_game_data(game_data)
+	emit_signal("game_selected", game_data)
 	n_more_info_root.visible = true
 	n_play_container.visible = true
 	if RetroHubConfig.get_theme_config("preview_video", true):

@@ -1,6 +1,7 @@
 extends Control
 
 signal show_game_info(game_data)
+signal game_selected(game_data)
 
 onready var n_grid := $"%Grid"
 onready var n_no_games := $"%NoGamesLabel"
@@ -50,9 +51,13 @@ func _on_game_received(data: RetroHubGameData):
 	n_grid.add_child(button)
 	button.game_data = data
 	button.connect("show_game_info", self, "_on_show_game_info")
+	button.connect("game_selected", self, "_on_game_selected")
 
 func _on_show_game_info(data: RetroHubGameData):
 	emit_signal("show_game_info", data)
+
+func _on_game_selected(data: RetroHubGameData):
+	emit_signal("game_selected", data)
 
 func sort_children(sort_method: int, force_sort: bool):
 	# Sorting is costly, only do it if there's a change
