@@ -43,11 +43,7 @@ func _on_game_received(data: RetroHubGameData):
 	if data.system != system_data:
 		return
 
-	var button
-	if data.has_media:
-		button = preload("res://scenes/game_box/GameBoxImage.tscn").instance()
-	else:
-		button = preload("res://scenes/game_box/GameBoxSimple.tscn").instance()
+	var button = preload("res://scenes/game_box/GameBox.tscn").instance()
 	n_grid.add_child(button)
 	button.game_data = data
 	button.connect("show_game_info", self, "_on_show_game_info")

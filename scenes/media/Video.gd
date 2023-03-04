@@ -31,4 +31,5 @@ func setup_ratio():
 
 func _on_VideoPlayer_finished():
 	if loop:
+		$Container/VideoPlayer.stream_position = 0
 		$Container/VideoPlayer.play()

@@ -171,7 +171,8 @@ margin_bottom = 31.0
 custom_fonts/font = ExtResource( 6 )
 text = "for scrolling information"
 
-[node name="HFlowContainer2" type="HBoxContainer" parent="."]
+[node name="BottomInfo" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -185,19 +186,19 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="MiniGameStats" parent="HFlowContainer2" instance=ExtResource( 14 )]
+[node name="MiniGameStats" parent="BottomInfo" instance=ExtResource( 14 )]
 anchor_right = 0.0
 margin_right = 785.0
 margin_bottom = 50.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HFlowContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="BottomInfo"]
 margin_left = 789.0
 margin_top = 10.0
 margin_right = 945.0
 margin_bottom = 50.0
 size_flags_vertical = 8
 
-[node name="ControllerTextureRect" type="TextureRect" parent="HFlowContainer2/HBoxContainer2"]
+[node name="ControllerTextureRect" type="TextureRect" parent="BottomInfo/HBoxContainer2"]
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
@@ -206,7 +207,7 @@ expand = true
 script = ExtResource( 4 )
 path = "rh_theme_menu"
 
-[node name="Label" type="Label" parent="HFlowContainer2/HBoxContainer2"]
+[node name="Label" type="Label" parent="BottomInfo/HBoxContainer2"]
 margin_left = 44.0
 margin_top = 13.0
 margin_right = 156.0
@@ -222,6 +223,6 @@ margin_right = 650.696
 margin_bottom = 333.8
 
 [connection signal="system_selected" from="SystemBar" to="GamesGridManager" method="_on_SystemBar_system_selected"]
-[connection signal="game_selected" from="GamesGridManager" to="HFlowContainer2/MiniGameStats" method="_on_GamesGridManager_game_selected"]
+[connection signal="game_selected" from="GamesGridManager" to="BottomInfo/MiniGameStats" method="_on_GamesGridManager_game_selected"]
 [connection signal="show_game_info" from="GamesGridManager" to="GameInfo" method="_on_show_game_info"]
 [connection signal="setting_changed" from="SortFilterPopup" to="GamesGridManager" method="_on_SortFilterPopup_setting_changed"]

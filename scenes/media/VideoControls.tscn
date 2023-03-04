@@ -9,9 +9,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 
-[node name="Player" type="VideoPlayer" parent="."]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 unique_name_in_owner = true
 margin_right = 1024.0
+margin_bottom = 556.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 1
+
+[node name="Player" type="VideoPlayer" parent="AspectRatioContainer"]
+unique_name_in_owner = true
+margin_left = 234.0
+margin_right = 790.0
 margin_bottom = 556.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -53,7 +62,7 @@ scrollable = false
 unique_name_in_owner = true
 wait_time = 0.1
 
-[connection signal="finished" from="Player" to="." method="_on_Player_finished"]
+[connection signal="finished" from="AspectRatioContainer/Player" to="." method="_on_Player_finished"]
 [connection signal="focus_entered" from="HBoxContainer/PlayPause" to="." method="_on_PlayPause_focus_entered"]
 [connection signal="focus_exited" from="HBoxContainer/PlayPause" to="." method="_on_PlayPause_focus_exited"]
 [connection signal="toggled" from="HBoxContainer/PlayPause" to="." method="_on_PlayPause_toggled"]
