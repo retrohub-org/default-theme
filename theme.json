@@ -4,7 +4,7 @@
 	"description": "Default RetroHub theme.",
 	"icon": "res://icon.png",
 	"authors": "RetroHub",
-	"version": "0.1.0",
+	"version": "0.0.6-alpha",
 	"url": "https://github.com/retrohub-org/default-theme",
 	"entry_scene": "res://Theme.tscn"
 }
