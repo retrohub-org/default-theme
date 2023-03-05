@@ -12,7 +12,7 @@ onready var n_preview_video := $"%PreviewVideo"
 var last_focused_control : Control = null
 
 func _ready():
-	load_settings()
+	RetroHubConfig.connect("theme_config_ready", self, "_on_theme_config_ready")
 	# Prevent close buttons from receiving focus
 	get_close_button().focus_mode = FOCUS_NONE
 
@@ -39,7 +39,7 @@ func _unhandled_input(event):
 		last_focused_control = get_focus_owner()
 		popup()
 
-func load_settings():
+func _on_theme_config_ready():
 	n_sort_by.selected = RetroHubConfig.get_theme_config("sort_mode", 0)
 	n_sort_reverse.set_pressed_no_signal(RetroHubConfig.get_theme_config("sort_reversed", false))
 	n_filter_show.selected = RetroHubConfig.get_theme_config("filter_mode", 0)
