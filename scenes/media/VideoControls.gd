@@ -12,7 +12,8 @@ var drag_was_paused : bool
 
 func set_video(video: VideoStream):
 	n_player.stream = video
-	n_aspect_ratio_cnt.ratio = n_player.get_video_texture().get_size().aspect()
+	if n_player.get_video_texture():
+		n_aspect_ratio_cnt.ratio = n_player.get_video_texture().get_size().aspect()
 	reset()
 
 func reset():
