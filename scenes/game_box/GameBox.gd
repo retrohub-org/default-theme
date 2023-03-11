@@ -12,6 +12,7 @@ onready var n_anim := $"%Anim"
 onready var n_label := $"%Label"
 onready var n_label_no_meta := $"%LabelNoMeta"
 onready var n_play_container := $"%PlayContainer"
+onready var n_play_icon_root := $"%PlayIconRoot"
 onready var n_more_info_root := $"%MoreInfoRoot"
 
 var _preview_mode : int
@@ -79,7 +80,7 @@ func _on_GameBox_pressed():
 func _on_GameBox_focus_entered():
 	RetroHub.set_curr_game_data(game_data)
 	emit_signal("game_selected", game_data)
-	n_more_info_root.visible = true
+	request_controller_icons()
 	n_play_container.visible = true
 	if game_data.has_media:
 		if RetroHubConfig.get_theme_config("preview_video", true):
@@ -88,8 +89,19 @@ func _on_GameBox_focus_entered():
 			else:
 				RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.VIDEO)
 
+func request_controller_icons():
+	var accept_icon = get_tree().get_nodes_in_group("icon_rh_accept")
+	var option_icon = get_tree().get_nodes_in_group("icon_rh_major_option")
+	if not accept_icon.empty():
+		accept_icon = accept_icon[0]
+		accept_icon.get_parent().remove_child(accept_icon)
+		n_play_icon_root.add_child(accept_icon)
+	if not option_icon.empty():
+		option_icon = option_icon[0]
+		option_icon.get_parent().remove_child(option_icon)
+		n_more_info_root.add_child(option_icon)
+
 func _on_GameBox_focus_exited():
-	n_more_info_root.visible = false
 	n_play_container.visible = false
 	n_anim.play("RESET")
 
