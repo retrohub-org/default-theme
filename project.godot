@@ -257,6 +257,10 @@ rh_rstick_down={
  ]
 }
 
+[memory]
+
+limits/message_queue/max_size_kb=32768
+
 [physics]
 
 common/enable_pause_aware_picking=true
