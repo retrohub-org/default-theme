@@ -2,6 +2,8 @@ extends Control
 
 signal show_game_info(game_data)
 signal game_selected(game_data)
+signal expensive_sort()
+signal sort_over()
 
 export(PackedScene) var games_grid: PackedScene
 var curr_grid : Control = null
@@ -15,6 +17,8 @@ func _on_system_received(data: RetroHubSystemData):
 	grid.system_data = data
 	grid.connect("show_game_info", self, "_on_show_game_info")
 	grid.connect("game_selected", self, "_on_game_selected")
+	grid.connect("expensive_sort", self, "_on_expensive_sort")
+	grid.connect("sort_over", self, "_on_sort_over")
 	add_child(grid)
 
 func _on_show_game_info(data: RetroHubGameData):
@@ -22,6 +26,12 @@ func _on_show_game_info(data: RetroHubGameData):
 
 func _on_game_selected(data: RetroHubGameData):
 	emit_signal("game_selected", data)
+
+func _on_expensive_sort():
+	emit_signal("expensive_sort")
+
+func _on_sort_over():
+	emit_signal("sort_over")
 
 func _on_SystemBar_system_selected(data: RetroHubSystemData, should_focus: bool):
 	for child in get_children():
@@ -36,8 +46,8 @@ func _on_SortFilterPopup_setting_changed(key, value):
 	match key:
 		"sort_mode", "sort_reversed":
 			var mode = value if key == "sort_mode" else RetroHubConfig.get_theme_config("sort_mode", 0)
-			curr_grid.sort_children(mode, key == "sort_reversed")
+			curr_grid.sort_children(mode, true)
 		"filter_mode":
-			curr_grid.filter_children(value)
+			curr_grid.filter_children(value, true)
 		"preview_mode":
 			curr_grid.set_preview_mode(value)
