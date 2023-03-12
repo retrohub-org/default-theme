@@ -65,8 +65,13 @@ func _on_media_loaded(media_data: RetroHubGameMediaData, _game_data: RetroHubGam
 					n_media.texture = media_data.screenshot
 				elif _preview_mode == 0:
 					RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.LOGO)
-			elif types == RetroHubMedia.Type.LOGO and media_data.logo:
-				n_media.texture = media_data.logo
+			elif types == RetroHubMedia.Type.LOGO:
+				if media_data.logo:
+					n_media.texture = media_data.logo
+				elif _preview_mode == 0:
+					RetroHubMedia.retrieve_media_data_async(game_data, RetroHubMedia.Type.BOX_RENDER)
+			elif types == RetroHubMedia.Type.BOX_RENDER and media_data.box_render:
+				n_media.texture = media_data.box_render
 
 func _on_game_data_updated(data: RetroHubGameData):
 	if game_data == data:
@@ -132,6 +137,8 @@ func get_internal_preview_type():
 			return RetroHubMedia.Type.LOGO
 		4: # Nothing
 			return 0
+		5: # Game Box Art
+			return RetroHubMedia.Type.BOX_RENDER
 		0, 1, _: # Auto, title screen or unknown
 			return RetroHubMedia.Type.TITLE_SCREEN
 

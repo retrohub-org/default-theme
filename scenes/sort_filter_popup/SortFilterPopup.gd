@@ -59,8 +59,8 @@ func _on_FilterShow_item_selected(index: int):
 	emit_signal("setting_changed", "filter_mode", index)
 
 func _on_PreviewMode_item_selected(index: int):
-	RetroHubConfig.set_theme_config("preview_mode", index)
-	emit_signal("setting_changed", "preview_mode", index)
+	RetroHubConfig.set_theme_config("preview_mode", n_preview_mode.get_item_id(index))
+	emit_signal("setting_changed", "preview_mode", n_preview_mode.get_item_id(index))
 
 func _on_PreviewVideo_toggled(button_pressed: bool):
 	RetroHubConfig.set_theme_config("preview_video", button_pressed)

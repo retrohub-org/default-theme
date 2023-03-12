@@ -141,7 +141,7 @@ margin_right = 346.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 text = "Auto"
-items = [ "Auto", null, false, 0, null, "Title Screen", null, false, 1, null, "Game Screenshot", null, false, 2, null, "Game Logo", null, false, 3, null, "Nothing", null, false, 4, null ]
+items = [ "Auto", null, false, 0, null, "Title Screen", null, false, 1, null, "Game Screenshot", null, false, 2, null, "Game Logo", null, false, 3, null, "Game Box Art", null, false, 5, null, "Nothing", null, false, 4, null ]
 selected = 0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Tabs/Preview/VBoxContainer"]
