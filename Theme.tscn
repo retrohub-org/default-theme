@@ -14,7 +14,7 @@
 [ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=12]
 [ext_resource path="res://scenes/GamesGridManager.gd" type="Script" id=13]
 [ext_resource path="res://scenes/MiniGameStats.tscn" type="PackedScene" id=14]
-[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=15]
+[ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=15]
 [ext_resource path="res://addons/controller_icons/assets/key/ctrl.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=1]
@@ -111,22 +111,36 @@ size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 6 )
 text = "to open the main menu."
 
-[node name="GameGrids" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="GamesGridManager" type="Control" parent="."]
+[node name="GamesGrid" type="Control" parent="."]
 anchor_left = 0.064
 anchor_top = 0.223
 anchor_right = 0.936
 anchor_bottom = 0.888
-margin_left = 0.463997
-margin_top = 0.199997
-margin_right = -0.463989
-margin_bottom = -17.8
+
+[node name="GamesGridManager" type="Control" parent="GamesGrid"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 theme = SubResource( 6 )
 script = ExtResource( 13 )
 games_grid = ExtResource( 7 )
+
+[node name="Sorting" type="ColorRect" parent="GamesGrid"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 92.0
+margin_top = 140.0
+margin_right = -92.928
+margin_bottom = -141.04
+color = Color( 0, 0, 0, 0.72549 )
+
+[node name="Label" type="Label" parent="GamesGrid/Sorting"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Sorting games, please wait..."
+align = 1
+valign = 1
 
 [node name="GameInfo" parent="." instance=ExtResource( 8 )]
 anchor_left = 0.0771484
@@ -250,7 +264,9 @@ script = ExtResource( 4 )
 path = "rh_major_option"
 max_width = 30
 
-[connection signal="system_selected" from="SystemBar" to="GamesGridManager" method="_on_SystemBar_system_selected"]
-[connection signal="game_selected" from="GamesGridManager" to="BottomInfo/MiniGameStats" method="_on_GamesGridManager_game_selected"]
-[connection signal="show_game_info" from="GamesGridManager" to="GameInfo" method="_on_show_game_info"]
-[connection signal="setting_changed" from="SortFilterPopup" to="GamesGridManager" method="_on_SortFilterPopup_setting_changed"]
+[connection signal="system_selected" from="SystemBar" to="GamesGrid/GamesGridManager" method="_on_SystemBar_system_selected"]
+[connection signal="expensive_sort" from="GamesGrid/GamesGridManager" to="." method="_on_GamesGridManager_expensive_sort"]
+[connection signal="game_selected" from="GamesGrid/GamesGridManager" to="BottomInfo/MiniGameStats" method="_on_GamesGridManager_game_selected"]
+[connection signal="show_game_info" from="GamesGrid/GamesGridManager" to="GameInfo" method="_on_show_game_info"]
+[connection signal="sort_over" from="GamesGrid/GamesGridManager" to="." method="_on_GamesGridManager_sort_over"]
+[connection signal="setting_changed" from="SortFilterPopup" to="GamesGrid/GamesGridManager" method="_on_SortFilterPopup_setting_changed"]

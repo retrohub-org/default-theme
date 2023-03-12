@@ -4,7 +4,7 @@ onready var n_no_games := $"%NoGames"
 onready var n_bottom_info := $"%BottomInfo"
 onready var n_accept_icon := $"%AcceptIcon"
 onready var n_more_info_icon := $"%MoreInfoIcon"
-
+onready var n_sorting := $"%Sorting"
 
 # _ready function, called everytime the theme is loaded, and only once
 func _ready():
@@ -22,3 +22,11 @@ func _on_game_receive_start():
 func _on_config_updated(key: String, old, new):
 	if key == ConfigData.KEY_GAMES_DIR:
 		RetroHub.request_theme_reload()
+
+
+func _on_GamesGridManager_expensive_sort():
+	n_sorting.visible = true
+
+
+func _on_GamesGridManager_sort_over():
+	n_sorting.visible = false
