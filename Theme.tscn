@@ -14,7 +14,7 @@
 [ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=12]
 [ext_resource path="res://scenes/GamesGridManager.gd" type="Script" id=13]
 [ext_resource path="res://scenes/MiniGameStats.tscn" type="PackedScene" id=14]
-[ext_resource path="res://addons/controller_icons/assets/xboxone/r_stick.png" type="Texture" id=15]
+[ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=15]
 [ext_resource path="res://addons/controller_icons/assets/key/ctrl.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=1]

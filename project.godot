@@ -260,6 +260,7 @@ rh_rstick_down={
 [memory]
 
 limits/message_queue/max_size_kb=32768
+limits/command_queue/multithreading_queue_size_kb=1024
 
 [physics]
 
@@ -267,4 +268,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+threads/thread_model=2
 environment/default_environment="res://default_env.tres"
