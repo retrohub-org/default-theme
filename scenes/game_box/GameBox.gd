@@ -118,8 +118,9 @@ func _gui_input(event):
 func _on_GameBox_visibility_changed():
 	_preview_mode = RetroHubConfig.get_theme_config("preview_mode", 0)
 	if game_data.has_media:
-		if is_visible_in_tree() and not n_media.texture:
-			RetroHubMedia.retrieve_media_data_async(game_data, get_internal_preview_type())
+		if is_visible_in_tree():
+			if not n_media.texture:
+				RetroHubMedia.retrieve_media_data_async(game_data, get_internal_preview_type())
 		else:
 			RetroHubMedia.cancel_media_data_async(game_data)
 			n_media.texture = null
