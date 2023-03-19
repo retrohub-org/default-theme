@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Logic.gd" type="Script" id=1]
 [ext_resource path="res://scenes/SystemBar.tscn" type="PackedScene" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://addons/controller_icons/assets/key/enter_alt.png" type="Texture" id=9]
 [ext_resource path="res://GameInfoHelper.gd" type="Script" id=10]
 [ext_resource path="res://scenes/sort_filter_popup/SortFilterPopup.tscn" type="PackedScene" id=11]
-[ext_resource path="res://addons/controller_icons/assets/key/shift_alt.png" type="Texture" id=12]
 [ext_resource path="res://scenes/GamesGridManager.gd" type="Script" id=13]
 [ext_resource path="res://scenes/MiniGameStats.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=15]
@@ -126,6 +125,7 @@ games_grid = ExtResource( 7 )
 
 [node name="Sorting" type="ColorRect" parent="GamesGrid"]
 unique_name_in_owner = true
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 92.0
@@ -189,12 +189,11 @@ text = "for scrolling information"
 
 [node name="BottomInfo" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
-anchor_left = 1.0
-anchor_top = 1.0
+anchor_top = 0.878
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -982.0
-margin_top = -70.0
+margin_left = 42.0
+margin_top = 0.271973
 margin_right = -37.0
 margin_bottom = -20.0
 size_flags_horizontal = 3
@@ -218,7 +217,7 @@ size_flags_vertical = 8
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 40, 40 )
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 expand = true
 script = ExtResource( 4 )
 path = "rh_theme_menu"

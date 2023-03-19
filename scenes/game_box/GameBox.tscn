@@ -89,21 +89,24 @@ tracks/2/keys = {
 }
 
 [node name="GameBox" type="Button"]
-anchor_right = 0.2
-anchor_bottom = 0.26
-margin_bottom = -5.76001
-rect_min_size = Vector2( 205, 150 )
+anchor_right = 0.176
+anchor_bottom = 0.243
+margin_right = -0.224014
+margin_bottom = 0.0319977
+rect_min_size = Vector2( 180, 140 )
 script = ExtResource( 6 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = -2
 
 [node name="MediaRoot" type="Control" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_right = 205.0
-margin_bottom = 106.0
+margin_right = 180.0
+margin_bottom = 96.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -116,9 +119,8 @@ volume_db = -80.0
 
 [node name="Media" type="TextureRect" parent="VBoxContainer/MediaRoot"]
 unique_name_in_owner = true
-margin_top = -2.0
-margin_right = 205.0
-margin_bottom = 106.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand = true
@@ -131,19 +133,19 @@ anims/RESET = SubResource( 2 )
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 unique_name_in_owner = true
-margin_top = 104.0
-margin_right = 205.0
-margin_bottom = 108.0
+margin_top = 94.0
+margin_right = 180.0
+margin_bottom = 98.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 106.0
-margin_right = 205.0
-margin_bottom = 150.0
+margin_top = 96.0
+margin_right = 180.0
+margin_bottom = 140.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 157.0
+margin_right = 132.0
 margin_bottom = 44.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -154,8 +156,8 @@ autowrap = true
 clip_text = true
 
 [node name="MoreInfo" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 161.0
-margin_right = 205.0
+margin_left = 136.0
+margin_right = 180.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 44, 44 )
 focus_mode = 0
