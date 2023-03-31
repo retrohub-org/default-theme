@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "AccessibilityFocus",
+"language": "GDScript",
+"path": "res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd"
+}, {
 "base": "Resource",
 "class": "ConfigData",
 "language": "GDScript",
@@ -65,6 +70,7 @@ _global_script_classes=[ {
 "path": "res://addons/retrohub_theme_helper/classes/SystemData.gd"
 } ]
 _global_script_class_icons={
+"AccessibilityFocus": "",
 "ConfigData": "",
 "ControllerButton": "",
 "ControllerMapper": "",
@@ -87,6 +93,7 @@ config/icon="res://icon.png"
 [autoload]
 
 ControllerIcons="*res://addons/controller_icons/ControllerIcons.gd"
+TTS="*res://addons/godot-tts/TTS.gd"
 JSONUtils="*res://addons/retrohub_theme_helper/utils/JSONUtils.gd"
 FileUtils="*res://addons/retrohub_theme_helper/utils/FileUtils.gd"
 RegionUtils="*res://addons/retrohub_theme_helper/utils/RegionUtils.gd"
@@ -94,7 +101,6 @@ RetroHubConfig="*res://addons/retrohub_theme_helper/singletons/Config.gd"
 RetroHubUI="*res://addons/retrohub_theme_helper/singletons/UI.gd"
 RetroHub="*res://addons/retrohub_theme_helper/singletons/RetroHub.gd"
 RetroHubMedia="*res://addons/retrohub_theme_helper/singletons/Media.gd"
-TTS="*res://addons/godot-tts/TTS.gd"
 
 [display]
 

@@ -126,3 +126,5 @@ func system_selected(should_focus: bool):
 		if not selected and should_focus and child.visible:
 			child.grab_focus()
 			selected = true
+			yield(get_tree(), "idle_frame")
+			TTS.speak("Selected game: " + child.tts_text(null), false)

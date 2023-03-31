@@ -56,3 +56,9 @@ func set_system_idx(_system_idx: int, should_focus: bool):
 		RetroHubSystemData.Category.ModernConsole:
 			n_type_label.text = "(Modern Console)"
 	emit_signal("system_selected", data, should_focus)
+	TTS.speak(n_label.text)
+
+func tts_text(focused: Control):
+	return n_label.text + ". Press %s and %s to switch systems at any time." % [
+		$ControllerIcons/IconLeft.get_tts_string(), $ControllerIcons/IconRight.get_tts_string()
+	]

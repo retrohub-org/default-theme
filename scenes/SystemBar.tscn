@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=1]
 [ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture" id=2]
 [ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=3]
 [ext_resource path="res://resources/fonts/italic.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/SystemBar.gd" type="Script" id=5]
+[ext_resource path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" type="Script" id=6]
 
 [node name="SystemBar" type="Control"]
 anchor_right = 1.0
@@ -82,3 +83,6 @@ margin_bottom = 11.6
 custom_colors/font_color = Color( 0.266667, 0.266667, 0.266667, 1 )
 custom_fonts/font = ExtResource( 4 )
 align = 1
+
+[node name="AccessibilityFocus" type="Node" parent="."]
+script = ExtResource( 6 )

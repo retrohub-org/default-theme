@@ -148,3 +148,6 @@ func set_preview_mode(preview_mode: int):
 		return
 	n_media.texture = null
 	_on_GameBox_visibility_changed()
+
+func tts_text(focused: Control):
+	return game_data.name

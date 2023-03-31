@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Logic.gd" type="Script" id=1]
 [ext_resource path="res://scenes/SystemBar.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://scenes/MiniGameStats.tscn" type="PackedScene" id=14]
 [ext_resource path="res://addons/controller_icons/assets/xbox360/r_stick.png" type="Texture" id=15]
 [ext_resource path="res://addons/controller_icons/assets/key/ctrl.png" type="Texture" id=16]
+[ext_resource path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" type="Script" id=17]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -74,6 +75,9 @@ align = 1
 valign = 1
 autowrap = true
 
+[node name="AccessibilityFocus" type="Node" parent="NoGames/Label"]
+script = ExtResource( 17 )
+
 [node name="HBoxContainer" type="HBoxContainer" parent="NoGames"]
 anchor_left = 0.5
 anchor_top = 1.0
@@ -110,6 +114,9 @@ margin_bottom = 31.0
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 6 )
 text = "to open the main menu."
+
+[node name="AccessibilityFocus" type="Node" parent="NoGames/HBoxContainer"]
+script = ExtResource( 17 )
 
 [node name="GamesGrid" type="Control" parent="."]
 anchor_left = 0.064
