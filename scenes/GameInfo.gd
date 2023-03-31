@@ -145,7 +145,10 @@ func show_game_media():
 	if n_media_preview_cont.get_child_count():
 		var child = n_media_preview_cont.get_child(0)
 		yield(get_tree(), "idle_frame")
-		child.grab_focus()
+		if RetroHubConfig.config.accessibility_screen_reader_enabled:
+			n_name.grab_focus()
+		else:
+			child.grab_focus()
 		if media.video:
 			_on_video_preview_pressed(child)
 		else:

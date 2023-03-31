@@ -10,3 +10,6 @@ func set_texture(texture: Texture):
 
 func get_texture() -> Texture:
 	return n_texture.texture
+
+func tts_text(focused: Control) -> String:
+	return type + " Button"

@@ -10,9 +10,13 @@ onready var n_sorting := $"%Sorting"
 func _ready():
 	n_bottom_info.visible = false
 	RetroHub.connect("game_receive_start", self, "_on_game_receive_start")
+	RetroHubConfig.connect("config_ready", self, "_on_config_ready")
 	RetroHubConfig.connect("config_updated", self, "_on_config_updated")
+	if $NoGames/Label.focus_mode == Control.FOCUS_ALL:
+		$NoGames/Label.grab_focus()
 
 func _on_game_receive_start():
+	TTS.stop()
 	remove_child(n_no_games)
 	n_no_games.queue_free()
 	n_bottom_info.visible = true
@@ -30,3 +34,10 @@ func _on_GamesGridManager_expensive_sort():
 
 func _on_GamesGridManager_sort_over():
 	n_sorting.visible = false
+
+func tts_text(focused: Control) -> String:
+	if n_no_games and focused == $NoGames/HBoxContainer:
+		return $NoGames/HBoxContainer/Label.text + " " \
+			+ $NoGames/HBoxContainer/ControllerTextureRect.get_tts_string() + " " \
+			+ $NoGames/HBoxContainer/Label2.text
+	return ""

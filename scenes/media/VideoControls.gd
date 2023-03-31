@@ -22,7 +22,8 @@ func reset():
 	video_len = n_player.stream_position
 	n_player.stream_position = 0
 	n_player.paused = true
-	n_player.play()
+	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_player.play()
 	n_progress.max_value = video_len
 	n_play_pause.pressed = false
 
@@ -74,3 +75,11 @@ func _on_PlayPause_focus_entered():
 
 func _on_PlayPause_focus_exited():
 	n_play_pause.modulate = Color("ffffff")
+
+func tts_text(focused: Control):
+	if focused == n_play_pause:
+		if n_play_pause.pressed:
+			return "Pause video"
+		else:
+			return "Play video"
+	return ""
