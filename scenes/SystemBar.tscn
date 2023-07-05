@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture" id=2]
-[ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture" id=3]
-[ext_resource path="res://resources/fonts/italic.tres" type="DynamicFont" id=4]
+[ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture2D" id=2]
+[ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture2D" id=3]
+[ext_resource path="res://resources/fonts/italic.tres" type="FontFile" id=4]
 [ext_resource path="res://scenes/SystemBar.gd" type="Script" id=5]
 [ext_resource path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" type="Script" id=6]
 
@@ -16,8 +16,8 @@ script = ExtResource( 5 )
 anchor_top = 0.25
 anchor_right = 1.0
 anchor_bottom = 0.75
-margin_top = -0.200012
-margin_bottom = -0.200012
+offset_top = -0.200012
+offset_bottom = -0.200012
 
 [node name="ControllerIcons" type="Control" parent="."]
 unique_name_in_owner = true
@@ -26,16 +26,16 @@ anchor_left = 0.029
 anchor_top = 0.5
 anchor_right = 0.971
 anchor_bottom = 0.5
-margin_left = 0.303999
-margin_right = -0.304077
+offset_left = 0.303999
+offset_right = -0.304077
 
 [node name="IconLeft" type="TextureRect" parent="ControllerIcons"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -20.0
-margin_right = 40.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 40, 40 )
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 2 )
 expand = true
 script = ExtResource( 1 )
@@ -46,10 +46,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -40.0
-margin_top = -20.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 40, 40 )
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+custom_minimum_size = Vector2( 40, 40 )
 texture = ExtResource( 3 )
 expand = true
 script = ExtResource( 1 )
@@ -61,12 +61,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -73.0
-margin_top = -11.5
-margin_right = 73.0
-margin_bottom = 11.5
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = -73.0
+offset_top = -11.5
+offset_right = 73.0
+offset_bottom = 11.5
+theme_override_colors/font_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 text = "No systems available"
 align = 1
 
@@ -76,12 +76,12 @@ anchor_left = 0.5
 anchor_top = 0.624
 anchor_right = 0.5
 anchor_bottom = 0.624
-margin_left = -244.0
-margin_top = -11.4
-margin_right = 244.0
-margin_bottom = 11.6
-custom_colors/font_color = Color( 0.266667, 0.266667, 0.266667, 1 )
-custom_fonts/font = ExtResource( 4 )
+offset_left = -244.0
+offset_top = -11.4
+offset_right = 244.0
+offset_bottom = 11.6
+theme_override_colors/font_color = Color( 0.266667, 0.266667, 0.266667, 1 )
+theme_override_fonts/font = ExtResource( 4 )
 align = 1
 
 [node name="AccessibilityFocus" type="Node" parent="."]

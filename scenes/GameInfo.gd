@@ -1,26 +1,26 @@
-extends PopupDialog
+extends Popup
 
-onready var n_info_scroll := $"%InfoScrollContainer"
-onready var n_media_scroll := $"%MediaScrollContainer"
+@onready var n_info_scroll := $"%InfoScrollContainer"
+@onready var n_media_scroll := $"%MediaScrollContainer"
 
-onready var n_age_rating_cont := $"%AgeRatingContainer"
-onready var n_name := $"%Name"
-onready var n_description := $"%Description"
-onready var n_developer := $"%Developer"
-onready var n_publisher := $"%Publisher"
-onready var n_release_date := $"%ReleaseDate"
-onready var n_rating := $"%Rating"
-onready var n_genres := $"%Genres"
-onready var n_num_players := $"%NumPlayers"
-onready var n_favorite := $"%Favorite"
-onready var n_play_count := $"%PlayCount"
+@onready var n_age_rating_cont := $"%AgeRatingContainer"
+@onready var n_name := $"%Name"
+@onready var n_description := $"%Description"
+@onready var n_developer := $"%Developer"
+@onready var n_publisher := $"%Publisher"
+@onready var n_release_date := $"%ReleaseDate"
+@onready var n_rating := $"%Rating"
+@onready var n_genres := $"%Genres"
+@onready var n_num_players := $"%NumPlayers"
+@onready var n_favorite := $"%Favorite"
+@onready var n_play_count := $"%PlayCount"
 
-onready var n_no_media := $"%NoMedia"
-onready var n_texture_root := $"%TextureRoot"
-onready var n_video_controls := $"%VideoControls"
-onready var n_media_texture := $"%MediaTexture"
-onready var n_media_label := $"%MediaLabel"
-onready var n_media_preview_cont := $"%MediaPreviewContainer"
+@onready var n_no_media := $"%NoMedia"
+@onready var n_texture_root := $"%TextureRoot"
+@onready var n_video_controls := $"%VideoControls"
+@onready var n_media_texture := $"%MediaTexture"
+@onready var n_media_label := $"%MediaLabel"
+@onready var n_media_preview_cont := $"%MediaPreviewContainer"
 
 var game_data : RetroHubGameData
 var n_age_rating : Control = null
@@ -28,7 +28,7 @@ var last_focused : Control = null
 
 var scroll_vertical : float = 0
 var scroll_horizontal : float = 0
-export(float) var scroll_speed : float = 500
+@export var scroll_speed: float = 500
 
 var media_types : int = RetroHubMedia.Type.SCREENSHOT | \
 	RetroHubMedia.Type.TITLE_SCREEN | RetroHubMedia.Type.LOGO | \
@@ -37,14 +37,14 @@ var media_types : int = RetroHubMedia.Type.SCREENSHOT | \
 
 func _on_show_game_info(data: RetroHubGameData):
 	game_data = data
-	last_focused = get_focus_owner()
+	last_focused = get_viewport().gui_get_focus_owner()
 	RetroHub.set_curr_game_data(data)
 	show_game_data()
 	show_game_media()
 	popup_centered()
 
 func _ready():
-	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
+	RetroHubConfig.connect("game_data_updated", Callable(self, "_on_game_data_updated"))
 
 func _on_game_data_updated(data: RetroHubGameData):
 	if game_data == data:
@@ -52,7 +52,7 @@ func _on_game_data_updated(data: RetroHubGameData):
 
 func _unhandled_input(event):
 	if visible:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		if event.is_action("rh_back") or event.is_action_pressed("rh_major_option"):
 			hide()
 		if event.is_action("rh_rstick_up") or event.is_action("rh_rstick_down"):
@@ -65,16 +65,16 @@ func _process(delta):
 	n_media_scroll.scroll_horizontal += scroll_horizontal * delta * scroll_speed
 
 func show_game_data():
-	n_name.text = game_data.path.get_file() if game_data.name.empty() else game_data.name
+	n_name.text = game_data.path.get_file() if game_data.name.is_empty() else game_data.name
 	handle_age_rating()
-	n_description.text = "(no description)" if game_data.description.empty() else game_data.description
-	n_developer.text = "Unknown" if game_data.developer.empty() else game_data.developer
-	n_publisher.text = "Unknown" if game_data.publisher.empty() else game_data.publisher
-	n_release_date.text = "Unknown" if game_data.release_date.empty() else RegionUtils.localize_date(game_data.release_date)
-	n_rating.text = str(int(stepify(game_data.rating, 0.01) * 100)) + "%"
-	n_genres.text = "Unknown" if game_data.genres.empty() else game_data.genres[0]
-	n_num_players.text = "Unknown" if game_data.num_players.empty() else handle_num_players()
-	n_favorite.pressed = game_data.favorite
+	n_description.text = "(no description)" if game_data.description.is_empty() else game_data.description
+	n_developer.text = "Unknown" if game_data.developer.is_empty() else game_data.developer
+	n_publisher.text = "Unknown" if game_data.publisher.is_empty() else game_data.publisher
+	n_release_date.text = "Unknown" if game_data.release_date.is_empty() else RegionUtils.localize_date(game_data.release_date)
+	n_rating.text = str(int(snapped(game_data.rating, 0.01) * 100)) + "%"
+	n_genres.text = "Unknown" if game_data.genres.is_empty() else game_data.genres[0]
+	n_num_players.text = "Unknown" if game_data.num_players.is_empty() else handle_num_players()
+	n_favorite.button_pressed = game_data.favorite
 	n_play_count.text = handle_play_count()
 
 func handle_age_rating():
@@ -86,7 +86,7 @@ func handle_age_rating():
 
 func handle_num_players() -> String:
 	var splits := game_data.num_players.split("-")
-	if splits.empty():
+	if splits.is_empty():
 		return "Unknown"
 	elif splits.size() < 2:
 		return str(splits[0])
@@ -98,7 +98,7 @@ func handle_num_players() -> String:
 func handle_play_count() -> String:
 	var result := str(game_data.play_count)
 	var last_played := game_data.last_played
-	if last_played.empty() or last_played == "null":
+	if last_played.is_empty() or last_played == "null":
 		result += " (never played)"
 	else:
 		result += " (last played at " + RegionUtils.localize_date(last_played) + ")"
@@ -117,10 +117,10 @@ func show_game_media():
 	
 	# Video first
 	if media.video:
-		var preview = preload("res://scenes/media/VideoPreview.tscn").instance()
+		var preview = preload("res://scenes/media/VideoPreview.tscn").instantiate()
 		n_media_preview_cont.add_child(preview)
 		preview.video = media.video
-		preview.connect("pressed", self, "_on_video_preview_pressed", [preview])
+		preview.connect("pressed", Callable(self, "_on_video_preview_pressed").bind(preview))
 
 	# Then images
 	var images := [
@@ -134,17 +134,17 @@ func show_game_media():
 		var tex = image[0]
 		var type = image[1]
 		if tex:
-			var preview = preload("res://scenes/media/MediaPreview.tscn").instance()
+			var preview = preload("res://scenes/media/MediaPreview.tscn").instantiate()
 			n_media_preview_cont.add_child(preview)
 			preview.texture = tex
 			preview.type = type
-			preview.connect("pressed", self, "_on_media_preview_pressed", [preview])
+			preview.connect("pressed", Callable(self, "_on_media_preview_pressed").bind(preview))
 	
 	# Check which first media to show
 	n_no_media.visible = not n_media_preview_cont.get_child_count()
 	if n_media_preview_cont.get_child_count():
 		var child = n_media_preview_cont.get_child(0)
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 		if RetroHubConfig.config.accessibility_screen_reader_enabled:
 			n_name.grab_focus()
 		else:

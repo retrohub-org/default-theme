@@ -29,9 +29,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 stretch_mode = 1
 
-[node name="VideoPlayer" type="VideoPlayer" parent="Container"]
-margin_left = 212.0
-margin_right = 812.0
-margin_bottom = 600.0
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Container"]
+offset_left = 212.0
+offset_right = 812.0
+offset_bottom = 600.0
 
-[connection signal="finished" from="Container/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
+[connection signal="finished" from="Container/VideoStreamPlayer" to="." method="_on_VideoPlayer_finished"]

@@ -1,24 +1,24 @@
-extends WindowDialog
+extends Window
 
 signal setting_changed(key, value)
 
-onready var n_tabs := $"%Tabs"
-onready var n_sort_by := $"%SortBy"
-onready var n_sort_reverse := $"%SortReverse"
-onready var n_filter_show := $"%FilterShow"
-onready var n_preview_mode := $"%PreviewMode"
-onready var n_preview_video := $"%PreviewVideo"
+@onready var n_tabs := $"%TabBar"
+@onready var n_sort_by := $"%SortBy"
+@onready var n_sort_reverse := $"%SortReverse"
+@onready var n_filter_show := $"%FilterShow"
+@onready var n_preview_mode := $"%PreviewMode"
+@onready var n_preview_video := $"%PreviewVideo"
 
 var last_focused_control : Control = null
 
 func _ready():
-	RetroHubConfig.connect("theme_config_ready", self, "_on_theme_config_ready")
+	RetroHubConfig.connect("theme_config_ready", Callable(self, "_on_theme_config_ready"))
 	# Prevent close buttons from receiving focus
 	get_close_button().focus_mode = FOCUS_NONE
 
 func _unhandled_input(event):
 	if visible:
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		if event.is_action_pressed("rh_theme_menu"):
 			hide()
 			if is_instance_valid(last_focused_control):
@@ -36,7 +36,7 @@ func _unhandled_input(event):
 				n_tabs.current_tab += 1
 			grab_focus()
 	elif event.is_action_pressed("rh_theme_menu"):
-		last_focused_control = get_focus_owner()
+		last_focused_control = get_viewport().gui_get_focus_owner()
 		popup()
 
 func _on_theme_config_ready():
@@ -44,7 +44,7 @@ func _on_theme_config_ready():
 	n_sort_reverse.set_pressed_no_signal(RetroHubConfig.get_theme_config("sort_reversed", false))
 	n_filter_show.selected = RetroHubConfig.get_theme_config("filter_mode", 0)
 	n_preview_mode.set_pressed_no_signal(RetroHubConfig.get_theme_config("preview_mode", 0))
-	n_preview_video.pressed = RetroHubConfig.get_theme_config("preview_video", true)
+	n_preview_video.button_pressed = RetroHubConfig.get_theme_config("preview_video", true)
 
 func _on_SortBy_item_selected(index: int):
 	RetroHubConfig.set_theme_config("sort_mode", index)

@@ -5,20 +5,20 @@ signal game_selected(game_data)
 signal expensive_sort()
 signal sort_over()
 
-export(PackedScene) var games_grid: PackedScene
+@export var games_grid: PackedScene
 var curr_grid : Control = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RetroHub.connect("system_received", self, "_on_system_received")
+	RetroHub.connect("system_received", Callable(self, "_on_system_received"))
 
 func _on_system_received(data: RetroHubSystemData):
-	var grid : Control = games_grid.instance()
+	var grid : Control = games_grid.instantiate()
 	grid.system_data = data
-	grid.connect("show_game_info", self, "_on_show_game_info")
-	grid.connect("game_selected", self, "_on_game_selected")
-	grid.connect("expensive_sort", self, "_on_expensive_sort")
-	grid.connect("sort_over", self, "_on_sort_over")
+	grid.connect("show_game_info", Callable(self, "_on_show_game_info"))
+	grid.connect("game_selected", Callable(self, "_on_game_selected"))
+	grid.connect("expensive_sort", Callable(self, "_on_expensive_sort"))
+	grid.connect("sort_over", Callable(self, "_on_sort_over"))
 	add_child(grid)
 
 func _on_show_game_info(data: RetroHubGameData):

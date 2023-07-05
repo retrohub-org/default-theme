@@ -3,21 +3,21 @@ extends Button
 signal show_game_info(game_data)
 signal game_selected(game_data)
 
-onready var n_media_root := $"%MediaRoot"
-onready var n_separator := $"%HSeparator"
+@onready var n_media_root := $"%MediaRoot"
+@onready var n_separator := $"%HSeparator"
 
-onready var n_media := $"%Media"
-onready var n_video := $"%Video"
-onready var n_anim := $"%Anim"
-onready var n_label := $"%Label"
-onready var n_label_no_meta := $"%LabelNoMeta"
-onready var n_play_container := $"%PlayContainer"
-onready var n_play_icon_root := $"%PlayIconRoot"
-onready var n_more_info_root := $"%MoreInfoRoot"
+@onready var n_media := $"%Media"
+@onready var n_video := $"%Video"
+@onready var n_anim := $"%Anim"
+@onready var n_label := $"%Label"
+@onready var n_label_no_meta := $"%LabelNoMeta"
+@onready var n_play_container := $"%PlayContainer"
+@onready var n_play_icon_root := $"%PlayIconRoot"
+@onready var n_more_info_root := $"%MoreInfoRoot"
 
 var _preview_mode : int
 
-var game_data : RetroHubGameData setget set_game_data
+var game_data : RetroHubGameData: set = set_game_data
 
 func set_game_data(_game_data: RetroHubGameData):
 	game_data = _game_data
@@ -37,10 +37,10 @@ func set_show_media(show: bool):
 		n_media.texture = null
 
 func _ready():
-	RetroHub.connect("app_returning", self, "_on_app_returning")
-	RetroHubMedia.connect("media_loaded", self, "_on_media_loaded")
+	RetroHub.connect("app_returning", Callable(self, "_on_app_returning"))
+	RetroHubMedia.connect("media_loaded", Callable(self, "_on_media_loaded"))
 
-	RetroHubConfig.connect("game_data_updated", self, "_on_game_data_updated")
+	RetroHubConfig.connect("game_data_updated", Callable(self, "_on_game_data_updated"))
 
 func _on_app_returning(_unused: RetroHubSystemData, data: RetroHubGameData):
 	if game_data == data:
@@ -97,11 +97,11 @@ func _on_GameBox_focus_entered():
 func request_controller_icons():
 	var accept_icon = get_tree().get_nodes_in_group("icon_rh_accept")
 	var option_icon = get_tree().get_nodes_in_group("icon_rh_major_option")
-	if not accept_icon.empty():
+	if not accept_icon.is_empty():
 		accept_icon = accept_icon[0]
 		accept_icon.get_parent().remove_child(accept_icon)
 		n_play_icon_root.add_child(accept_icon)
-	if not option_icon.empty():
+	if not option_icon.is_empty():
 		option_icon = option_icon[0]
 		option_icon.get_parent().remove_child(option_icon)
 		n_more_info_root.add_child(option_icon)
@@ -112,7 +112,7 @@ func _on_GameBox_focus_exited():
 
 func _gui_input(event):
 	if event.is_action_pressed("rh_major_option"):
-		get_tree().set_input_as_handled()
+		get_viewport().set_input_as_handled()
 		_on_MoreInfo_pressed()
 
 func _on_GameBox_visibility_changed():

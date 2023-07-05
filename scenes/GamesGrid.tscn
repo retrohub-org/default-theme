@@ -11,17 +11,17 @@ script = ExtResource( 2 )
 
 [node name="Grid" type="HFlowContainer" parent="."]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_right = 1024.0
+offset_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/vseparation = 20
-custom_constants/hseparation = 20
+theme_override_constants/v_separation = 20
+theme_override_constants/h_separation = 20
 
 [node name="NoGamesLabel" type="Label" parent="."]
 unique_name_in_owner = true
-margin_right = 1024.0
-margin_bottom = 576.0
+offset_right = 1024.0
+offset_bottom = 576.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "There are no games that match the chosen filter.
