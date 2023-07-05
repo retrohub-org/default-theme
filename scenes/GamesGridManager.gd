@@ -10,15 +10,15 @@ var curr_grid : Control = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RetroHub.connect("system_received", Callable(self, "_on_system_received"))
+	RetroHub.system_received.connect(_on_system_received)
 
 func _on_system_received(data: RetroHubSystemData):
 	var grid : Control = games_grid.instantiate()
 	grid.system_data = data
-	grid.connect("show_game_info", Callable(self, "_on_show_game_info"))
-	grid.connect("game_selected", Callable(self, "_on_game_selected"))
-	grid.connect("expensive_sort", Callable(self, "_on_expensive_sort"))
-	grid.connect("sort_over", Callable(self, "_on_sort_over"))
+	grid.show_game_info.connect(_on_show_game_info)
+	grid.game_selected.connect(_on_game_selected)
+	grid.expensive_sort.connect(_on_expensive_sort)
+	grid.sort_over.connect(_on_sort_over)
 	add_child(grid)
 
 func _on_show_game_info(data: RetroHubGameData):

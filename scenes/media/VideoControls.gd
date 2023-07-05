@@ -1,10 +1,10 @@
 extends VBoxContainer
 
-@onready var n_aspect_ratio_cnt := $"%AspectRatioContainer"
-@onready var n_player := $"%Player"
-@onready var n_play_pause := $"%PlayPause"
-@onready var n_progress := $"%Progress"
-@onready var n_progress_updater := $"%ProgressUpdater"
+@onready var n_aspect_ratio_cnt := %AspectRatioContainer
+@onready var n_player := %Player
+@onready var n_play_pause := %PlayPause
+@onready var n_progress := %Progress
+@onready var n_progress_updater := %ProgressUpdater
 
 var video_len : float
 var dragging := false

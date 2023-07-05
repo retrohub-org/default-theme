@@ -1,26 +1,26 @@
 extends Popup
 
-@onready var n_info_scroll := $"%InfoScrollContainer"
-@onready var n_media_scroll := $"%MediaScrollContainer"
+@onready var n_info_scroll := %InfoScrollContainer
+@onready var n_media_scroll := %MediaScrollContainer
 
-@onready var n_age_rating_cont := $"%AgeRatingContainer"
-@onready var n_name := $"%Name"
-@onready var n_description := $"%Description"
-@onready var n_developer := $"%Developer"
-@onready var n_publisher := $"%Publisher"
-@onready var n_release_date := $"%ReleaseDate"
-@onready var n_rating := $"%Rating"
-@onready var n_genres := $"%Genres"
-@onready var n_num_players := $"%NumPlayers"
-@onready var n_favorite := $"%Favorite"
-@onready var n_play_count := $"%PlayCount"
+@onready var n_age_rating_cont := %AgeRatingContainer
+@onready var n_name := %Name
+@onready var n_description := %Description
+@onready var n_developer := %Developer
+@onready var n_publisher := %Publisher
+@onready var n_release_date := %ReleaseDate
+@onready var n_rating := %Rating
+@onready var n_genres := %Genres
+@onready var n_num_players := %NumPlayers
+@onready var n_favorite := %Favorite
+@onready var n_play_count := %PlayCount
 
-@onready var n_no_media := $"%NoMedia"
-@onready var n_texture_root := $"%TextureRoot"
-@onready var n_video_controls := $"%VideoControls"
-@onready var n_media_texture := $"%MediaTexture"
-@onready var n_media_label := $"%MediaLabel"
-@onready var n_media_preview_cont := $"%MediaPreviewContainer"
+@onready var n_no_media := %NoMedia
+@onready var n_texture_root := %TextureRoot
+@onready var n_video_controls := %VideoControls
+@onready var n_media_texture := %MediaTexture
+@onready var n_media_label := %MediaLabel
+@onready var n_media_preview_cont := %MediaPreviewContainer
 
 var game_data : RetroHubGameData
 var n_age_rating : Control = null
@@ -44,7 +44,7 @@ func _on_show_game_info(data: RetroHubGameData):
 	popup_centered()
 
 func _ready():
-	RetroHubConfig.connect("game_data_updated", Callable(self, "_on_game_data_updated"))
+	RetroHubConfig.game_data_updated.connect(_on_game_data_updated)
 
 func _on_game_data_updated(data: RetroHubGameData):
 	if game_data == data:
@@ -120,7 +120,7 @@ func show_game_media():
 		var preview = preload("res://scenes/media/VideoPreview.tscn").instantiate()
 		n_media_preview_cont.add_child(preview)
 		preview.video = media.video
-		preview.connect("pressed", Callable(self, "_on_video_preview_pressed").bind(preview))
+		preview.pressed.connect(_on_video_preview_pressed.bind(preview))
 
 	# Then images
 	var images := [
@@ -138,13 +138,13 @@ func show_game_media():
 			n_media_preview_cont.add_child(preview)
 			preview.texture = tex
 			preview.type = type
-			preview.connect("pressed", Callable(self, "_on_media_preview_pressed").bind(preview))
+			preview.pressed.connect(_on_media_preview_pressed.bind(preview))
 	
 	# Check which first media to show
 	n_no_media.visible = not n_media_preview_cont.get_child_count()
 	if n_media_preview_cont.get_child_count():
 		var child = n_media_preview_cont.get_child(0)
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		if RetroHubConfig.config.accessibility_screen_reader_enabled:
 			n_name.grab_focus()
 		else:

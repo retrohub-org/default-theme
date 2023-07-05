@@ -2,42 +2,38 @@ extends Window
 
 signal setting_changed(key, value)
 
-@onready var n_tabs := $"%TabBar"
-@onready var n_sort_by := $"%SortBy"
-@onready var n_sort_reverse := $"%SortReverse"
-@onready var n_filter_show := $"%FilterShow"
-@onready var n_preview_mode := $"%PreviewMode"
-@onready var n_preview_video := $"%PreviewVideo"
+@onready var n_tabs := %TabBar
+@onready var n_sort_by := %SortBy
+@onready var n_sort_reverse := %SortReverse
+@onready var n_filter_show := %FilterShow
+@onready var n_preview_mode := %PreviewMode
+@onready var n_preview_video := %PreviewVideo
 
 var last_focused_control : Control = null
 
 func _ready():
-	RetroHubConfig.connect("theme_config_ready", Callable(self, "_on_theme_config_ready"))
+	RetroHubConfig.theme_config_ready.connect(_on_theme_config_ready)
 	# Prevent close buttons from receiving focus
-	get_close_button().focus_mode = FOCUS_NONE
+	# get_close_button().focus_mode = Window.FOCUS_NONE
 
 func _unhandled_input(event):
-	if visible:
-		get_viewport().set_input_as_handled()
-		if event.is_action_pressed("rh_theme_menu"):
-			hide()
-			if is_instance_valid(last_focused_control):
-				last_focused_control.grab_focus()
-		elif event.is_action_pressed("rh_left_shoulder"):
-			if n_tabs.current_tab == 0:
-				n_tabs.current_tab = n_tabs.get_tab_count() - 1
-			else:
-				n_tabs.current_tab -= 1
-			grab_focus()
-		elif event.is_action_pressed("rh_right_shoulder"):
-			if n_tabs.current_tab == n_tabs.get_tab_count() - 1:
-				n_tabs.current_tab = 0
-			else:
-				n_tabs.current_tab += 1
-			grab_focus()
-	elif event.is_action_pressed("rh_theme_menu"):
-		last_focused_control = get_viewport().gui_get_focus_owner()
-		popup()
+	get_viewport().set_input_as_handled()
+	if event.is_action_pressed("rh_theme_menu"):
+		hide()
+		if is_instance_valid(last_focused_control):
+			last_focused_control.grab_focus()
+	elif event.is_action_pressed("rh_left_shoulder"):
+		if n_tabs.current_tab == 0:
+			n_tabs.current_tab = n_tabs.get_tab_count() - 1
+		else:
+			n_tabs.current_tab -= 1
+		set_focus()
+	elif event.is_action_pressed("rh_right_shoulder"):
+		if n_tabs.current_tab == n_tabs.get_tab_count() - 1:
+			n_tabs.current_tab = 0
+		else:
+			n_tabs.current_tab += 1
+		set_focus()
 
 func _on_theme_config_ready():
 	n_sort_by.selected = RetroHubConfig.get_theme_config("sort_mode", 0)
@@ -66,7 +62,7 @@ func _on_PreviewVideo_toggled(button_pressed: bool):
 	RetroHubConfig.set_theme_config("preview_video", button_pressed)
 	emit_signal("setting_changed", "preview_video", button_pressed)
 
-func grab_focus():
+func set_focus():
 	match n_tabs.current_tab:
 		0:
 			n_sort_by.grab_focus()
@@ -74,3 +70,7 @@ func grab_focus():
 			n_filter_show.grab_focus()
 		2:
 			n_preview_mode.grab_focus()
+
+
+func _on_about_to_popup():
+	set_focus()

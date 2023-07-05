@@ -1,193 +1,199 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://df1pettwt465y"]
 
-[ext_resource path="res://addons/controller_icons/objects/TextureRect.gd" type="Script" id=1]
-[ext_resource path="res://addons/controller_icons/assets/key/e.png" type="Texture2D" id=2]
-[ext_resource path="res://addons/controller_icons/assets/key/q.png" type="Texture2D" id=3]
-[ext_resource path="res://scenes/sort_filter_popup/SortFilterPopup.gd" type="Script" id=4]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="3"]
+[ext_resource type="Script" path="res://scenes/sort_filter_popup/SortFilterPopup.gd" id="4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ng4li"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
 
 [node name="SortFilterPopup" type="Window"]
-anchor_right = 0.256
-anchor_bottom = 0.283
-offset_right = 91.856
-offset_bottom = 77.2
-script = ExtResource( 4 )
+transparent_bg = true
+position = Vector2i(0, 36)
+size = Vector2i(355, 220)
+borderless = true
+transparent = true
+script = ExtResource("4")
 
-[node name="TabBar" type="TabContainer" parent="."]
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ng4li")
+
+[node name="TabBar" type="TabContainer" parent="Panel"]
 unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.03
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
 
-[node name="Sort" type="Control" parent="TabBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 32.0
-offset_right = -4.0
-offset_bottom = -4.0
+[node name="Sort" type="MarginContainer" parent="Panel/TabBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabBar/Sort"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 5.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TabBar/Sort"]
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabBar/Sort/VBoxContainer"]
-offset_right = 346.0
-offset_bottom = 20.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TabBar/Sort/VBoxContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="TabBar/Sort/VBoxContainer/HBoxContainer"]
-offset_top = 3.0
-offset_right = 171.0
-offset_bottom = 17.0
+[node name="Label" type="Label" parent="Panel/TabBar/Sort/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Sort by:"
 
-[node name="SortBy" type="OptionButton" parent="TabBar/Sort/VBoxContainer/HBoxContainer"]
+[node name="SortBy" type="OptionButton" parent="Panel/TabBar/Sort/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 175.0
-offset_right = 346.0
-offset_bottom = 20.0
+layout_mode = 2
 size_flags_horizontal = 3
-text = "by Name"
-items = [ "by Name", null, false, 0, null, "by Last Played", null, false, 1, null, "by Play Count", null, false, 2, null ]
+item_count = 3
 selected = 0
+popup/item_0/text = "by Name"
+popup/item_0/id = 0
+popup/item_1/text = "by Last Played"
+popup/item_1/id = 1
+popup/item_2/text = "by Play Count"
+popup/item_2/id = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabBar/Sort/VBoxContainer"]
-offset_top = 30.0
-offset_right = 346.0
-offset_bottom = 70.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/TabBar/Sort/VBoxContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="TabBar/Sort/VBoxContainer/HBoxContainer2"]
-offset_top = 13.0
-offset_right = 171.0
-offset_bottom = 27.0
+[node name="Label" type="Label" parent="Panel/TabBar/Sort/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Reverse?"
 
-[node name="SortReverse" type="CheckButton" parent="TabBar/Sort/VBoxContainer/HBoxContainer2"]
+[node name="SortReverse" type="CheckButton" parent="Panel/TabBar/Sort/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-offset_left = 175.0
-offset_right = 346.0
-offset_bottom = 40.0
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Filter" type="Control" parent="TabBar"]
+[node name="Filter" type="MarginContainer" parent="Panel/TabBar"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 32.0
-offset_right = -4.0
-offset_bottom = -4.0
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabBar/Filter"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 5.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TabBar/Filter"]
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabBar/Filter/VBoxContainer"]
-offset_right = 346.0
-offset_bottom = 20.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TabBar/Filter/VBoxContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="TabBar/Filter/VBoxContainer/HBoxContainer"]
-offset_top = 3.0
-offset_right = 171.0
-offset_bottom = 17.0
+[node name="Label" type="Label" parent="Panel/TabBar/Filter/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Show:"
 
-[node name="FilterShow" type="OptionButton" parent="TabBar/Filter/VBoxContainer/HBoxContainer"]
+[node name="FilterShow" type="OptionButton" parent="Panel/TabBar/Filter/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 175.0
-offset_right = 346.0
-offset_bottom = 20.0
+layout_mode = 2
 size_flags_horizontal = 3
-text = "all Games"
-items = [ "all Games", null, false, 0, null, "only Favorites", null, false, 1, null, "only Played Before", null, false, 2, null, "only With Media", null, false, 3, null ]
+item_count = 4
 selected = 0
+popup/item_0/text = "all Games"
+popup/item_0/id = 0
+popup/item_1/text = "only Favorites"
+popup/item_1/id = 1
+popup/item_2/text = "only Played Before"
+popup/item_2/id = 2
+popup/item_3/text = "only With Media"
+popup/item_3/id = 3
 
-[node name="Preview" type="Control" parent="TabBar"]
+[node name="Preview" type="MarginContainer" parent="Panel/TabBar"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 32.0
-offset_right = -4.0
-offset_bottom = -4.0
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabBar/Preview"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 5.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TabBar/Preview"]
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabBar/Preview/VBoxContainer"]
-offset_right = 346.0
-offset_bottom = 20.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TabBar/Preview/VBoxContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="TabBar/Preview/VBoxContainer/HBoxContainer"]
-offset_top = 3.0
-offset_right = 171.0
-offset_bottom = 17.0
+[node name="Label" type="Label" parent="Panel/TabBar/Preview/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Show in preview:"
 
-[node name="PreviewMode" type="OptionButton" parent="TabBar/Preview/VBoxContainer/HBoxContainer"]
+[node name="PreviewMode" type="OptionButton" parent="Panel/TabBar/Preview/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-offset_left = 175.0
-offset_right = 346.0
-offset_bottom = 20.0
+layout_mode = 2
 size_flags_horizontal = 3
-text = "Auto"
-items = [ "Auto", null, false, 0, null, "Title Screen", null, false, 1, null, "Game Screenshot", null, false, 2, null, "Game Logo", null, false, 3, null, "Game Box Art", null, false, 5, null, "Nothing", null, false, 4, null ]
+item_count = 6
 selected = 0
+popup/item_0/text = "Auto"
+popup/item_0/id = 0
+popup/item_1/text = "Title Screen"
+popup/item_1/id = 1
+popup/item_2/text = "Game Screenshot"
+popup/item_2/id = 2
+popup/item_3/text = "Game Logo"
+popup/item_3/id = 3
+popup/item_4/text = "Game Box Art"
+popup/item_4/id = 5
+popup/item_5/text = "Nothing"
+popup/item_5/id = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabBar/Preview/VBoxContainer"]
-offset_top = 30.0
-offset_right = 346.0
-offset_bottom = 70.0
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/TabBar/Preview/VBoxContainer"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="TabBar/Preview/VBoxContainer/HBoxContainer2"]
-offset_top = 13.0
-offset_right = 171.0
-offset_bottom = 27.0
+[node name="Label" type="Label" parent="Panel/TabBar/Preview/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Play video in preview?"
 
-[node name="PreviewVideo" type="CheckButton" parent="TabBar/Preview/VBoxContainer/HBoxContainer2"]
+[node name="PreviewVideo" type="CheckButton" parent="Panel/TabBar/Preview/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
-offset_left = 175.0
-offset_right = 346.0
-offset_bottom = 40.0
+layout_mode = 2
 size_flags_horizontal = 3
-pressed = true
 
-[node name="ControllerIconLeft" type="TextureRect" parent="."]
-offset_top = 3.0
+[node name="ControllerIconLeft" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
 offset_right = 40.0
-offset_bottom = 43.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 3 )
-expand = true
-script = ExtResource( 1 )
+offset_bottom = 40.0
+texture = ExtResource("3")
+expand_mode = 1
+script = ExtResource("1")
 path = "rh_left_shoulder"
 
-[node name="ControllerIconRight" type="TextureRect" parent="."]
+[node name="ControllerIconRight" type="TextureRect" parent="Panel"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -40.0
-offset_top = 3.0
-offset_bottom = 43.0
-custom_minimum_size = Vector2( 40, 40 )
-texture = ExtResource( 2 )
-expand = true
-script = ExtResource( 1 )
+offset_bottom = 40.0
+grow_horizontal = 0
+texture = ExtResource("2")
+expand_mode = 1
+script = ExtResource("1")
 path = "rh_right_shoulder"
 
-[connection signal="item_selected" from="TabBar/Sort/VBoxContainer/HBoxContainer/SortBy" to="." method="_on_SortBy_item_selected"]
-[connection signal="toggled" from="TabBar/Sort/VBoxContainer/HBoxContainer2/SortReverse" to="." method="_on_SortReverse_toggled"]
-[connection signal="item_selected" from="TabBar/Filter/VBoxContainer/HBoxContainer/FilterShow" to="." method="_on_FilterShow_item_selected"]
-[connection signal="item_selected" from="TabBar/Preview/VBoxContainer/HBoxContainer/PreviewMode" to="." method="_on_PreviewMode_item_selected"]
-[connection signal="toggled" from="TabBar/Preview/VBoxContainer/HBoxContainer2/PreviewVideo" to="." method="_on_PreviewVideo_toggled"]
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="item_selected" from="Panel/TabBar/Sort/VBoxContainer/HBoxContainer/SortBy" to="." method="_on_SortBy_item_selected"]
+[connection signal="toggled" from="Panel/TabBar/Sort/VBoxContainer/HBoxContainer2/SortReverse" to="." method="_on_SortReverse_toggled"]
+[connection signal="item_selected" from="Panel/TabBar/Filter/VBoxContainer/HBoxContainer/FilterShow" to="." method="_on_FilterShow_item_selected"]
+[connection signal="item_selected" from="Panel/TabBar/Preview/VBoxContainer/HBoxContainer/PreviewMode" to="." method="_on_PreviewMode_item_selected"]
+[connection signal="toggled" from="Panel/TabBar/Preview/VBoxContainer/HBoxContainer2/PreviewVideo" to="." method="_on_PreviewVideo_toggled"]

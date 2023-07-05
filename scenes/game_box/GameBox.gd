@@ -3,17 +3,17 @@ extends Button
 signal show_game_info(game_data)
 signal game_selected(game_data)
 
-@onready var n_media_root := $"%MediaRoot"
-@onready var n_separator := $"%HSeparator"
+@onready var n_media_root := %MediaRoot
+@onready var n_separator := %HSeparator
 
-@onready var n_media := $"%Media"
-@onready var n_video := $"%Video"
-@onready var n_anim := $"%Anim"
-@onready var n_label := $"%Label"
-@onready var n_label_no_meta := $"%LabelNoMeta"
-@onready var n_play_container := $"%PlayContainer"
-@onready var n_play_icon_root := $"%PlayIconRoot"
-@onready var n_more_info_root := $"%MoreInfoRoot"
+@onready var n_media := %Media
+@onready var n_video := %Video
+@onready var n_anim := %Anim
+@onready var n_label := %Label
+@onready var n_label_no_meta := %LabelNoMeta
+@onready var n_play_container := %PlayContainer
+@onready var n_play_icon_root := %PlayIconRoot
+@onready var n_more_info_root := %MoreInfoRoot
 
 var _preview_mode : int
 
@@ -37,10 +37,10 @@ func set_show_media(show: bool):
 		n_media.texture = null
 
 func _ready():
-	RetroHub.connect("app_returning", Callable(self, "_on_app_returning"))
-	RetroHubMedia.connect("media_loaded", Callable(self, "_on_media_loaded"))
+	RetroHub.app_returning.connect(_on_app_returning)
+	RetroHubMedia.media_loaded.connect(_on_media_loaded)
 
-	RetroHubConfig.connect("game_data_updated", Callable(self, "_on_game_data_updated"))
+	RetroHubConfig.game_data_updated.connect(_on_game_data_updated)
 
 func _on_app_returning(_unused: RetroHubSystemData, data: RetroHubGameData):
 	if game_data == data:
@@ -117,7 +117,7 @@ func _gui_input(event):
 
 func _on_GameBox_visibility_changed():
 	_preview_mode = RetroHubConfig.get_theme_config("preview_mode", 0)
-	if game_data.has_media:
+	if game_data and game_data.has_media:
 		if is_visible_in_tree():
 			if not n_media.texture:
 				RetroHubMedia.retrieve_media_data_async(game_data, get_internal_preview_type())

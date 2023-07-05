@@ -1,6 +1,6 @@
 extends Button
 
-@onready var n_texture := $"%Texture2D"
+@onready var n_texture := %Texture2D
 
 var texture : Texture2D: get = get_texture, set = set_texture
 var type : String

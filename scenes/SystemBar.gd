@@ -2,20 +2,20 @@ extends Control
 
 signal system_selected(data, should_focus)
 
-@onready var n_controller_icons := $"%ControllerIcons"
-@onready var n_label := $"%Label"
-@onready var n_type_label := $"%TypeLabel"
+@onready var n_controller_icons := %ControllerIcons
+@onready var n_label := %Label
+@onready var n_type_label := %TypeLabel
 
 var system_list := []
 var system_idx : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RetroHub.connect("system_receive_start", Callable(self, "_on_system_receive_start"))
-	RetroHub.connect("system_received", Callable(self, "_on_system_received"))
-	RetroHub.connect("game_receive_end", Callable(self, "_on_system_receive_end"))
+	RetroHub.system_receive_start.connect(_on_system_receive_start)
+	RetroHub.system_received.connect(_on_system_received)
+	RetroHub.game_receive_end.connect(_on_system_receive_end)
 
-	RetroHub.connect("app_returning", Callable(self, "_on_app_returning"))
+	RetroHub.app_returning.connect(_on_app_returning)
 
 func _unhandled_input(event):
 	if system_list.size():

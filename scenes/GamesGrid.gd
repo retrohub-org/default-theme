@@ -5,8 +5,8 @@ signal game_selected(game_data)
 signal expensive_sort()
 signal sort_over()
 
-@onready var n_grid := $"%Grid"
-@onready var n_no_games := $"%NoGamesLabel"
+@onready var n_grid := %Grid
+@onready var n_no_games := %NoGamesLabel
 
 var system_data : RetroHubSystemData
 
@@ -40,7 +40,7 @@ static func sort_playcount(a: Node, b: Node):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RetroHub.connect("game_received", Callable(self, "_on_game_received"))
+	RetroHub.game_received.connect(_on_game_received)
 
 func _on_game_received(data: RetroHubGameData):
 	if data.system != system_data:
@@ -49,8 +49,8 @@ func _on_game_received(data: RetroHubGameData):
 	var button = preload("res://scenes/game_box/GameBox.tscn").instantiate()
 	n_grid.add_child(button)
 	button.game_data = data
-	button.connect("show_game_info", Callable(self, "_on_show_game_info"))
-	button.connect("game_selected", Callable(self, "_on_game_selected"))
+	button.show_game_info.connect(_on_show_game_info)
+	button.game_selected.connect(_on_game_selected)
 
 func _on_show_game_info(data: RetroHubGameData):
 	emit_signal("show_game_info", data)
@@ -126,5 +126,5 @@ func system_selected(should_focus: bool):
 		if not selected and should_focus and child.visible:
 			child.grab_focus()
 			selected = true
-			await get_tree().idle_frame
+			await get_tree().process_frame
 			TTS.speak("Selected game: " + child.tts_text(null), false)

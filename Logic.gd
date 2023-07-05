@@ -1,19 +1,24 @@
 extends Node
 
-@onready var n_no_games := $"%NoGames"
-@onready var n_bottom_info := $"%BottomInfo"
-@onready var n_accept_icon := $"%AcceptIcon"
-@onready var n_more_info_icon := $"%MoreInfoIcon"
-@onready var n_sorting := $"%Sorting"
+@onready var n_no_games := %NoGames
+@onready var n_bottom_info := %BottomInfo
+@onready var n_accept_icon := %AcceptIcon
+@onready var n_more_info_icon := %MoreInfoIcon
+@onready var n_sorting := %Sorting
+@onready var n_sort_filter_popup := %SortFilterPopup
 
 # _ready function, called everytime the theme is loaded, and only once
 func _ready():
 	n_bottom_info.visible = false
-	RetroHub.connect("game_receive_start", Callable(self, "_on_game_receive_start"))
-	RetroHubConfig.connect("config_ready", Callable(self, "_on_config_ready"))
-	RetroHubConfig.connect("config_updated", Callable(self, "_on_config_updated"))
+	RetroHub.game_receive_start.connect(_on_game_receive_start)
+	RetroHubConfig.config_updated.connect(_on_config_updated)
 	if $NoGames/Label.focus_mode == Control.FOCUS_ALL:
 		$NoGames/Label.grab_focus()
+
+func _unhandled_input(event):
+	if event.is_action_pressed("rh_theme_menu"):
+		n_sort_filter_popup.last_focused_control = get_viewport().gui_get_focus_owner()
+		n_sort_filter_popup.popup()
 
 func _on_game_receive_start():
 	TTS.stop()

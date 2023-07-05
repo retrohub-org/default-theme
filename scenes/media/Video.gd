@@ -26,7 +26,7 @@ func stop():
 func setup_ratio():
 	var tex : Texture2D = $Container/VideoStreamPlayer.get_video_texture()
 	if tex:
-		tex.flags |= Texture2D.FLAG_MIPMAPS
+		#tex.flags |= Texture2D.FLAG_MIPMAPS
 		$Container.ratio = tex.get_size().aspect()
 
 func _on_VideoPlayer_finished():
