@@ -8,11 +8,10 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ng4li"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)
 
-[node name="SortFilterPopup" type="Window"]
+[node name="SortFilterPopup" type="Popup"]
 transparent_bg = true
 position = Vector2i(0, 36)
 size = Vector2i(355, 220)
-borderless = true
 transparent = true
 script = ExtResource("4")
 
@@ -192,6 +191,7 @@ script = ExtResource("1")
 path = "rh_right_shoulder"
 
 [connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_selected" from="Panel/TabBar/Sort/VBoxContainer/HBoxContainer/SortBy" to="." method="_on_SortBy_item_selected"]
 [connection signal="toggled" from="Panel/TabBar/Sort/VBoxContainer/HBoxContainer2/SortReverse" to="." method="_on_SortReverse_toggled"]
 [connection signal="item_selected" from="Panel/TabBar/Filter/VBoxContainer/HBoxContainer/FilterShow" to="." method="_on_FilterShow_item_selected"]

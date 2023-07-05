@@ -69,8 +69,8 @@ func sort_children(sort_method: int, force_sort: bool):
 	# If there's a lot of children, show a warning label
 	if children.size() >= 50:
 		emit_signal("expensive_sort")
-		await get_tree().idle_frame
-		await get_tree().idle_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
 
 	# Now sort children array
 	match _sort_method:
@@ -96,8 +96,8 @@ func filter_children(filter_method: int, force_filter: bool):
 	# If there's a lot of children, show a warning label
 	if n_grid.get_children().size() >= 50:
 		emit_signal("expensive_sort")
-		await get_tree().idle_frame
-		await get_tree().idle_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
 
 	var any_visible := false
 	for child in n_grid.get_children():

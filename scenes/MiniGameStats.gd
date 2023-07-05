@@ -14,7 +14,6 @@ func _on_media_loaded(media_data: RetroHubGameMediaData, game_data: RetroHubGame
 	if game_data == tmp_game_data:
 		n_game_logo.texture = media_data.logo
 
-
 func _on_GamesGridManager_game_selected(_game_data):
 	game_data = _game_data
 	n_num_times_played.text = str(game_data.play_count)

@@ -116,6 +116,9 @@ func _gui_input(event):
 		_on_MoreInfo_pressed()
 
 func _on_GameBox_visibility_changed():
+	if not game_data:
+		# Wait a frame: object was just added to tree, data will be set later
+		await get_tree().process_frame
 	_preview_mode = RetroHubConfig.get_theme_config("preview_mode", 0)
 	if game_data and game_data.has_media:
 		if is_visible_in_tree():

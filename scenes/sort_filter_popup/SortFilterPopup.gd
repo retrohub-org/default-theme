@@ -71,6 +71,14 @@ func set_focus():
 		2:
 			n_preview_mode.grab_focus()
 
+func popup(rect: Rect2i = Rect2i(0, 0, 0, 0)) -> void:
+	var pos := DisplayServer.window_get_size() - size - Vector2i(25, 25)
+	position = pos
+	super.popup()
 
 func _on_about_to_popup():
 	set_focus()
+
+
+func _on_close_requested():
+	hide()

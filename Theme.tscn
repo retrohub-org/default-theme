@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://b6853ld7uweea"]
 
 [ext_resource type="Script" path="res://Logic.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/SystemBar.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bsa5u4qnv0qry" path="res://scenes/SystemBar.tscn" id="2"]
 [ext_resource type="FontFile" path="res://resources/fonts/italic.tres" id="3"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://cnghdqiitl0fu" path="res://addons/controller_icons/assets/key/esc.png" id="5"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://df1pettwt465y" path="res://scenes/sort_filter_popup/SortFilterPopup.tscn" id="11"]
 [ext_resource type="Texture2D" uid="uid://dq0fide2iu37s" path="res://addons/controller_icons/assets/key/shift_alt.png" id="12"]
 [ext_resource type="Script" path="res://scenes/GamesGridManager.gd" id="13"]
-[ext_resource type="PackedScene" path="res://scenes/MiniGameStats.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://bs5pj0f54n7ib" path="res://scenes/MiniGameStats.tscn" id="14"]
 [ext_resource type="Texture2D" uid="uid://dxcfr4bhfw4lq" path="res://addons/controller_icons/assets/key/ctrl.png" id="16"]
 [ext_resource type="Script" path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" id="17"]
 
@@ -43,9 +43,11 @@ anchor_bottom = 1.0
 color = Color(0.121569, 0.121569, 0.121569, 1)
 
 [node name="SystemBar" parent="." instance=ExtResource("2")]
-layout_mode = 3
+anchors_preset = -1
 anchor_bottom = 0.232
 offset_bottom = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="NoGames" type="Control" parent="."]
 unique_name_in_owner = true
@@ -122,9 +124,13 @@ anchor_right = 0.936
 anchor_bottom = 0.888
 
 [node name="GamesGridManager" type="Control" parent="GamesGrid"]
-anchors_preset = 0
+layout_mode = 1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.974
+offset_right = 0.456055
+offset_bottom = -0.0809937
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("6")
 script = ExtResource("13")
 games_grid = ExtResource("7")
@@ -149,6 +155,7 @@ theme_override_fonts/font = ExtResource("3")
 text = "Sorting games, please wait..."
 
 [node name="GameInfo" parent="." instance=ExtResource("8")]
+visible = false
 
 [node name="BottomInfo" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
@@ -184,6 +191,7 @@ text = "Sort/filter options"
 [node name="SortFilterPopup" parent="." instance=ExtResource("11")]
 unique_name_in_owner = true
 position = Vector2i(401, 241)
+visible = false
 
 [node name="AcceptIcon" type="TextureRect" parent="." groups=["icon_rh_accept"]]
 unique_name_in_owner = true
