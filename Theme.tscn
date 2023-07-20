@@ -191,7 +191,6 @@ text = "Sort/filter options"
 [node name="SortFilterPopup" parent="." instance=ExtResource("11")]
 unique_name_in_owner = true
 position = Vector2i(401, 241)
-visible = false
 
 [node name="AcceptIcon" type="TextureRect" parent="." groups=["icon_rh_accept"]]
 unique_name_in_owner = true

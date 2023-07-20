@@ -145,10 +145,9 @@ mouse_filter = 1
 [node name="Video" parent="VBoxContainer/MarginContainer/MediaRoot" instance=ExtResource("7")]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 loop = true
 volume_db = -80.0
 
@@ -161,7 +160,7 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 6
 
 [node name="Anim" type="AnimationPlayer" parent="VBoxContainer/MarginContainer/MediaRoot"]
 unique_name_in_owner = true

@@ -8,16 +8,16 @@ func set_volume_db(_volume_db: float):
 	$Container/VideoStreamPlayer.volume_db = volume_db
 
 func _process(delta):
-	if $Container/VideoStreamPlayer.is_playing():
-		var tex : Texture2D = $Container/VideoStreamPlayer.get_video_texture()
-		texture = tex
+	pass
+	#if $Container/VideoStreamPlayer.is_playing():
+	#	
 
 func get_video_player():
 	return $Container/VideoStreamPlayer
 
 func play():
 	$Container/VideoStreamPlayer.play()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	setup_ratio()
 
 func stop():
@@ -26,7 +26,7 @@ func stop():
 func setup_ratio():
 	var tex : Texture2D = $Container/VideoStreamPlayer.get_video_texture()
 	if tex:
-		#tex.flags |= Texture2D.FLAG_MIPMAPS
+		texture = tex
 		$Container.ratio = tex.get_size().aspect()
 
 func _on_VideoPlayer_finished():
