@@ -1,35 +1,35 @@
 extends TextureRect
 
-export var loop := false
-export(float, -80, 24, 0.01) var volume_db := 0.0 setget set_volume_db
+@export var loop := false
+@export var volume_db := 0.0: set = set_volume_db
 
 func set_volume_db(_volume_db: float):
 	volume_db = _volume_db
-	$Container/VideoPlayer.volume_db = volume_db
+	$Container/VideoStreamPlayer.volume_db = volume_db
 
 func _process(delta):
-	if $Container/VideoPlayer.is_playing():
-		var tex : Texture = $Container/VideoPlayer.get_video_texture()
-		texture = tex
+	pass
+	#if $Container/VideoStreamPlayer.is_playing():
+	#	
 
 func get_video_player():
-	return $Container/VideoPlayer
+	return $Container/VideoStreamPlayer
 
 func play():
-	$Container/VideoPlayer.play()
-	yield(get_tree(), "idle_frame")
+	$Container/VideoStreamPlayer.play()
+	await get_tree().process_frame
 	setup_ratio()
 
 func stop():
-	$Container/VideoPlayer.stop()
+	$Container/VideoStreamPlayer.stop()
 
 func setup_ratio():
-	var tex : Texture = $Container/VideoPlayer.get_video_texture()
+	var tex : Texture2D = $Container/VideoStreamPlayer.get_video_texture()
 	if tex:
-		tex.flags |= Texture.FLAG_MIPMAPS
+		texture = tex
 		$Container.ratio = tex.get_size().aspect()
 
 func _on_VideoPlayer_finished():
 	if loop:
-		$Container/VideoPlayer.stream_position = 0
-		$Container/VideoPlayer.play()
+		$Container/VideoStreamPlayer.stream_position = 0
+		$Container/VideoStreamPlayer.play()

@@ -1,37 +1,97 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://b4o61u01lrlcc"]
 
-[ext_resource path="res://scenes/media/Video.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scenes/media/Video.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://3t0uw2gh10u4" path="res://icon.png" id="1_fuvkq"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="Shader_gfqb3"]
 code = "// Source: https://kidscancode.org/godot_recipes/shaders/blur/
+
+/*shader_type canvas_item;
+
+const float kernel[25] = float[25](
+	1.0/256.0, 4.0/256.0, 6.0/256.0, 4.0/256.0, 1.0/256.0,
+4.0/256.0, 16.0/256.0, 24.0/256.0, 16.0/256.0, 4.0/256.0,
+6.0/256.0, 24.0/256.0, 32.0/256.0, 24.0/256.0, 6.0/256.0,
+4.0/256.0, 16.0/256.0, 24.0/256.0, 16.0/256.0, 4.0/256.0,
+1.0/256.0, 4.0/256.0, 6.0/256.0, 4.0/256.0, 1.0/256.0
+);
+
+vec4 get_pixel(sampler2D tex, float x, float y) {
+	x = clamp(x, 0.0, 1.0);
+	y = clamp(y, 0.0, 1.0);
+	return texture(tex, vec2(x, y));
+}
+
+void fragment() {
+	ivec2 texSize = textureSize(TEXTURE, 0);
+	vec2 pixelSize = vec2(1.0f / float(texSize.x), 1.0f / float(texSize.y));
+	vec4 color = vec4(0);
+	for(int x = -2; x <= 2; x++) {
+		for(int y = -2; y <= 2; y++) {
+			color += get_pixel(TEXTURE, UV.x + float(x) * pixelSize.x, UV.y + float(y) * pixelSize.y) * kernel[(y+2)*5+(x+2)];
+		}
+	}
+	
+	//COLOR = texture(TEXTURE, UV);
+	COLOR = color;
+}*/
 
 shader_type canvas_item;
 
-uniform float blur_amount : hint_range(0, 5);
+uniform int strength: hint_range(1, 512) = 2;
 
-void fragment() {
-	COLOR = textureLod(TEXTURE, UV, blur_amount);
+vec4 blur_size(sampler2D tex,vec2 fragCoord, vec2 pixelSize) {
+    
+    vec4 color = vec4(0.,0.,0.,0.);
+    float strengthFloat = float(strength);
+
+    vec2 pixel = fragCoord/pixelSize;
+    int x_min = max(int(pixel.x-strengthFloat), 0);
+    int x_max = min(int(pixel.x+strengthFloat), int(1./pixelSize.x));
+    int y_min = max(int(pixel.y-strengthFloat), 0);
+    int y_max = min(int(pixel.y+strengthFloat), int(1./pixelSize.y));
+
+    int count =0;
+
+    // Sum the pixels colors
+    for(int x=x_min; x <= x_max; x++) {
+        for(int y = y_min; y <= y_max; y++) {           
+            color += texture(tex, vec2(float(x), float(y)) * pixelSize);
+            count++;
+        }
+    }
+    
+    // Divide the color by the number of colors you summed up
+    color /= float(count);
+    
+    return color;
+}
+
+void fragment() {	
+    COLOR = blur_size(TEXTURE,UV,TEXTURE_PIXEL_SIZE);
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/blur_amount = 5.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r82pr"]
+shader = SubResource("Shader_gfqb3")
+shader_parameter/strength = 16
 
 [node name="Video" type="TextureRect"]
-material = SubResource( 2 )
+material = SubResource("ShaderMaterial_r82pr")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-expand = true
-script = ExtResource( 1 )
+texture = ExtResource("1_fuvkq")
+expand_mode = 1
+script = ExtResource("1")
 
 [node name="Container" type="AspectRatioContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 stretch_mode = 1
 
-[node name="VideoPlayer" type="VideoPlayer" parent="Container"]
-margin_left = 212.0
-margin_right = 812.0
-margin_bottom = 600.0
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Container"]
+layout_mode = 2
+expand = true
 
-[connection signal="finished" from="Container/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
+[connection signal="finished" from="Container/VideoStreamPlayer" to="." method="_on_VideoPlayer_finished"]

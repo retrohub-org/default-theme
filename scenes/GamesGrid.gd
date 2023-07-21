@@ -5,8 +5,8 @@ signal game_selected(game_data)
 signal expensive_sort()
 signal sort_over()
 
-onready var n_grid := $"%Grid"
-onready var n_no_games := $"%NoGamesLabel"
+@onready var n_grid := %Grid
+@onready var n_no_games := %NoGamesLabel
 
 var system_data : RetroHubSystemData
 
@@ -40,17 +40,17 @@ static func sort_playcount(a: Node, b: Node):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	RetroHub.connect("game_received", self, "_on_game_received")
+	RetroHub.game_received.connect(_on_game_received)
 
 func _on_game_received(data: RetroHubGameData):
 	if data.system != system_data:
 		return
 
-	var button = preload("res://scenes/game_box/GameBox.tscn").instance()
+	var button = preload("res://scenes/game_box/GameBox.tscn").instantiate()
 	n_grid.add_child(button)
 	button.game_data = data
-	button.connect("show_game_info", self, "_on_show_game_info")
-	button.connect("game_selected", self, "_on_game_selected")
+	button.show_game_info.connect(_on_show_game_info)
+	button.game_selected.connect(_on_game_selected)
 
 func _on_show_game_info(data: RetroHubGameData):
 	emit_signal("show_game_info", data)
@@ -69,17 +69,17 @@ func sort_children(sort_method: int, force_sort: bool):
 	# If there's a lot of children, show a warning label
 	if children.size() >= 50:
 		emit_signal("expensive_sort")
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 
 	# Now sort children array
 	match _sort_method:
 		1: # By Last Played
-			children.sort_custom(self, "sort_playdate")
+			children.sort_custom(Callable(self, "sort_playdate"))
 		2: # By Play Count
-			children.sort_custom(self, "sort_playcount")
+			children.sort_custom(Callable(self, "sort_playcount"))
 		0, _: # Alphabetically or unknown
-			children.sort_custom(self, "sort_alphabetically")
+			children.sort_custom(Callable(self, "sort_alphabetically"))
 	# Finally, read them to the node
 	var idx = 0
 	for child in children:
@@ -96,8 +96,8 @@ func filter_children(filter_method: int, force_filter: bool):
 	# If there's a lot of children, show a warning label
 	if n_grid.get_children().size() >= 50:
 		emit_signal("expensive_sort")
-		yield(get_tree(), "idle_frame")
-		yield(get_tree(), "idle_frame")
+		await get_tree().process_frame
+		await get_tree().process_frame
 
 	var any_visible := false
 	for child in n_grid.get_children():
@@ -126,5 +126,5 @@ func system_selected(should_focus: bool):
 		if not selected and should_focus and child.visible:
 			child.grab_focus()
 			selected = true
-			yield(get_tree(), "idle_frame")
+			await get_tree().process_frame
 			TTS.speak("Selected game: " + child.tts_text(null), false)

@@ -1,15 +1,14 @@
 extends Button
 
-onready var n_texture := $"%Texture"
+@onready var n_texture := %Texture2D
 
-var texture : Texture setget set_texture, get_texture
+var texture : Texture2D:
+	get:
+		return n_texture.texture
+	set(value):
+		n_texture.texture = value
+
 var type : String
-
-func set_texture(texture: Texture):
-	n_texture.texture = texture
-
-func get_texture() -> Texture:
-	return n_texture.texture
 
 func tts_text(focused: Control) -> String:
 	return type + " Button"

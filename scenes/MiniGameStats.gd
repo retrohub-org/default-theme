@@ -1,19 +1,18 @@
 extends HBoxContainer
 
-onready var n_game_logo := $"%GameLogo"
-onready var n_num_times_played := $"%NumTimesPlayed"
-onready var n_last_played := $"%LastPlayed"
+@onready var n_game_logo := %GameLogo
+@onready var n_num_times_played := %NumTimesPlayed
+@onready var n_last_played := %LastPlayed
 
 var game_data : RetroHubGameData
 var tmp_game_data : RetroHubGameData
 
 func _ready():
-	RetroHubMedia.connect("media_loaded", self, "_on_media_loaded")
+	RetroHubMedia.media_loaded.connect(_on_media_loaded)
 
 func _on_media_loaded(media_data: RetroHubGameMediaData, game_data: RetroHubGameData, _unused: int):
 	if game_data == tmp_game_data:
 		n_game_logo.texture = media_data.logo
-
 
 func _on_GamesGridManager_game_selected(_game_data):
 	game_data = _game_data

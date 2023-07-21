@@ -1,10 +1,10 @@
 extends VBoxContainer
 
-onready var n_aspect_ratio_cnt := $"%AspectRatioContainer"
-onready var n_player := $"%Player"
-onready var n_play_pause := $"%PlayPause"
-onready var n_progress := $"%Progress"
-onready var n_progress_updater := $"%ProgressUpdater"
+@onready var n_aspect_ratio_cnt := %AspectRatioContainer
+@onready var n_player := %Player
+@onready var n_play_pause := %PlayPause
+@onready var n_progress := %Progress
+@onready var n_progress_updater := %ProgressUpdater
 
 var video_len : float
 var dragging := false
@@ -25,22 +25,22 @@ func reset():
 	if not RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_player.play()
 	n_progress.max_value = video_len
-	n_play_pause.pressed = false
+	n_play_pause.button_pressed = false
 
 func play():
 	n_progress_updater.start()
 	n_player.paused = false
-	n_play_pause.pressed = true
+	n_play_pause.button_pressed = true
 
 func pause():
 	n_progress_updater.stop()
 	n_player.paused = true
-	n_play_pause.pressed = false
+	n_play_pause.button_pressed = false
 
 func stop():
 	n_progress_updater.stop()
 	n_player.stop()
-	n_play_pause.pressed = false
+	n_play_pause.button_pressed = false
 
 func _on_PlayPause_toggled(button_pressed):
 	play() if button_pressed else pause()

@@ -1,6 +1,6 @@
 extends Button
 
-var video : VideoStream setget set_video
+var video : VideoStream: set = set_video
 
 func set_video(_video: VideoStream):
 	video = _video
