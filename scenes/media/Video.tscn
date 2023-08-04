@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b4o61u01lrlcc"]
 
 [ext_resource type="Script" path="res://scenes/media/Video.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://3t0uw2gh10u4" path="res://icon.png" id="1_fuvkq"]
+[ext_resource type="Texture2D" uid="uid://cp0t6pewd3w5p" path="res://assets/media_background.png" id="1_4tnr1"]
 
 [sub_resource type="Shader" id="Shader_gfqb3"]
 code = "// Source: https://kidscancode.org/godot_recipes/shaders/blur/
@@ -80,7 +80,7 @@ material = SubResource("ShaderMaterial_r82pr")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource("1_fuvkq")
+texture = ExtResource("1_4tnr1")
 expand_mode = 1
 script = ExtResource("1")
 
