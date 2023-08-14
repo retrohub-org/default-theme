@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ttwxnv6byn"]
+
+[ext_resource type="Script" path="res://scenes/games_container/system_games_container.gd" id="1_it0md"]
+[ext_resource type="PackedScene" uid="uid://bue0mn1ssj8cg" path="res://scenes/game_previews/game_preview.tscn" id="2_mendw"]
+
+[node name="SystemGamesContainer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_it0md")
+game_preview = ExtResource("2_mendw")
+
+[node name="SystemName" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+text = "System full name"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="Container" type="HFlowContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2

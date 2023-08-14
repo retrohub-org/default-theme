@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://b710c8xqxeg0c"]
+
+[ext_resource type="Script" path="res://scenes/games_container/game_quick_preview_bar.gd" id="1_bt0f5"]
+[ext_resource type="Texture2D" uid="uid://bpc5bvt0atvj2" path="res://assets/placeholders/star_unfilled.png" id="1_goprv"]
+[ext_resource type="Texture2D" uid="uid://c4ue7fi0lkyb3" path="res://assets/placeholders/star_filled.png" id="2_qsgb2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iwh0m"]
+font_size = 28
+
+[node name="GameQuickPreviewBar" type="HBoxContainer" groups=["global_signal(on_game_preview_selected)"]]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+script = ExtResource("1_bt0f5")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="Panel/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Game name"
+label_settings = SubResource("LabelSettings_iwh0m")
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Rating" type="TextureProgressBar" parent="Panel/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 0.65
+nine_patch_stretch = true
+texture_under = ExtResource("1_goprv")
+texture_progress = ExtResource("2_qsgb2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="StatsPlayCount" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+text = "Number of times played: %d"
+
+[node name="StatsPlayDate" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 2
+text = "Last played: %s"
+clip_text = true
+text_overrun_behavior = 3
