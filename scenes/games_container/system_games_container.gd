@@ -1,5 +1,4 @@
 extends VBoxContainer
-class_name SystemGamesContainer
 
 @export var game_preview : PackedScene
 
@@ -19,6 +18,6 @@ func _ready():
 
 func _on_game_received(data: RetroHubGameData):
 	if data.system == system_data:
-		var preview : GamePreviewButton = game_preview.instantiate()
+		var preview = game_preview.instantiate()
 		n_container.add_child(preview)
 		preview.game_data = data

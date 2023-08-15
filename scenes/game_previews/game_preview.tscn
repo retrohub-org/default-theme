@@ -1,14 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://bue0mn1ssj8cg"]
+[gd_scene load_steps=2 format=3 uid="uid://bue0mn1ssj8cg"]
 
-[ext_resource type="Texture2D" uid="uid://3t0uw2gh10u4" path="res://icon.png" id="1_57l7b"]
 [ext_resource type="Script" path="res://scenes/game_previews/game_preview.gd" id="1_yaur0"]
 
 [node name="GamePreview" type="Button"]
-custom_minimum_size = Vector2(142, 80)
 offset_right = 80.0
 offset_bottom = 80.0
 mouse_filter = 1
-icon = ExtResource("1_57l7b")
+expand_icon = true
 script = ExtResource("1_yaur0")
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]

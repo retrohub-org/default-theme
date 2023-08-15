@@ -30,6 +30,7 @@ func _on_game_preview_selected(data: RetroHubGameData, show_in_ui: bool):
 	n_stats_play_date.text = play_date_base_text % last_play_date
 
 	n_logo.texture = null
-	RetroHubMedia.retrieve_media_data_async(data, RetroHubMedia.Type.LOGO)
+	if data.has_media:
+		RetroHubMedia.retrieve_media_data_async(data, RetroHubMedia.Type.LOGO)
 	if show_in_ui:
 		RetroHub.set_curr_game_data(data)

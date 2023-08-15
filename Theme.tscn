@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://Logic.gd" id="1"]
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme.tres" id="1_bikpb"]
 [ext_resource type="Texture2D" uid="uid://ddoiw1qbo1nqo" path="res://addons/controller_icons/assets/xboxone/menu.png" id="2_w8ile"]
-[ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="4"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="4_lxqt5"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_qs61x"]
 [ext_resource type="Script" path="res://scenes/side_bar/SideBarContainer.gd" id="6_wpam4"]
 [ext_resource type="Texture2D" uid="uid://bimsm5lqg3dmp" path="res://assets/placeholders/search.png" id="7_ndfc5"]
 [ext_resource type="PackedScene" uid="uid://bniifqdnola0v" path="res://scenes/games_container/games_container.tscn" id="8_gcxl4"]
 [ext_resource type="PackedScene" uid="uid://b710c8xqxeg0c" path="res://scenes/games_container/game_quick_preview_bar.tscn" id="9_0lenf"]
 
-[node name="Theme" type="Control"]
+[node name="Theme" type="Control" groups=["global_signal(on_game_pressed)"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,50 +32,56 @@ grow_vertical = 2
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 
-[node name="ControllerTextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+[node name="ControllerButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("2_w8ile")
-expand_mode = 1
-stretch_mode = 5
-script = ExtResource("4")
+icon = ExtResource("2_w8ile")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_lxqt5")
 path = "xboxone/menu"
-max_width = 64
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="SideBar" type="ScrollContainer" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
-script = ExtResource("5_qs61x")
-damping_scroll = 0.2
-allow_horizontal_scroll = false
-
-[node name="Container" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/SideBar"]
+[node name="Container" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_wpam4")
 
-[node name="RecentGames" type="Button" parent="HBoxContainer/VBoxContainer/SideBar/Container"]
+[node name="RecentGames" type="Button" parent="HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 mouse_filter = 1
 text = "Recent"
 clip_text = true
 
-[node name="RecentGames2" type="Button" parent="HBoxContainer/VBoxContainer/SideBar/Container"]
+[node name="LibraryGames" type="Button" parent="HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 mouse_filter = 1
 text = "Library"
 clip_text = true
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/SideBar/Container"]
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 mouse_filter = 1
+
+[node name="SideBar" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/Container"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("5_qs61x")
+damping_scroll = 0.3
+damping_drag = 0.3
+allow_horizontal_scroll = false
+
+[node name="SideBarContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Container/SideBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 layout_mode = 2
@@ -110,6 +116,7 @@ placeholder_text = "Search..."
 layout_mode = 2
 
 [node name="GamesContainer" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("8_gcxl4")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer2"]
@@ -117,3 +124,9 @@ layout_mode = 2
 
 [node name="GameQuickPreviewBar" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("9_0lenf")]
 layout_mode = 2
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/ControllerButton" to="." method="_on_controller_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Container/RecentGames" to="HBoxContainer/VBoxContainer/Container" method="_on_btn_pressed" binds= [0]]
+[connection signal="calculate_label_positions" from="HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="HBoxContainer/VBoxContainer/Container" method="_on_logic_calculate_label_positions"]
+
+[editable path="HBoxContainer/VBoxContainer2/GamesContainer"]

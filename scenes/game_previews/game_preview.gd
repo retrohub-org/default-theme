@@ -1,5 +1,4 @@
 extends Button
-class_name GamePreviewButton
 
 signal game_preview_selected(data: RetroHubGameData, select_on_ui: bool)
 signal game_pressed(data: RetroHubGameData)
