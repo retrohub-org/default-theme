@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6853ld7uweea"]
+[gd_scene load_steps=11 format=3 uid="uid://b6853ld7uweea"]
 
 [ext_resource type="Script" path="res://Logic.gd" id="1"]
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme.tres" id="1_bikpb"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://bimsm5lqg3dmp" path="res://assets/placeholders/search.png" id="7_ndfc5"]
 [ext_resource type="PackedScene" uid="uid://bniifqdnola0v" path="res://scenes/games_container/games_container.tscn" id="8_gcxl4"]
 [ext_resource type="PackedScene" uid="uid://b710c8xqxeg0c" path="res://scenes/games_container/game_quick_preview_bar.tscn" id="9_0lenf"]
+[ext_resource type="PackedScene" uid="uid://ckgpsfhm3urnw" path="res://scenes/game_view/game_view.tscn" id="10_8vcaa"]
 
-[node name="Theme" type="Control" groups=["global_signal(on_game_pressed)"]]
+[node name="Theme" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +21,8 @@ grow_vertical = 2
 theme = ExtResource("1_bikpb")
 script = ExtResource("1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="GameSelector" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,11 +30,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(75, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="GameSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameSelector/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="ControllerButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="ControllerButton" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 icon = ExtResource("2_w8ile")
@@ -41,33 +51,39 @@ expand_icon = true
 script = ExtResource("4_lxqt5")
 path = "xboxone/menu"
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Container" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="Container" type="VBoxContainer" parent="GameSelector/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_wpam4")
 
-[node name="RecentGames" type="Button" parent="HBoxContainer/VBoxContainer/Container"]
+[node name="RecentGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 mouse_filter = 1
 text = "Recent"
 clip_text = true
 
-[node name="LibraryGames" type="Button" parent="HBoxContainer/VBoxContainer/Container"]
+[node name="FavoriteGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
+layout_mode = 2
+mouse_filter = 1
+text = "Favorites"
+clip_text = true
+
+[node name="LibraryGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 mouse_filter = 1
 text = "Library"
 clip_text = true
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer/Container"]
+[node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 mouse_filter = 1
 
-[node name="SideBar" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/Container"]
+[node name="SideBar" type="ScrollContainer" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -77,24 +93,24 @@ damping_scroll = 0.3
 damping_drag = 0.3
 allow_horizontal_scroll = false
 
-[node name="SideBarContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Container/SideBar"]
+[node name="SideBarContainer" type="VBoxContainer" parent="GameSelector/HBoxContainer/VBoxContainer/Container/SideBar"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="GameSelector/HBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="GameSelector/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2"]
+[node name="ColorRect" type="ColorRect" parent="GameSelector/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2/ColorRect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameSelector/HBoxContainer/VBoxContainer2/ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -102,31 +118,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer2/ColorRect/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="GameSelector/HBoxContainer/VBoxContainer2/ColorRect/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("7_ndfc5")
 stretch_mode = 5
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/VBoxContainer2/ColorRect/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="GameSelector/HBoxContainer/VBoxContainer2/ColorRect/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Search..."
 
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="GamesContainer" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("8_gcxl4")]
+[node name="GamesContainer" parent="GameSelector/HBoxContainer/VBoxContainer2" instance=ExtResource("8_gcxl4")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer2"]
+[node name="HSeparator2" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 
-[node name="GameQuickPreviewBar" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("9_0lenf")]
+[node name="GameQuickPreviewBar" parent="GameSelector/HBoxContainer/VBoxContainer2" instance=ExtResource("9_0lenf")]
 layout_mode = 2
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/ControllerButton" to="." method="_on_controller_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/Container/RecentGames" to="HBoxContainer/VBoxContainer/Container" method="_on_btn_pressed" binds= [0]]
-[connection signal="calculate_label_positions" from="HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="HBoxContainer/VBoxContainer/Container" method="_on_logic_calculate_label_positions"]
+[node name="GameView" parent="." instance=ExtResource("10_8vcaa")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
 
-[editable path="HBoxContainer/VBoxContainer2/GamesContainer"]
+[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/ControllerButton" to="." method="_on_controller_button_pressed"]
+[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/Container/RecentGames" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_btn_pressed" binds= [0]]
+[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/Container/FavoriteGames" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_btn_pressed"]
+[connection signal="calculate_label_positions" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_logic_calculate_label_positions"]
+[connection signal="visibility_changed" from="GameView" to="." method="_on_game_preview_visibility_changed"]
+
+[editable path="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer"]
