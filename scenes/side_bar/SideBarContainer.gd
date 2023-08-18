@@ -26,6 +26,9 @@ func _on_logic_calculate_label_positions(node):
 		if btn.pressed.is_connected(_on_btn_pressed):
 			btn.pressed.disconnect(_on_btn_pressed)
 		btn.pressed.connect(_on_btn_pressed.bind(-system_container.position.y))
+		if btn.focus_entered.is_connected(_on_btn_pressed):
+			btn.focus_entered.disconnect(_on_btn_pressed)
+		btn.focus_entered.connect(_on_btn_pressed.bind(-system_container.position.y))
 
 func _on_btn_pressed(offset: int):
 	var delta = abs(%GamesContainer.pos.y - offset)

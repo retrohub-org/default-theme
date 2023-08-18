@@ -36,6 +36,9 @@ var friction_drag := 0.9
 @export
 var debug_mode := false
 
+@export
+var drag_min_distance := 10
+
 # Current velocity of the `content_node`
 var velocity := Vector2(0,0)
 # Below this value, velocity is set to `0`
@@ -66,6 +69,8 @@ var right_distance := 0.0
 var left_distance := 0.0
 # Content node position where dragging starts
 var drag_start_pos := Vector2.ZERO
+
+var mouse_start_pos = null
 
 
 ####################
@@ -140,16 +145,22 @@ func _gui_input(event: InputEvent) -> void:
 					content_dragging = true
 					friction = 0.0
 					drag_start_pos = content_node.position
+					mouse_start_pos = event.global_position
 				else:
 					content_dragging = false
 					friction = friction_drag
 					damping = damping_drag
+					mouse_start_pos = null
 	
 	if event is InputEventScreenDrag or event is InputEventMouseMotion:
 		if content_dragging:
-			remove_all_children_focus(self)
-			handle_content_dragging(event.relative)
-			get_tree().get_root().set_input_as_handled()
+			# Gives some margin of error for mouse clicks
+			if mouse_start_pos and mouse_start_pos.distance_to(event.global_position) > drag_min_distance:
+				mouse_start_pos = null
+			elif mouse_start_pos == null:
+				remove_all_children_focus(self)
+				handle_content_dragging(event.relative)
+				get_tree().get_root().set_input_as_handled()
 	
 	if event is InputEventScreenTouch:
 		if event.pressed:
