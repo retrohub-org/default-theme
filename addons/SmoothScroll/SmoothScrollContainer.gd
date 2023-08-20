@@ -38,6 +38,8 @@ var debug_mode := false
 
 @export
 var drag_min_distance := 10
+@export
+var horizontal_scroll_with_shift := true
 
 # Current velocity of the `content_node`
 var velocity := Vector2(0,0)
@@ -120,25 +122,21 @@ func _gui_input(event: InputEvent) -> void:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_DOWN:
 				if event.pressed:
-					if event.shift_pressed:
+					if not horizontal_scroll_with_shift or event.shift_pressed:
 						velocity.x -= speed
 					else:
 						velocity.y -= speed
 					friction = friction_scroll
 					damping = damping_scroll
-				if (allow_vertical_scroll and not event.shift_pressed) or \
-					(allow_horizontal_scroll and event.shift_pressed):
 					get_tree().get_root().set_input_as_handled()
 			MOUSE_BUTTON_WHEEL_UP:
 				if event.pressed:
-					if event.shift_pressed:
+					if not horizontal_scroll_with_shift or event.shift_pressed:
 						velocity.x += speed
 					else:
 						velocity.y += speed
 					friction = friction_scroll
 					damping = damping_scroll
-				if (allow_vertical_scroll and not event.shift_pressed) or \
-					(allow_horizontal_scroll and event.shift_pressed):
 					get_tree().get_root().set_input_as_handled()
 			MOUSE_BUTTON_LEFT:
 				if event.pressed:

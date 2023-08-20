@@ -62,18 +62,21 @@ size_flags_vertical = 3
 script = ExtResource("6_wpam4")
 
 [node name="RecentGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 text = "Recent"
 clip_text = true
 
 [node name="FavoriteGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 text = "Favorites"
 clip_text = true
 
 [node name="LibraryGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 text = "Library"
@@ -134,6 +137,7 @@ layout_mode = 2
 [node name="GamesContainer" parent="GameSelector/HBoxContainer/VBoxContainer2" instance=ExtResource("8_gcxl4")]
 unique_name_in_owner = true
 layout_mode = 2
+horizontal_scroll_with_shift = true
 
 [node name="HSeparator2" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -147,8 +151,6 @@ visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/ControllerButton" to="." method="_on_controller_button_pressed"]
-[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/Container/RecentGames" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_btn_pressed" binds= [0]]
-[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/Container/FavoriteGames" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_btn_pressed"]
 [connection signal="calculate_label_positions" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_logic_calculate_label_positions"]
 [connection signal="visibility_changed" from="GameView" to="." method="_on_game_preview_visibility_changed"]
 

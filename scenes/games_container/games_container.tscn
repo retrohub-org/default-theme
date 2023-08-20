@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bniifqdnola0v"]
+[gd_scene load_steps=7 format=3 uid="uid://bniifqdnola0v"]
 
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="1_321nt"]
 [ext_resource type="PackedScene" uid="uid://3ttwxnv6byn" path="res://scenes/games_container/system_games_container.tscn" id="2_df3ex"]
-[ext_resource type="Script" path="res://scenes/games_container/GamesContainer.gd" id="2_gq5ji"]
-[ext_resource type="PackedScene" uid="uid://ftyg4jgq44jd" path="res://scenes/games_container/recent_games.tscn" id="2_m6kvt"]
+[ext_resource type="Script" path="res://scenes/games_container/games_container.gd" id="2_gq5ji"]
+[ext_resource type="PackedScene" uid="uid://ftyg4jgq44jd" path="res://scenes/games_container/recent_games_container.tscn" id="2_m6kvt"]
+[ext_resource type="PackedScene" uid="uid://dxr0vs3px8qqx" path="res://scenes/games_container/favorite_games_container.tscn" id="5_7hw26"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3t8hg"]
 font_size = 24
@@ -20,6 +21,7 @@ script = ExtResource("1_321nt")
 damping_scroll = 0.2
 damping_drag = 0.2
 drag_min_distance = 20
+horizontal_scroll_with_shift = null
 
 [node name="Logic" type="Control" parent="."]
 layout_mode = 2
@@ -34,10 +36,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="RecentGames" parent="Container" instance=ExtResource("2_m6kvt")]
-visible = false
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FavoriteGames" parent="Container" instance=ExtResource("5_7hw26")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="LibraryLabel" type="Label" parent="Container"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 text = "Library"

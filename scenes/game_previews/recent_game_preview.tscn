@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://ciumb2hv5eapa"]
+
+[ext_resource type="Script" path="res://scenes/game_previews/recent_game_preview.gd" id="1_fx71v"]
+
+[node name="RecentGamesPreview" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_fx71v")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 168)
+layout_mode = 2
+mouse_filter = 1
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Sonic the Hedgehog"
+clip_text = true
+text_overrun_behavior = 3
+
+[connection signal="focus_entered" from="Button" to="." method="_on_focus_entered"]
+[connection signal="mouse_entered" from="Button" to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="Button" to="." method="_on_pressed"]

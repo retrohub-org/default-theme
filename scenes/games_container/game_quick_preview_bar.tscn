@@ -5,9 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://c4ue7fi0lkyb3" path="res://assets/placeholders/star_filled.png" id="2_qsgb2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iwh0m"]
-font_size = 28
+font_size = 24
 
 [node name="GameQuickPreviewBar" type="HBoxContainer" groups=["global_signal(on_game_preview_selected)"]]
+custom_minimum_size = Vector2(0, 100)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 80.0
@@ -42,23 +43,32 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Game name"
+size_flags_vertical = 3
+text = "Game name with a very long name to illustrate the problem of very long line names and check what happens at 3rd line"
 label_settings = SubResource("LabelSettings_iwh0m")
+autowrap_mode = 2
 clip_text = true
 text_overrun_behavior = 3
 
 [node name="Rating" type="TextureProgressBar" parent="Panel/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(100, 20)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 4
+size_flags_vertical = 0
 max_value = 1.0
 step = 0.01
 value = 0.65
 nine_patch_stretch = true
 texture_under = ExtResource("1_goprv")
 texture_progress = ExtResource("2_qsgb2")
+
+[node name="AgeRatingContainer" type="AspectRatioContainer" parent="Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+ratio = 0.8
+stretch_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)

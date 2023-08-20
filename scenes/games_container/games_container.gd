@@ -6,6 +6,9 @@ signal calculate_label_positions(node)
 
 @onready var n_root := $".."
 @onready var n_container := %Container
+@onready var n_recent_games := %RecentGames
+@onready var n_favorite_games := %FavoriteGames
+@onready var n_library_label = %LibraryLabel
 
 var n_system_nodes := {}
 
