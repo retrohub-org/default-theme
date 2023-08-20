@@ -1,0 +1,169 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtgfhatyhvq47"]
+
+[ext_resource type="Script" path="res://scenes/game_view/media_section.gd" id="1_rsoeq"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="2_g4wg8"]
+[ext_resource type="Script" path="res://scenes/game_view/media_selection.gd" id="2_i6tkc"]
+[ext_resource type="PackedScene" uid="uid://nifvpclnv1mq" path="res://scenes/game_view/media_preview/image_preview.tscn" id="3_viu2x"]
+
+[node name="MediaSection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+script = ExtResource("1_rsoeq")
+
+[node name="ImagePreview" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="GameTitle" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.400002
+offset_bottom = -0.800003
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Name" type="Label" parent="GameTitle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Logo" type="TextureRect" parent="GameTitle"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 125)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.218
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -125.0
+offset_right = 5.0
+grow_vertical = 0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AgeRating" type="Control" parent="GameTitle/Logo"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 4.86398
+offset_right = 124.864
+offset_bottom = 123.0
+grow_horizontal = 0
+
+[node name="GameRenders" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.704
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.00806
+offset_top = -151.4
+offset_bottom = -1.39996
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="BoxRender" type="TextureRect" parent="GameRenders"]
+unique_name_in_owner = true
+texture_filter = 4
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.646
+anchor_top = 0.287
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0679932
+offset_top = -0.0499992
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SupportRender" type="TextureRect" parent="GameRenders/BoxRender"]
+unique_name_in_owner = true
+texture_filter = 4
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.529
+anchor_top = 0.402
+anchor_bottom = 1.0
+offset_left = 0.00900269
+offset_top = -0.0139999
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MediaSelection" type="Panel" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 200.0
+offset_bottom = -0.400024
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("2_i6tkc")
+image_preview = ExtResource("3_viu2x")
+
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="MediaSelection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_g4wg8")
+
+[node name="MarginContainer" type="MarginContainer" parent="MediaSelection/SmoothScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Container" type="VBoxContainer" parent="MediaSelection/SmoothScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="media_pressed" from="MediaSelection" to="." method="_on_media_selection_media_pressed"]

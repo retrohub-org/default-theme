@@ -19,6 +19,7 @@ func _ready():
 
 func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, types: int):
 	if self.game_data != data: return
+
 	if media.title_screen:
 		n_button.icon = media.title_screen
 
