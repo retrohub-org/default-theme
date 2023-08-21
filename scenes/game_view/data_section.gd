@@ -44,3 +44,6 @@ func _on_favorite_toggled(button_pressed):
 
 func grab_focus():
 	n_play.grab_focus()
+
+func _on_play_pressed():
+	RetroHub.launch_game()

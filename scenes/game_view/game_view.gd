@@ -55,6 +55,3 @@ func _on_data_focus_entered(time := 0.3):
 	n_data_root.grab_focus()
 
 	media_expanded = false
-
-func _on_play_pressed():
-	RetroHub.launch_game()

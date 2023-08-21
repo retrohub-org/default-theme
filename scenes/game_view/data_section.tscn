@@ -174,4 +174,5 @@ mouse_filter = 1
 text = "Game details"
 autowrap_mode = 2
 
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/Favorite" to="." method="_on_favorite_toggled"]
