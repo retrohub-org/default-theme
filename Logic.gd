@@ -5,6 +5,8 @@ extends Control
 
 func _ready():
 	RetroHubConfig.config_updated.connect(_on_config_updated)
+	
+	OS.low_processor_usage_mode = true
 
 func _on_config_updated(key: String, _old, _new):
 	if key == ConfigData.KEY_GAMES_DIR:

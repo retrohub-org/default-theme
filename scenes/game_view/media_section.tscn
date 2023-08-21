@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtgfhatyhvq47"]
+[gd_scene load_steps=9 format=3 uid="uid://dtgfhatyhvq47"]
 
 [ext_resource type="Script" path="res://scenes/game_view/media_section.gd" id="1_rsoeq"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="2_g4wg8"]
+[ext_resource type="Shader" path="res://resources/media_blur_shader.gdshader" id="2_g8r5v"]
 [ext_resource type="Script" path="res://scenes/game_view/media_selection.gd" id="2_i6tkc"]
+[ext_resource type="PackedScene" uid="uid://bldia4v0yi6on" path="res://scenes/game_view/video_controls.tscn" id="3_ayxn1"]
 [ext_resource type="PackedScene" uid="uid://nifvpclnv1mq" path="res://scenes/game_view/media_preview/image_preview.tscn" id="3_viu2x"]
+[ext_resource type="PackedScene" uid="uid://s5gknwkfbjw" path="res://scenes/game_view/media_preview/video_preview.tscn" id="4_e05t3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w5u1s"]
+shader = ExtResource("2_g8r5v")
+shader_parameter/strength = 6
 
 [node name="MediaSection" type="Control"]
 layout_mode = 3
@@ -15,6 +22,18 @@ grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_rsoeq")
 
+[node name="BackgroundBlur" type="TextureRect" parent="."]
+unique_name_in_owner = true
+texture_filter = 2
+material = SubResource("ShaderMaterial_w5u1s")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
 [node name="ImagePreview" type="TextureRect" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -25,6 +44,23 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 1
 stretch_mode = 6
+
+[node name="VideoPreview" type="VideoStreamPlayer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+expand = true
+bus = &"Video"
+
+[node name="VideoControls" parent="." instance=ExtResource("3_ayxn1")]
+layout_mode = 1
+offset_top = -48.0
+offset_right = -200.0
 
 [node name="GameTitle" type="Control" parent="."]
 unique_name_in_owner = true
@@ -86,7 +122,7 @@ offset_top = -151.4
 offset_bottom = -1.39996
 grow_horizontal = 0
 grow_vertical = 0
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="BoxRender" type="TextureRect" parent="GameRenders"]
 unique_name_in_owner = true
@@ -141,6 +177,7 @@ grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("2_i6tkc")
 image_preview = ExtResource("3_viu2x")
+video_preview = ExtResource("4_e05t3")
 
 [node name="SmoothScrollContainer" type="ScrollContainer" parent="MediaSelection"]
 layout_mode = 1
@@ -166,4 +203,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[connection signal="finished" from="VideoPreview" to="." method="_on_video_preview_finished"]
 [connection signal="media_pressed" from="MediaSelection" to="." method="_on_media_selection_media_pressed"]

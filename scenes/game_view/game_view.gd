@@ -23,6 +23,7 @@ func _on_back_pressed():
 		_on_data_focus_entered()
 	else:
 		visible = false
+		n_media_root.free_media()
 
 func _on_media_focus_entered():
 	if media_expanded: return

@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://s5gknwkfbjw"]
+
+[ext_resource type="Script" path="res://scenes/game_view/media_preview/video_preview.gd" id="2_1s06r"]
+[ext_resource type="Texture2D" uid="uid://b0dkdej20qnxs" path="res://assets/icons/play_preview.svg" id="2_fbt7l"]
+
+[node name="VideoPreview" type="Button"]
+custom_minimum_size = Vector2(160, 160)
+offset_right = 127.0
+offset_bottom = 131.0
+mouse_filter = 1
+toggle_mode = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_1s06r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_fbt7l")
+expand_mode = 1
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

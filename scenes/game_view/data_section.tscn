@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cp3jlic4qi076"]
+[gd_scene load_steps=10 format=3 uid="uid://cp3jlic4qi076"]
 
 [ext_resource type="Texture2D" uid="uid://wdi7id6fbtjw" path="res://assets/icons/play.svg" id="1_e8brx"]
 [ext_resource type="Script" path="res://scenes/game_view/data_section.gd" id="1_gsq0a"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://uvm6vlcgyvyk" path="res://assets/placeholders/favorite_normal.png" id="4_e7quj"]
 [ext_resource type="Texture2D" uid="uid://bxqkgayfuyyu3" path="res://assets/placeholders/favorite_pressed.png" id="5_dpu8r"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_u0kaw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5yej"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jlgt7"]
 font_size = 18
@@ -20,6 +23,15 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_gsq0a")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b5yej")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1

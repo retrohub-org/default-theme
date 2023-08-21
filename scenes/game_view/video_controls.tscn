@@ -1,0 +1,115 @@
+[gd_scene load_steps=6 format=3 uid="uid://bldia4v0yi6on"]
+
+[ext_resource type="Script" path="res://scenes/game_view/video_controls.gd" id="1_m88rk"]
+[ext_resource type="Texture2D" uid="uid://wdi7id6fbtjw" path="res://assets/icons/play.svg" id="1_nw8qe"]
+[ext_resource type="Texture2D" uid="uid://c5p4gypthlnmf" path="res://assets/icons/pause.svg" id="2_ntfas"]
+[ext_resource type="Texture2D" uid="uid://dssr5w2inxpa" path="res://assets/icons/sound_on.svg" id="3_ue5oe"]
+[ext_resource type="Texture2D" uid="uid://v14g8pxtcee4" path="res://assets/icons/sound_off.svg" id="4_yjfgh"]
+
+[node name="VideoControls" type="Panel"]
+custom_minimum_size = Vector2(0, 48)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+script = ExtResource("1_m88rk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PlayPause" type="TextureButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("2_ntfas")
+texture_pressed = ExtResource("1_nw8qe")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Time" type="HSlider" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 0.01
+
+[node name="TimeLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "%s / %s"
+
+[node name="Sound" type="TextureButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+texture_normal = ExtResource("3_ue5oe")
+texture_pressed = ExtResource("4_yjfgh")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="VolumePopup" type="Panel" parent="HBoxContainer/Sound"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -150.0
+grow_horizontal = 2
+
+[node name="VolumeSlider" type="VSlider" parent="HBoxContainer/Sound/VolumePopup"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="TimeTimer" type="Timer" parent="HBoxContainer"]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[node name="VolumeHideTimer" type="Timer" parent="HBoxContainer"]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="toggled" from="HBoxContainer/PlayPause" to="." method="_on_play_pause_toggled"]
+[connection signal="drag_ended" from="HBoxContainer/Time" to="." method="_on_time_drag_ended"]
+[connection signal="drag_started" from="HBoxContainer/Time" to="." method="_on_time_drag_started"]
+[connection signal="value_changed" from="HBoxContainer/Time" to="." method="_on_time_value_changed"]
+[connection signal="focus_entered" from="HBoxContainer/Sound" to="." method="show_volume_popup"]
+[connection signal="focus_exited" from="HBoxContainer/Sound" to="." method="_on_sound_focus_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/Sound" to="." method="show_volume_popup"]
+[connection signal="mouse_exited" from="HBoxContainer/Sound" to="." method="_on_sound_mouse_exited"]
+[connection signal="toggled" from="HBoxContainer/Sound" to="." method="_on_sound_toggled"]
+[connection signal="mouse_entered" from="HBoxContainer/Sound/VolumePopup" to="." method="_on_volume_popup_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/Sound/VolumePopup" to="." method="_on_volume_popup_mouse_exited"]
+[connection signal="value_changed" from="HBoxContainer/Sound/VolumePopup/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="timeout" from="HBoxContainer/TimeTimer" to="." method="set_time_label"]
+[connection signal="timeout" from="HBoxContainer/TimeTimer" to="." method="update_stream_position"]
+[connection signal="timeout" from="HBoxContainer/VolumeHideTimer" to="." method="_on_volume_hide_timer_timeout"]
