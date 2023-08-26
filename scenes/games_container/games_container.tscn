@@ -21,7 +21,6 @@ script = ExtResource("1_321nt")
 damping_scroll = 0.2
 damping_drag = 0.2
 drag_min_distance = 20
-horizontal_scroll_with_shift = null
 
 [node name="Logic" type="Control" parent="."]
 layout_mode = 2

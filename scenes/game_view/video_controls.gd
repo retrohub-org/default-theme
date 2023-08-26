@@ -38,7 +38,8 @@ func setup():
 	n_time_timer.start()
 
 func update_stream_position():
-	n_time.value = video_player.stream_position
+	if video_player:
+		n_time.value = video_player.stream_position
 
 func set_time_label():
 	if not RetroHub.is_main_app(): return

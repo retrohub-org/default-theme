@@ -10,7 +10,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w5u1s"]
 shader = ExtResource("2_g8r5v")
-shader_parameter/strength = 6
+shader_parameter/strength = 2
 
 [node name="MediaSection" type="Control"]
 layout_mode = 3

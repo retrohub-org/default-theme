@@ -18,6 +18,7 @@ func _ready():
 	RetroHub.system_receive_end.connect(_on_system_receive_end)
 
 
+
 func _on_system_received(data: RetroHubSystemData):
 	var scene = system_games_container.instantiate()
 	n_container.add_child(scene)
