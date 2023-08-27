@@ -34,8 +34,9 @@ func _ready():
 	RetroHubMedia.media_loaded.connect(_on_media_loaded)
 
 func signal_media_ready():
-	media_ready.emit()
-	media_ready_emitted = true
+	if not media_ready_emitted:
+		media_ready.emit()
+		media_ready_emitted = true
 
 func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, _types: int):
 	if not visible or game_data != data: return
@@ -142,7 +143,7 @@ func set_fullscreen_video(time: float):
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
 	var preview_size : Vector2 = n_video_preview.get_video_texture().get_size()
-	var total_size := Vector2(1152, 648 * 0.4)
+	var total_size := Vector2(1152, 648)
 	
 	var desired_size := Vector2(
 		total_size.x,

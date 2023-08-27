@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_u0kaw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5yej"]
-bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+bg_color = Color(0.219608, 0.219608, 0.219608, 0.886275)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jlgt7"]
 font_size = 18
