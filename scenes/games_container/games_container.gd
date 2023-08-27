@@ -16,6 +16,7 @@ var n_system_nodes := {}
 func _ready():
 	RetroHub.system_received.connect(_on_system_received)
 	RetroHub.system_receive_end.connect(_on_system_receive_end)
+	RetroHub.game_receive_end.connect(_on_game_receive_end)
 
 func _on_system_received(data: RetroHubSystemData):
 	var scene = system_games_container.instantiate()
@@ -27,6 +28,14 @@ func _on_system_receive_end():
 	# Wait a frame for the scroll container to position it's children
 	await get_tree().process_frame
 	calculate_label_positions.emit(self)
+
+func _on_game_receive_end():
+	await get_tree().process_frame
+	# Focus the first object
+	if n_recent_games.grab_first_focus(): return
+	if n_favorite_games.grab_first_focus(): return
+	for system in n_container.get_children():
+		if system.grab_first_focus(): return
 
 func search(search_term: String):
 	n_recent_games.search_requested(search_term)

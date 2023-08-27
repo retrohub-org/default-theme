@@ -49,6 +49,12 @@ func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, type
 	if n_container.get_child_count() > 0:
 		n_container.get_child(0).button_pressed = true
 
+func grab_focus():
+	for child in n_container.get_children():
+		if child.button_pressed:
+			child.grab_focus()
+			return
+
 func populate(data: RetroHubGameData):
 	game_data = data
 
@@ -58,3 +64,7 @@ func populate(data: RetroHubGameData):
 
 	if data.has_media:
 		RetroHubMedia.retrieve_media_data_async(data)
+
+
+func _on_focus_entered():
+	self.grab_focus()

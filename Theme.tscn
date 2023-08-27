@@ -261,7 +261,7 @@ _data = {
 "transition_view": SubResource("Animation_w3dgl")
 }
 
-[node name="Theme" type="Control"]
+[node name="Theme" type="Control" groups=["global_signal(on_game_pressed)"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -340,6 +340,7 @@ mouse_filter = 1
 [node name="SideBar" type="ScrollContainer" parent="GameSelector/HBoxContainer/VBoxContainer/Container"]
 layout_mode = 2
 size_flags_vertical = 3
+follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("5_qs61x")
@@ -369,6 +370,7 @@ layout_mode = 2
 [node name="GamesContainer" parent="GameSelector/HBoxContainer/VBoxContainer2" instance=ExtResource("8_gcxl4")]
 unique_name_in_owner = true
 layout_mode = 2
+follow_focus_margin = 50
 
 [node name="HSeparator2" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer2"]
 layout_mode = 2

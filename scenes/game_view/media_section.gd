@@ -87,6 +87,8 @@ func animate_enter(time: float):
 
 	n_video_controls.visible = n_video_preview.visible
 	media_expanded = true
+	await get_tree().process_frame
+	n_media_selection.grab_focus()
 
 func set_image_size(node: Control, texture: Texture2D, time: float):
 	var tween := create_tween()

@@ -175,6 +175,7 @@ offset_right = 200.0
 offset_bottom = -0.400024
 grow_horizontal = 0
 grow_vertical = 2
+focus_mode = 2
 script = ExtResource("2_i6tkc")
 image_preview = ExtResource("3_viu2x")
 video_preview = ExtResource("4_e05t3")
@@ -204,4 +205,5 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [connection signal="finished" from="VideoPreview" to="." method="_on_video_preview_finished"]
+[connection signal="focus_entered" from="MediaSelection" to="MediaSelection" method="_on_focus_entered"]
 [connection signal="media_pressed" from="MediaSelection" to="." method="_on_media_selection_media_pressed"]

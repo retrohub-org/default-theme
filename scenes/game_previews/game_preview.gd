@@ -1,7 +1,7 @@
 extends Button
 
 signal game_preview_selected(data: RetroHubGameData, select_on_ui: bool)
-signal game_pressed(data: RetroHubGameData)
+signal game_pressed(data: RetroHubGameData, preview: Control)
 
 @onready var n_preview := %Preview
 @onready var n_blurhash := %BlurHash
@@ -107,5 +107,5 @@ func _on_focus_entered():
 
 
 func _on_pressed():
-	game_pressed.emit(game_data)
-	get_tree().call_group("global_signal(on_game_pressed)", "_on_game_pressed", game_data)
+	game_pressed.emit(game_data, self)
+	get_tree().call_group("global_signal(on_game_pressed)", "_on_game_pressed", game_data, self)

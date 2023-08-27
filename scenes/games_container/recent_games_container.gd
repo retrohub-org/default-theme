@@ -33,11 +33,20 @@ func _on_game_received(data: RetroHubGameData):
 			games[games.find(oldest)] = data
 
 func _on_game_receive_end():
+	if games.is_empty():
+		visible = false
+		return
+
 	games.sort_custom(is_newer)
 	for game in games:
 		var preview = game_preview.instantiate()
 		n_container.add_child(preview)
 		preview.game_data = game
+
+func grab_first_focus() -> bool:
+	if not visible or n_container.get_child_count() < 1: return false
+	n_container.get_child(0).grab_focus()
+	return true
 
 func reset_visibility():
 	for child in n_container.get_children():

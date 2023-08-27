@@ -1,4 +1,69 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://btvhohyurcn0u"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://btvhohyurcn0u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1m02"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p20n8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6imyg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.223529, 0.223529, 0.223529, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u68jn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101961, 0.101961, 0.101961, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4omsn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gqu7m"]
 
@@ -74,6 +139,11 @@ corner_radius_bottom_left = 64
 corner_detail = 10
 
 [resource]
+InvisibleButton/styles/disabled = SubResource("StyleBoxFlat_d1m02")
+InvisibleButton/styles/focus = SubResource("StyleBoxFlat_p20n8")
+InvisibleButton/styles/hover = SubResource("StyleBoxFlat_6imyg")
+InvisibleButton/styles/normal = SubResource("StyleBoxFlat_u68jn")
+InvisibleButton/styles/pressed = SubResource("StyleBoxFlat_4omsn")
 LineEdit/colors/caret_color = Color(0.45098, 0.45098, 0.45098, 1)
 LineEdit/colors/font_color = Color(0.215686, 0.215686, 0.215686, 1)
 LineEdit/colors/font_placeholder_color = Color(0.407843, 0.407843, 0.407843, 1)

@@ -9,3 +9,6 @@ var game_data : RetroHubGameData:
 		n_game_preview.game_data = game_data
 
 		n_label.text = game_data.name
+
+func grab_focus():
+	n_game_preview.grab_focus()

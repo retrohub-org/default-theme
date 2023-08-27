@@ -31,6 +31,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Search..."
+context_menu_enabled = false
 
 [node name="SearchDelay" type="Timer" parent="."]
 unique_name_in_owner = true

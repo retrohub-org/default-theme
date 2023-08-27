@@ -6,9 +6,14 @@ extends Control
 
 var is_on_game_view := false
 
+var last_preview : Control
+
+func _on_game_pressed(data: RetroHubGameData, preview: Control):
+	last_preview = preview
+
 func _ready():
 	RetroHubConfig.config_updated.connect(_on_config_updated)
-	
+
 	OS.low_processor_usage_mode = true
 
 func _on_config_updated(key: String, _old, _new):
@@ -20,13 +25,21 @@ func _on_controller_button_pressed():
 
 
 func _on_game_view_preview_ready():
+	if is_on_game_view: return
+	if n_anim.is_playing():
+		await n_anim.animation_finished
 	is_on_game_view = true
 	n_anim.play("transition_view")
 
-
 func _on_game_view_on_back_pressed():
+	if not is_on_game_view: return
+	if n_anim.is_playing():
+		await n_anim.animation_finished
 	is_on_game_view = false
 	n_anim.play("transition_seletor")
+	if last_preview:
+		print("Grabbing focus")
+		last_preview.grab_focus()
 	await n_anim.animation_finished
 	if not is_on_game_view:
 		n_game_view.free_media()

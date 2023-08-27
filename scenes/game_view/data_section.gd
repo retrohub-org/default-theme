@@ -12,6 +12,9 @@ extends Control
 @onready var n_release_date := %ReleaseDate
 @onready var n_description := %Description
 
+@onready var n_favorite_checked := %StarFilled
+@onready var n_favorite_unchecked := %StarUnfilled
+
 @onready var n_base_text := {
 	n_developer: n_developer.text,
 	n_publisher: n_publisher.text,
@@ -30,13 +33,16 @@ func populate():
 	n_play_count.text = str(game_data.play_count) if game_data.play_count > 0 else "never played before"
 	n_num_players.text = "Single player" if game_data.num_players == "1-1" else "Multi player\n(%s)" % game_data.num_players
 	n_rating.value = game_data.rating
-	n_favorite.set_pressed_no_signal(game_data.favorite)
+	n_favorite_checked.visible = game_data.favorite
+	n_favorite_unchecked.visible = not game_data.favorite
 	n_developer.text = n_base_text[n_developer] % game_data.developer
 	n_publisher.text = n_base_text[n_publisher] % game_data.publisher
 	n_genres.text = n_base_text[n_genres] % game_data.genres[0] if not game_data.genres.is_empty() else "unknown"
 	n_release_date.text = n_base_text[n_release_date] % RegionUtils.localize_date(game_data.release_date)
 
 func _on_favorite_toggled(button_pressed):
+	n_favorite_checked.visible = button_pressed
+	n_favorite_unchecked.visible = not button_pressed
 	game_data.favorite = button_pressed
 
 func grab_focus():
@@ -44,3 +50,9 @@ func grab_focus():
 
 func _on_play_pressed():
 	RetroHub.launch_game()
+
+
+func _on_favorite_pressed():
+	game_data.favorite = not game_data.favorite
+	n_favorite_checked.visible = game_data.favorite
+	n_favorite_unchecked.visible = not game_data.favorite
