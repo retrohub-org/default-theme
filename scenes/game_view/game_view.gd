@@ -2,8 +2,12 @@ extends Control
 
 var data : RetroHubGameData
 
+signal preview_ready
+signal on_back_pressed
+
 @onready var n_media_root := %Media
 @onready var n_data_root := %Data
+@onready var n_preview_load_timer := %PreviewLoadTimer
 
 @onready var media_orig_rect : Rect2 = n_media_root.get_rect()
 @onready var data_orig_rect : Rect2 = n_data_root.get_rect()
@@ -11,19 +15,25 @@ var data : RetroHubGameData
 var media_expanded := false
 
 func _on_game_pressed(data: RetroHubGameData):
-	visible = true
 	self.data = data
 
 	_on_data_focus_entered(0.0)
 	n_data_root.game_data = data
 	n_media_root.game_data = data
+	n_preview_load_timer.start()
 
 func _on_back_pressed():
 	if media_expanded:
 		_on_data_focus_entered()
 	else:
 		visible = false
-		n_media_root.free_media()
+		on_back_pressed.emit()
+
+func mute_media():
+	n_media_root.mute_media()
+
+func free_media():
+	n_media_root.free_media()
 
 func _on_media_focus_entered():
 	if media_expanded: return
@@ -55,3 +65,11 @@ func _on_data_focus_entered(time := 0.3):
 	n_data_root.grab_focus()
 
 	media_expanded = false
+
+
+func _on_preview_load_timer_timeout():
+	preview_ready.emit()
+
+
+func _on_media_media_ready():
+	preview_ready.emit()

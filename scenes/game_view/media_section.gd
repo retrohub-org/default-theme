@@ -2,6 +2,8 @@ extends Control
 
 var Utils := preload("res://Utils.gd").new()
 
+signal media_ready
+
 @onready var n_name := %Name
 @onready var n_logo := %Logo
 @onready var n_age_rating := %AgeRating
@@ -21,6 +23,7 @@ var Utils := preload("res://Utils.gd").new()
 @onready var image_preview_orig_rect : Rect2 = n_image_preview.get_rect()
 
 var media_expanded := false
+var media_ready_emitted := false
 
 var game_data : RetroHubGameData:
 	set(value):
@@ -29,6 +32,10 @@ var game_data : RetroHubGameData:
 
 func _ready():
 	RetroHubMedia.media_loaded.connect(_on_media_loaded)
+
+func signal_media_ready():
+	media_ready.emit()
+	media_ready_emitted = true
 
 func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, _types: int):
 	if not visible or game_data != data: return
@@ -52,6 +59,12 @@ func populate():
 	n_age_rating.add_child(age_rating_node)
 
 	n_media_selection.populate(game_data)
+	media_ready_emitted = false
+
+	# If game has no media, emit the media signal immediately, otherwise user
+	# will wait
+	if not game_data.has_media:
+		signal_media_ready()
 
 func animate_enter(time: float):
 	var tween := create_tween()
@@ -173,6 +186,9 @@ func free_media():
 	n_support_render.texture = null
 	n_video_preview.stream = null
 
+func mute_media():
+	n_video_preview.volume = 0
+
 func make_preview_visible(preview: Node):
 	for node in [
 		n_image_preview,
@@ -181,6 +197,7 @@ func make_preview_visible(preview: Node):
 		node.visible = node == preview
 
 func _on_media_selection_media_pressed(media: Resource, type: RetroHubMedia.Type):
+	signal_media_ready()
 	match type:
 		RetroHubMedia.Type.VIDEO:
 			n_video_preview.stream = media

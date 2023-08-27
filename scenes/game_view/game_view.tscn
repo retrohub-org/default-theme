@@ -40,6 +40,13 @@ icon = ExtResource("8_sxsr1")
 icon_alignment = 1
 expand_icon = true
 
+[node name="PreviewLoadTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.8
+one_shot = true
+
 [connection signal="focus_entered" from="Media" to="." method="_on_media_focus_entered"]
+[connection signal="media_ready" from="Media" to="." method="_on_media_media_ready"]
 [connection signal="focus_entered" from="Data" to="." method="_on_data_focus_entered"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="timeout" from="PreviewLoadTimer" to="." method="_on_preview_load_timer_timeout"]

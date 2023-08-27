@@ -48,7 +48,7 @@ func check_unload_media(y: float, delta: float):
 func check_load_media(y: float, delta: float):
 	# Load if we are inside the limits
 	if y + size.y >= min_y and y <= max_y:
-		if abs(delta) > 100:
+		if abs(delta) > 10:
 			hash_loaded = true
 			if not n_blurhash.texture:
 				n_blurhash.visible = true
