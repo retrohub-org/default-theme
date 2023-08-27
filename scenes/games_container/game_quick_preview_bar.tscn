@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b710c8xqxeg0c"]
+[gd_scene load_steps=7 format=3 uid="uid://b710c8xqxeg0c"]
 
 [ext_resource type="Script" path="res://scenes/games_container/game_quick_preview_bar.gd" id="1_bt0f5"]
-[ext_resource type="Texture2D" uid="uid://bpc5bvt0atvj2" path="res://assets/placeholders/star_unfilled.png" id="1_goprv"]
-[ext_resource type="Texture2D" uid="uid://c4ue7fi0lkyb3" path="res://assets/placeholders/star_filled.png" id="2_qsgb2"]
+[ext_resource type="Texture2D" uid="uid://cgkbrwyvcttb7" path="res://assets/icons/star-unfilled-bar.svg" id="2_qmqbc"]
+[ext_resource type="Texture2D" uid="uid://dft2rslfadcw2" path="res://assets/icons/star-filled-bar.svg" id="3_2y6ps"]
+[ext_resource type="Texture2D" uid="uid://dta8m1y7ed5vf" path="res://assets/icons/calendar.svg" id="4_0wt3e"]
+[ext_resource type="Texture2D" uid="uid://ch8uglk4auwl8" path="res://assets/icons/count.svg" id="5_eh2cw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_iwh0m"]
-font_size = 24
+font_size = 22
 
 [node name="GameQuickPreviewBar" type="HBoxContainer" groups=["global_signal(on_game_preview_selected)"]]
 custom_minimum_size = Vector2(0, 100)
@@ -44,7 +46,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Game name"
 label_settings = SubResource("LabelSettings_iwh0m")
 autowrap_mode = 2
 clip_text = true
@@ -52,16 +53,15 @@ text_overrun_behavior = 3
 
 [node name="Rating" type="TextureProgressBar" parent="Panel/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 20)
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 max_value = 1.0
 step = 0.01
-value = 0.65
 nine_patch_stretch = true
-texture_under = ExtResource("1_goprv")
-texture_progress = ExtResource("2_qsgb2")
+texture_under = ExtResource("2_qmqbc")
+texture_progress = ExtResource("3_2y6ps")
 
 [node name="AgeRatingContainer" type="AspectRatioContainer" parent="Panel/HBoxContainer"]
 unique_name_in_owner = true
@@ -71,19 +71,43 @@ ratio = 0.8
 stretch_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
-[node name="StatsPlayCount" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
-text = "Number of times played: %d"
 
-[node name="StatsPlayDate" type="Label" parent="Panel/HBoxContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Last played date"
+texture = ExtResource("4_0wt3e")
+expand_mode = 1
+
+[node name="StatsPlayDate" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 2
-text = "Last played: %s"
+size_flags_horizontal = 3
+tooltip_text = "Last played date"
+mouse_filter = 1
 clip_text = true
 text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Total play count"
+texture = ExtResource("5_eh2cw")
+expand_mode = 1
+
+[node name="StatsPlayCount" type="Label" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Total play count"
+mouse_filter = 1

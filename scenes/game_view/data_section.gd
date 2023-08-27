@@ -13,9 +13,6 @@ extends Control
 @onready var n_description := %Description
 
 @onready var n_base_text := {
-	n_play_date: n_play_date.text,
-	n_play_count: n_play_count.text,
-	n_num_players: n_num_players.text,
 	n_developer: n_developer.text,
 	n_publisher: n_publisher.text,
 	n_genres: n_genres.text,
@@ -29,9 +26,9 @@ var game_data : RetroHubGameData:
 
 func populate():
 	n_description.text = game_data.description
-	n_play_date.text = n_base_text[n_play_date] % (RegionUtils.localize_date(game_data.last_played) if not game_data.last_played.is_empty() else "never")
-	n_play_count.text = n_base_text[n_play_count] % game_data.play_count
-	n_num_players.text = n_base_text[n_num_players] % game_data.num_players
+	n_play_date.text = RegionUtils.localize_date(game_data.last_played) if not game_data.last_played.is_empty() else "never played before"
+	n_play_count.text = str(game_data.play_count) if game_data.play_count > 0 else "never played before"
+	n_num_players.text = "Single player" if game_data.num_players == "1-1" else "Multi player\n(%s)" % game_data.num_players
 	n_rating.value = game_data.rating
 	n_favorite.set_pressed_no_signal(game_data.favorite)
 	n_developer.text = n_base_text[n_developer] % game_data.developer

@@ -7,9 +7,6 @@ extends HBoxContainer
 @onready var n_stats_play_count := %StatsPlayCount
 @onready var n_stats_play_date := %StatsPlayDate
 
-@onready var play_count_base_text = n_stats_play_count.text
-@onready var play_date_base_text = n_stats_play_date.text
-
 var data : RetroHubGameData
 
 # Called when the node enters the scene tree for the first time.
@@ -31,9 +28,9 @@ func _on_game_preview_selected(data: RetroHubGameData, show_in_ui: bool):
 	for child in n_age_rating_container.get_children():
 		child.queue_free()
 	n_age_rating_container.add_child(RegionUtils.localize_age_rating(data.age_rating))
-	n_stats_play_count.text = play_count_base_text % data.play_count
-	var last_play_date = RegionUtils.localize_date(data.last_played) if not data.last_played.is_empty() else "never"
-	n_stats_play_date.text = play_date_base_text % last_play_date
+	n_stats_play_count.text = str(data.play_count) if data.play_count > 0 else "never played before"
+	var last_play_date := RegionUtils.localize_date(data.last_played) if not data.last_played.is_empty() else "never played before"
+	n_stats_play_date.text = last_play_date
 
 	# If name occupies only one line, don't make it expand, letting rating stick close
 	# to the text and look better.

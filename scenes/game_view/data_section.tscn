@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://cp3jlic4qi076"]
+[gd_scene load_steps=13 format=3 uid="uid://cp3jlic4qi076"]
 
 [ext_resource type="Texture2D" uid="uid://wdi7id6fbtjw" path="res://assets/icons/play.svg" id="1_e8brx"]
 [ext_resource type="Script" path="res://scenes/game_view/data_section.gd" id="1_gsq0a"]
-[ext_resource type="Texture2D" uid="uid://bpc5bvt0atvj2" path="res://assets/placeholders/star_unfilled.png" id="2_m5e4t"]
-[ext_resource type="Texture2D" uid="uid://c4ue7fi0lkyb3" path="res://assets/placeholders/star_filled.png" id="3_dh6jp"]
-[ext_resource type="Texture2D" uid="uid://uvm6vlcgyvyk" path="res://assets/placeholders/favorite_normal.png" id="4_e7quj"]
-[ext_resource type="Texture2D" uid="uid://bxqkgayfuyyu3" path="res://assets/placeholders/favorite_pressed.png" id="5_dpu8r"]
+[ext_resource type="Texture2D" uid="uid://ch8uglk4auwl8" path="res://assets/icons/count.svg" id="3_tvk03"]
+[ext_resource type="Texture2D" uid="uid://dta8m1y7ed5vf" path="res://assets/icons/calendar.svg" id="4_wjw8q"]
+[ext_resource type="Texture2D" uid="uid://cgohvfgp74isp" path="res://assets/icons/players.svg" id="5_80s8h"]
+[ext_resource type="Texture2D" uid="uid://cgkbrwyvcttb7" path="res://assets/icons/star-unfilled-bar.svg" id="6_ty36m"]
+[ext_resource type="Texture2D" uid="uid://dft2rslfadcw2" path="res://assets/icons/star-filled-bar.svg" id="7_naxew"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="7_u0kaw"]
+[ext_resource type="Texture2D" uid="uid://b384mq6py02a7" path="res://assets/icons/star-unfilled.svg" id="8_x8u0v"]
+[ext_resource type="Texture2D" uid="uid://bkpb8incwdkr8" path="res://assets/icons/star-filled.svg" id="9_un7ih"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5yej"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 0.886275)
@@ -53,27 +56,66 @@ text = "Play "
 icon = ExtResource("1_e8brx")
 expand_icon = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="PlayDate" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 10
-text = "Last played on: %s"
 
-[node name="PlayCount" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_vertical = 2
-text = "Play count: %d"
+tooltip_text = "Last played date"
+texture = ExtResource("4_wjw8q")
+expand_mode = 1
 
-[node name="NumPlayers" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="PlayDate" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Number of players: %s"
+tooltip_text = "Last played date"
+mouse_filter = 1
+text = "%s"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Total play cont"
+texture = ExtResource("3_tvk03")
+expand_mode = 1
+
+[node name="PlayCount" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Total play cont"
+mouse_filter = 1
+text = "%d"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_80s8h")
+expand_mode = 1
+
+[node name="NumPlayers" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "%s"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -85,7 +127,7 @@ text = "Rating: "
 
 [node name="Rating" type="TextureProgressBar" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -93,8 +135,8 @@ max_value = 1.0
 step = 0.01
 value = 0.65
 nine_patch_stretch = true
-texture_under = ExtResource("2_m5e4t")
-texture_progress = ExtResource("3_dh6jp")
+texture_under = ExtResource("6_ty36m")
+texture_progress = ExtResource("7_naxew")
 
 [node name="Favorite" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -102,8 +144,8 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
 toggle_mode = true
-texture_normal = ExtResource("4_e7quj")
-texture_pressed = ExtResource("5_dpu8r")
+texture_normal = ExtResource("8_x8u0v")
+texture_pressed = ExtResource("9_un7ih")
 ignore_texture_size = true
 stretch_mode = 5
 
