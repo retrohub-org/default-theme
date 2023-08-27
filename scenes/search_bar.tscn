@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://71ahm1a4h667"]
+
+[ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme.tres" id="1_68cb2"]
+[ext_resource type="Texture2D" uid="uid://bimsm5lqg3dmp" path="res://assets/placeholders/search.png" id="1_qvhd4"]
+[ext_resource type="Script" path="res://scenes/search_bar.gd" id="2_10c2x"]
+
+[node name="SearchBar" type="ColorRect"]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme = ExtResource("1_68cb2")
+script = ExtResource("2_10c2x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_qvhd4")
+stretch_mode = 5
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search..."
+
+[node name="SearchDelay" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="timeout" from="SearchDelay" to="." method="_on_search_delay_timeout"]

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="4_lxqt5"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_qs61x"]
 [ext_resource type="Script" path="res://scenes/side_bar/SideBarContainer.gd" id="6_wpam4"]
-[ext_resource type="Texture2D" uid="uid://bimsm5lqg3dmp" path="res://assets/placeholders/search.png" id="7_ndfc5"]
+[ext_resource type="PackedScene" uid="uid://71ahm1a4h667" path="res://scenes/search_bar.tscn" id="7_e0ju2"]
 [ext_resource type="PackedScene" uid="uid://bniifqdnola0v" path="res://scenes/games_container/games_container.tscn" id="8_gcxl4"]
 [ext_resource type="PackedScene" uid="uid://b710c8xqxeg0c" path="res://scenes/games_container/game_quick_preview_bar.tscn" id="9_0lenf"]
 [ext_resource type="PackedScene" uid="uid://ckgpsfhm3urnw" path="res://scenes/game_view/game_view.tscn" id="10_8vcaa"]
@@ -360,27 +360,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ColorRect" type="ColorRect" parent="GameSelector/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(0, 64)
+[node name="SearchBar" parent="GameSelector/HBoxContainer/VBoxContainer2" instance=ExtResource("7_e0ju2")]
 layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GameSelector/HBoxContainer/VBoxContainer2/ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="GameSelector/HBoxContainer/VBoxContainer2/ColorRect/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("7_ndfc5")
-stretch_mode = 5
-
-[node name="LineEdit" type="LineEdit" parent="GameSelector/HBoxContainer/VBoxContainer2/ColorRect/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Search..."
 
 [node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -409,6 +390,9 @@ libraries = {
 }
 
 [connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/ControllerButton" to="." method="_on_controller_button_pressed"]
+[connection signal="search_additive_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search_add"]
+[connection signal="search_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search"]
+[connection signal="search_subtractive_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search_sub"]
 [connection signal="calculate_label_positions" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="GameSelector/HBoxContainer/VBoxContainer/Container" method="_on_logic_calculate_label_positions"]
 [connection signal="on_back_pressed" from="GameView" to="." method="_on_game_view_on_back_pressed"]
 [connection signal="preview_ready" from="GameView" to="." method="_on_game_view_preview_ready"]

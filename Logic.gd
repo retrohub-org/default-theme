@@ -30,4 +30,3 @@ func _on_game_view_on_back_pressed():
 	await n_anim.animation_finished
 	if not is_on_game_view:
 		n_game_view.free_media()
-

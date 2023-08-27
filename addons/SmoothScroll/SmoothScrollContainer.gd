@@ -357,7 +357,7 @@ func remove_all_children_focus(node : Node):
 	if node is Control:
 		var control = node as Control
 		control.release_focus()
-	
+
 	for child in node.get_children():
 		remove_all_children_focus(child)
 

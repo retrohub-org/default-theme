@@ -23,24 +23,29 @@ func _on_system_received(data: RetroHubSystemData):
 
 func _on_logic_calculate_label_positions(node):
 	# Meta buttons
-	bind_button_to_offset(n_recent_games, -node.n_recent_games.position.y)
-	bind_button_to_offset(n_favorite_games, -node.n_favorite_games.position.y)
-	bind_button_to_offset(n_library_games, -node.n_library_label.position.y)
+	await get_tree().process_frame
+	bind_button_to_offset(n_recent_games, node.n_recent_games)
+	bind_button_to_offset(n_favorite_games, node.n_favorite_games)
+	bind_button_to_offset(n_library_games, node.n_library_label)
 
 	# System buttons
 	var system_nodes : Dictionary = node.n_system_nodes
 	for system in system_buttons.keys():
 		var btn : Button = system_buttons[system]
 		var system_container = system_nodes[system]
-		bind_button_to_offset(btn, -system_container.position.y)
+		bind_button_to_offset(btn, system_container)
 
-func bind_button_to_offset(btn: Button, offset: int):
+func bind_button_to_offset(btn: Button, node: Control):
+	if not node.visible:
+		btn.visible = false
+		return
+	btn.visible = true
 	if btn.pressed.is_connected(_on_btn_pressed):
 		btn.pressed.disconnect(_on_btn_pressed)
-	btn.pressed.connect(_on_btn_pressed.bind(offset))
+	btn.pressed.connect(_on_btn_pressed.bind(-node.position.y))
 	if btn.focus_entered.is_connected(_on_btn_pressed):
 		btn.focus_entered.disconnect(_on_btn_pressed)
-	btn.focus_entered.connect(_on_btn_pressed.bind(offset))
+	btn.focus_entered.connect(_on_btn_pressed.bind(-node.position.y))
 
 func _on_btn_pressed(offset: int):
 	var delta = abs(%GamesContainer.pos.y - offset)
