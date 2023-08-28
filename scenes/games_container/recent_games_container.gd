@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+signal focus_top_element
+
 @export var game_preview : PackedScene
 @export var max_displayed_games := 5
 
@@ -49,6 +51,7 @@ func _on_game_receive_end():
 		n_container.add_child(preview)
 		preview.game_data = game
 		preview.set_focus_neighbor_bottom("../../../FocusHandlerBottom")
+		preview.set_focus_neighbor_top("../../../FocusHandlerTop")
 
 func grab_first_focus() -> bool:
 	if not visible or n_container.get_child_count() < 1: return false
@@ -113,3 +116,11 @@ func grab_focus_bottom():
 
 func _on_focus_handler_bottom_focus_entered():
 	grab_focus_bottom()
+
+
+func _on_focus_handler_top_focus_entered():
+	if last_input:
+		if last_input.is_action("ui_up"):
+			focus_top_element.emit()
+		else:
+			n_container.get_child(0).grab_focus()

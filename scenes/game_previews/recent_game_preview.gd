@@ -15,3 +15,6 @@ func grab_focus():
 
 func set_focus_neighbor_bottom(path: NodePath):
 	n_game_preview.focus_neighbor_bottom = path
+
+func set_focus_neighbor_top(path: NodePath):
+	n_game_preview.focus_neighbor_top = path

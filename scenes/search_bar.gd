@@ -10,17 +10,23 @@ signal search_additive_requested(term)
 # search term. This speeds-up searching, since it only affects excluded results.
 signal search_subtractive_requested(term)
 
+@onready var n_icon := %Icon
 @onready var n_line_edit := %LineEdit
 @onready var n_search_delay := %SearchDelay
 
 var last_search_term := ""
 
-func set_focus_mode(mode: FocusMode):
-	n_line_edit.focus_mode = mode
+var _stored_focus_mode : FocusMode
 
-func _on_line_edit_text_changed(new_text):
+func grab_focus():
+	n_line_edit.grab_focus()
+
+
+func _on_line_edit_text_changed(new_text: String):
+	var searching := not new_text.is_empty()
+	n_icon.focus_mode = FOCUS_ALL if searching else FOCUS_NONE
+	n_icon.disabled = not searching
 	n_search_delay.start()
-
 
 func _on_search_delay_timeout():
 	# Perform a search request
@@ -44,3 +50,12 @@ func _on_search_delay_timeout():
 
 	last_search_term = search_term
 
+
+func _on_icon_pressed():
+	n_line_edit.text = ""
+	_on_line_edit_text_changed("")
+	n_line_edit.grab_focus()
+
+
+func _on_focus_entered():
+	self.grab_focus()

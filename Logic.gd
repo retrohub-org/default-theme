@@ -20,7 +20,7 @@ func _ready():
 	OS.low_processor_usage_mode = true
 
 func _process(delta):
-	n_search_bar.set_focus_mode(FOCUS_ALL if n_games_container.scroll_vertical < 100 else FOCUS_NONE)
+	n_search_bar.focus_mode = FOCUS_ALL if n_games_container.scroll_vertical < 100 else FOCUS_CLICK
 
 func _on_config_updated(key: String, _old, _new):
 	if key == ConfigData.KEY_GAMES_DIR:
@@ -49,3 +49,7 @@ func _on_game_view_on_back_pressed():
 	await n_anim.animation_finished
 	if not is_on_game_view:
 		n_game_view.free_media()
+
+
+func _on_recent_games_focus_top_element():
+	n_search_bar.grab_focus()

@@ -414,6 +414,7 @@ libraries = {
 [connection signal="search_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search"]
 [connection signal="search_subtractive_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search_sub"]
 [connection signal="calculate_label_positions" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container" method="_on_logic_calculate_label_positions"]
+[connection signal="focus_top_element" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/MarginContainer/Container/RecentGames" to="." method="_on_recent_games_focus_top_element"]
 [connection signal="on_back_pressed" from="GameView" to="." method="_on_game_view_on_back_pressed"]
 [connection signal="preview_ready" from="GameView" to="." method="_on_game_view_preview_ready"]
 
