@@ -48,7 +48,6 @@ func bind_button_to_offset(btn: Button, node: Control):
 	btn.focus_entered.connect(_on_btn_pressed.bind(-node.position.y))
 
 func _on_btn_pressed(offset: int):
-	return
 	var delta = abs(%GamesContainer.pos.y - offset)
 	# Depending on delta, we make the scrolling take longer, for a better effect
 	# on bigger libraries. 1500px per second, clamped to [0.5, 1.5] seconds

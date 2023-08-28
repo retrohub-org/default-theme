@@ -19,13 +19,13 @@ func _input(event):
 	last_input = event
 
 func is_older(a: RetroHubGameData, b: RetroHubGameData):
-	var a_date := int(a.last_played.substr(0, 8) + a.last_played.substr(10))
-	var b_date := int(b.last_played.substr(0, 8) + b.last_played.substr(10))
+	var a_date := int(a.last_played.substr(0, 8) + a.last_played.substr(9))
+	var b_date := int(b.last_played.substr(0, 8) + b.last_played.substr(9))
 	return a_date < b_date
 
 func is_newer(a: RetroHubGameData, b: RetroHubGameData):
-	var a_date := int(a.last_played.substr(0, 8) + a.last_played.substr(10))
-	var b_date := int(b.last_played.substr(0, 8) + b.last_played.substr(10))
+	var a_date := int(a.last_played.substr(0, 8) + a.last_played.substr(9))
+	var b_date := int(b.last_played.substr(0, 8) + b.last_played.substr(9))
 	return a_date > b_date
 
 func _on_game_received(data: RetroHubGameData):

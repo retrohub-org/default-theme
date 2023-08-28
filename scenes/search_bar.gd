@@ -43,3 +43,4 @@ func _on_search_delay_timeout():
 		print("reset ", search_term)
 
 	last_search_term = search_term
+
