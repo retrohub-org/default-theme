@@ -22,6 +22,23 @@ text = "System full name"
 layout_mode = 2
 mouse_filter = 1
 
+[node name="FocusHandlerTop" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 2
+mouse_filter = 2
+
 [node name="Container" type="HFlowContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="FocusHandlerBottom" type="Control" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 2
+mouse_filter = 2
+
+[connection signal="focus_entered" from="FocusHandlerTop" to="." method="_on_focus_handler_top_focus_entered"]
+[connection signal="focus_entered" from="FocusHandlerBottom" to="." method="_on_focus_handler_bottom_focus_entered"]

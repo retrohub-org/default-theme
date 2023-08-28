@@ -5,12 +5,18 @@ extends VBoxContainer
 
 @onready var n_container := %Container
 
+var next_container : Control
+var last_input : InputEvent
+
 var games : Array[RetroHubGameData] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RetroHub.game_received.connect(_on_game_received)
 	RetroHub.game_receive_end.connect(_on_game_receive_end)
+
+func _input(event):
+	last_input = event
 
 func is_older(a: RetroHubGameData, b: RetroHubGameData):
 	var a_date := int(a.last_played.substr(0, 8) + a.last_played.substr(10))
@@ -39,9 +45,10 @@ func _on_game_receive_end():
 
 	games.sort_custom(is_newer)
 	for game in games:
-		var preview = game_preview.instantiate()
+		var preview : Control = game_preview.instantiate()
 		n_container.add_child(preview)
 		preview.game_data = game
+		preview.set_focus_neighbor_bottom("../../../FocusHandlerBottom")
 
 func grab_first_focus() -> bool:
 	if not visible or n_container.get_child_count() < 1: return false
@@ -95,3 +102,14 @@ func search_sub_requested(term: String):
 		if child.visible == true: continue
 		determine_child_visibility(child, term)
 	determine_self_visibility()
+
+func grab_focus_bottom():
+	if last_input:
+		if last_input.is_action("ui_up"):
+			n_container.get_child(0).grab_focus()
+		if last_input.is_action("ui_down") and next_container:
+			next_container.grab_focus_top()
+
+
+func _on_focus_handler_bottom_focus_entered():
+	grab_focus_bottom()

@@ -9,6 +9,9 @@ extends VBoxContainer
 @onready var max_y = 648 + 50
 
 var visiblity := false
+var next_container : Control
+var prev_container : Control
+var last_input : InputEvent
 
 var system_data : RetroHubSystemData:
 	set(value):
@@ -19,6 +22,9 @@ var system_data : RetroHubSystemData:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RetroHub.game_received.connect(_on_game_received)
+
+func _input(event):
+	last_input = event
 
 func _process(_delta):
 	var global_y := global_position.y
@@ -84,3 +90,40 @@ func search_sub_requested(term: String):
 		if child.visible == true: continue
 		determine_child_visibility(child, term)
 	determine_self_visibility()
+
+func grab_focus_top():
+	if last_input:
+		if last_input.is_action("ui_up") and prev_container:
+			prev_container.grab_focus_bottom()
+		elif last_input.is_action("ui_down"):
+			n_container.get_child(0).grab_focus()
+		else:
+			n_container.get_child(0).grab_focus()
+
+func grab_focus_bottom():
+	if last_input:
+		if last_input.is_action("ui_up"):
+			var last_child : Control
+			for idx in range(n_container.get_child_count()-1, -1, -1):
+				if not last_child:
+					last_child = n_container.get_child(idx)
+					continue
+				if n_container.get_child(idx).position.y < last_child.position.y:
+					last_child.grab_focus()
+					return
+				last_child = n_container.get_child(idx)
+			last_child.grab_focus()
+		elif last_input.is_action("ui_down"):
+			if next_container:
+				next_container.grab_focus_top()
+			else:
+				n_container.get_child(n_container.get_child_count()-1).grab_focus()
+		else:
+			n_container.get_child(0).grab_focus()
+
+
+func _on_focus_handler_top_focus_entered():
+	grab_focus_top()
+
+func _on_focus_handler_bottom_focus_entered():
+	grab_focus_bottom()

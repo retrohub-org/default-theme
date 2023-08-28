@@ -18,9 +18,19 @@ func _ready():
 	RetroHub.system_receive_end.connect(_on_system_receive_end)
 	RetroHub.game_receive_end.connect(_on_game_receive_end)
 
+func _get_prev_container():
+	if n_container.get_child_count() > 2:
+		var child = n_container.get_child(n_container.get_child_count()-2)
+		if child == n_library_label:
+			return n_container.get_child(n_container.get_child_count()-3)
+		return child
+
 func _on_system_received(data: RetroHubSystemData):
 	var scene = system_games_container.instantiate()
 	n_container.add_child(scene)
+	var prev_container = _get_prev_container()
+	scene.prev_container = prev_container
+	prev_container.next_container = scene
 	scene.system_data = data
 	n_system_nodes[data] = scene
 
@@ -31,6 +41,10 @@ func _on_system_receive_end():
 
 func _on_game_receive_end():
 	await get_tree().process_frame
+	# Connect next/prev systems to fixed containers
+	n_recent_games.next_container = n_favorite_games
+	n_favorite_games.prev_container = n_recent_games
+	
 	# Focus the first object
 	if n_recent_games.grab_first_focus(): return
 	if n_favorite_games.grab_first_focus(): return

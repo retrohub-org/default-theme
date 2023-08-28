@@ -4,6 +4,9 @@ extends Control
 @onready var n_game_view := %GameView
 @onready var n_anim := %Anim
 
+@onready var n_search_bar := %SearchBar
+@onready var n_games_container := %GamesContainer
+
 var is_on_game_view := false
 
 var last_preview : Control
@@ -15,6 +18,9 @@ func _ready():
 	RetroHubConfig.config_updated.connect(_on_config_updated)
 
 	OS.low_processor_usage_mode = true
+
+func _process(delta):
+	n_search_bar.set_focus_mode(FOCUS_ALL if n_games_container.scroll_vertical < 100 else FOCUS_NONE)
 
 func _on_config_updated(key: String, _old, _new):
 	if key == ConfigData.KEY_GAMES_DIR:

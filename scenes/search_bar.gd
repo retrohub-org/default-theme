@@ -15,15 +15,8 @@ signal search_subtractive_requested(term)
 
 var last_search_term := ""
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+func set_focus_mode(mode: FocusMode):
+	n_line_edit.focus_mode = mode
 
 func _on_line_edit_text_changed(new_text):
 	n_search_delay.start()

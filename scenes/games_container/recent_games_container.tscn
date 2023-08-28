@@ -44,3 +44,13 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="FocusHandlerBottom" type="Control" parent="SmoothScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 2
+mouse_filter = 1
+
+[connection signal="focus_entered" from="SmoothScrollContainer/MarginContainer/FocusHandlerBottom" to="." method="_on_focus_handler_bottom_focus_entered"]

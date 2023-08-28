@@ -12,3 +12,6 @@ var game_data : RetroHubGameData:
 
 func grab_focus():
 	n_game_preview.grab_focus()
+
+func set_focus_neighbor_bottom(path: NodePath):
+	n_game_preview.focus_neighbor_bottom = path

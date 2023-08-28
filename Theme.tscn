@@ -379,6 +379,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SearchBar" parent="GameSelector/HBoxContainer/VBoxContainer2" instance=ExtResource("7_e0ju2")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer2"]
