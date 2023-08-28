@@ -1,5 +1,7 @@
 extends Control
 
+@onready var n_info_bar := %InfoBar
+
 @onready var n_play := %Play
 @onready var n_play_date := %PlayDate
 @onready var n_play_count := %PlayCount
@@ -26,6 +28,11 @@ var game_data : RetroHubGameData:
 	set(value):
 		game_data = value
 		populate()
+
+func _get_minimum_size():
+	if n_info_bar:
+		return n_info_bar.size
+	return Vector2.ZERO
 
 func populate():
 	n_description.text = game_data.description
@@ -56,3 +63,7 @@ func _on_favorite_pressed():
 	game_data.favorite = not game_data.favorite
 	n_favorite_checked.visible = game_data.favorite
 	n_favorite_unchecked.visible = not game_data.favorite
+
+
+func _on_focus_entered():
+	n_play.grab_focus()

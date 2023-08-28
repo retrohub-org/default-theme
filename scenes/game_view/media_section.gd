@@ -25,6 +25,8 @@ signal media_ready
 var media_expanded := false
 var media_ready_emitted := false
 
+var allocated_size : Vector2
+
 var game_data : RetroHubGameData:
 	set(value):
 		game_data = value
@@ -95,7 +97,8 @@ func set_image_size(node: Control, texture: Texture2D, time: float):
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
 	var preview_size : Vector2 = texture.get_size()
-	var total_size := Vector2(1152 - n_media_selection.size.x, 648 * 0.8)
+	var screen_size := get_viewport().get_visible_rect().size
+	var total_size := Vector2(screen_size.x - n_media_selection.size.x, allocated_size.y)
 
 	# Clamp preview size taking into account ratio
 	if preview_size.x > total_size.x:
@@ -145,7 +148,7 @@ func set_fullscreen_video(time: float):
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
 	var preview_size : Vector2 = n_video_preview.get_video_texture().get_size()
-	var total_size := Vector2(1152, 648)
+	var total_size := get_viewport().get_visible_rect().size
 	
 	var desired_size := Vector2(
 		total_size.x,

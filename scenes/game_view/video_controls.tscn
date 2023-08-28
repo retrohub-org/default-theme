@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bldia4v0yi6on"]
+[gd_scene load_steps=7 format=3 uid="uid://bldia4v0yi6on"]
 
 [ext_resource type="Script" path="res://scenes/game_view/video_controls.gd" id="1_m88rk"]
 [ext_resource type="Texture2D" uid="uid://wdi7id6fbtjw" path="res://assets/icons/play.svg" id="1_nw8qe"]
 [ext_resource type="Texture2D" uid="uid://c5p4gypthlnmf" path="res://assets/icons/pause.svg" id="2_ntfas"]
 [ext_resource type="Texture2D" uid="uid://dssr5w2inxpa" path="res://assets/icons/sound_on.svg" id="3_ue5oe"]
+[ext_resource type="Texture2D" uid="uid://cf4nbct2nu8ob" path="res://assets/icons/icon_focused.png" id="4_1x7om"]
 [ext_resource type="Texture2D" uid="uid://v14g8pxtcee4" path="res://assets/icons/sound_off.svg" id="4_yjfgh"]
 
 [node name="VideoControls" type="Panel"]
@@ -35,6 +36,7 @@ focus_neighbor_right = NodePath("../Time")
 toggle_mode = true
 texture_normal = ExtResource("2_ntfas")
 texture_pressed = ExtResource("1_nw8qe")
+texture_focused = ExtResource("4_1x7om")
 ignore_texture_size = true
 stretch_mode = 5
 
@@ -60,6 +62,7 @@ mouse_filter = 1
 toggle_mode = true
 texture_normal = ExtResource("3_ue5oe")
 texture_pressed = ExtResource("4_yjfgh")
+texture_focused = ExtResource("4_1x7om")
 ignore_texture_size = true
 stretch_mode = 5
 

@@ -28,21 +28,30 @@ mouse_filter = 1
 script = ExtResource("2_gq5ji")
 system_games_container = ExtResource("2_df3ex")
 
-[node name="Container" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecentGames" parent="Container" instance=ExtResource("2_m6kvt")]
+[node name="RecentGames" parent="MarginContainer/Container" instance=ExtResource("2_m6kvt")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="FavoriteGames" parent="Container" instance=ExtResource("5_7hw26")]
+[node name="FavoriteGames" parent="MarginContainer/Container" instance=ExtResource("5_7hw26")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="LibraryLabel" type="Label" parent="Container"]
+[node name="LibraryLabel" type="Label" parent="MarginContainer/Container"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1

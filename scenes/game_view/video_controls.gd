@@ -16,6 +16,38 @@ var max_time : float
 func _ready():
 	n_time_timer.stop()
 
+func _input(event):
+	if not visible: return
+	if n_volume_popup.visible:
+		if event.is_action_pressed("ui_up"):
+			get_viewport().set_input_as_handled()
+			n_volume_slider.value += 0.05
+		if event.is_action_pressed("ui_down"):
+			get_viewport().set_input_as_handled()
+			n_volume_slider.value -= 0.05
+	if get_viewport().gui_get_focus_owner() == n_time:
+		if video_player.paused:
+			# We are seeking
+			if event.is_action_released("rh_accept"):
+				get_viewport().set_input_as_handled()
+				_on_time_drag_ended(null)
+			if event.is_action_pressed("ui_left"):
+				get_viewport().set_input_as_handled()
+				n_time.value -= n_time.max_value / 100.0
+			if event.is_action_pressed("ui_right"):
+				get_viewport().set_input_as_handled()
+				n_time.value += n_time.max_value / 100.0
+		else:
+			if event.is_action_pressed("rh_accept"):
+				get_viewport().set_input_as_handled()
+				_on_time_drag_started()
+			if event.is_action_pressed("ui_left"):
+				get_viewport().set_input_as_handled()
+				n_time.get_node(n_time.focus_neighbor_left).grab_focus()
+			if event.is_action_pressed("ui_right"):
+				get_viewport().set_input_as_handled()
+				n_time.get_node(n_time.focus_neighbor_right).grab_focus()
+
 var video_player : VideoStreamPlayer:
 	set(value):
 		video_player = value

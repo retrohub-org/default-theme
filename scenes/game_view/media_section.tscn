@@ -109,6 +109,7 @@ offset_left = 4.86398
 offset_right = 124.864
 offset_bottom = 123.0
 grow_horizontal = 0
+mouse_filter = 1
 
 [node name="GameRenders" type="Control" parent="."]
 unique_name_in_owner = true

@@ -17,11 +17,24 @@ signal on_back_pressed
 
 var media_expanded := false
 
-func _unhandled_input(event):
+func _input(event):
 	if not visible: return
 	if event.is_action_released("rh_back"):
 		get_viewport().set_input_as_handled()
 		_on_back_pressed()
+
+func _gui_input(event):
+	if event is InputEventMouseButton:
+		if n_media_root.get_global_rect().has_point(event.global_position) and \
+			event.pressed and event.button_index == MOUSE_BUTTON_LEFT and \
+			not media_expanded:
+				accept_event()
+				_on_media_focus_entered()
+		if n_data_root.get_global_rect().has_point(event.global_position) and \
+			event.pressed and event.button_index == MOUSE_BUTTON_LEFT and \
+			media_expanded and not get_viewport().is_input_handled():
+				accept_event()
+				_on_data_focus_entered()
 
 func _on_game_pressed(data: RetroHubGameData, preview: Control):
 	self.data = data
@@ -50,8 +63,14 @@ func _on_media_focus_entered():
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
-	tween.tween_property(n_media_root, "size:y", 648 * 0.8, 0.3)
-	tween.tween_property(n_data_root, "position:y", 648 * 0.8, 0.3)
+	# Find minimum size for data, then give the rest to media
+	var min_size : Vector2 = n_data_root.get_minimum_size()
+	var screen_size := get_viewport().get_visible_rect().size
+	var media_size := Vector2(screen_size.x, screen_size.y - min_size.y)
+	n_media_root.allocated_size = media_size
+
+	tween.tween_property(n_media_root, "size:y", media_size.y, 0.3)
+	tween.tween_property(n_data_root, "position:y", media_size.y, 0.3)
 
 	# Re-order media elements
 	n_media_root.animate_enter(0.3)
@@ -92,4 +111,4 @@ func _on_media_media_ready():
 
 
 func _on_keyboard_focus_button_pressed():
-	n_media_root.grab_focus()
+	_on_media_focus_entered()

@@ -7,8 +7,8 @@ signal game_pressed(data: RetroHubGameData, preview: Control)
 @onready var n_blurhash := %BlurHash
 @onready var n_anim := %AnimationPlayer
 
-@onready var min_y = -50
-@onready var max_y = 648 + 50
+@onready var min_y := -50
+@onready var max_y := get_viewport().get_visible_rect().size.y + 50
 
 var media_loaded := false
 var hash_loaded := false

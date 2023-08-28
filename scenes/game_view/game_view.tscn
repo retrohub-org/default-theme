@@ -22,6 +22,8 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 0.4
+focus_mode = 0
+mouse_filter = 1
 
 [node name="KeyboardFocusButton" type="Button" parent="Media"]
 unique_name_in_owner = true
@@ -41,12 +43,7 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.4
-
-[node name="Play" parent="Data/VBoxContainer/HBoxContainer" index="0"]
-focus_neighbor_top = NodePath("../../../../Media/KeyboardFocusButton")
-
-[node name="Favorite" parent="Data/VBoxContainer/HBoxContainer" index="4"]
-focus_neighbor_top = NodePath("../../../../Media/KeyboardFocusButton")
+mouse_filter = 1
 
 [node name="Back" type="Button" parent="."]
 unique_name_in_owner = true
@@ -67,11 +64,7 @@ unique_name_in_owner = true
 wait_time = 0.8
 one_shot = true
 
-[connection signal="focus_entered" from="Media" to="." method="_on_media_focus_entered"]
 [connection signal="media_ready" from="Media" to="." method="_on_media_media_ready"]
 [connection signal="pressed" from="Media/KeyboardFocusButton" to="." method="_on_keyboard_focus_button_pressed"]
-[connection signal="focus_entered" from="Data" to="." method="_on_data_focus_entered"]
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="timeout" from="PreviewLoadTimer" to="." method="_on_preview_load_timer_timeout"]
-
-[editable path="Data"]
