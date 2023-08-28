@@ -5,6 +5,9 @@
 @tool
 extends ScrollContainer
 
+signal scroll_vertical_tick(value: int)
+signal scroll_horizontal_tick(value: int)
+
 # Drag impact for one scroll input
 @export_range(0, 10, 0.01, "or_greater")
 var speed := 5.0
@@ -93,15 +96,24 @@ func _ready() -> void:
 	
 	get_tree().node_added.connect(_on_node_added)
 
+var last_pos_y := 0.0
+var last_pos_x := 0.0
+
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
 	calculate_distance()
 	scroll(true, velocity.y, pos.y)
 	scroll(false, velocity.x, pos.x)
 	# Update vertical scroll bar
+	if not is_equal_approx(last_pos_y, -pos.y):
+		scroll_vertical_tick.emit(-pos.y)
+	last_pos_y = -pos.y
 	get_v_scroll_bar().set_value_no_signal(-pos.y)
 	get_v_scroll_bar().queue_redraw()
 	# Update horizontal scroll bar
+	if not is_equal_approx(last_pos_x, -pos.x):
+		scroll_horizontal_tick.emit(-pos.x)
+	last_pos_x = -pos.x
 	get_h_scroll_bar().set_value_no_signal(-pos.x)
 	get_h_scroll_bar().queue_redraw()
 

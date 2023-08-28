@@ -1,15 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6853ld7uweea"]
+[gd_scene load_steps=19 format=3 uid="uid://b6853ld7uweea"]
 
 [ext_resource type="Script" path="res://Logic.gd" id="1"]
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme.tres" id="1_bikpb"]
 [ext_resource type="Texture2D" uid="uid://ddoiw1qbo1nqo" path="res://addons/controller_icons/assets/xboxone/menu.png" id="2_w8ile"]
 [ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="4_lxqt5"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_qs61x"]
+[ext_resource type="PackedScene" uid="uid://c285fljwfrovu" path="res://scenes/side_bar/system_button.tscn" id="6_b27ka"]
 [ext_resource type="Script" path="res://scenes/side_bar/SideBarContainer.gd" id="6_wpam4"]
 [ext_resource type="PackedScene" uid="uid://71ahm1a4h667" path="res://scenes/search_bar.tscn" id="7_e0ju2"]
 [ext_resource type="PackedScene" uid="uid://bniifqdnola0v" path="res://scenes/games_container/games_container.tscn" id="8_gcxl4"]
 [ext_resource type="PackedScene" uid="uid://b710c8xqxeg0c" path="res://scenes/games_container/game_quick_preview_bar.tscn" id="9_0lenf"]
 [ext_resource type="PackedScene" uid="uid://ckgpsfhm3urnw" path="res://scenes/game_view/game_view.tscn" id="10_8vcaa"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_guept"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_dorua"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ymns5"]
 
 [sub_resource type="Animation" id="Animation_7ndt5"]
 length = 0.001
@@ -319,27 +326,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("6_wpam4")
+system_button = ExtResource("6_b27ka")
 
-[node name="RecentGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container"]
+[node name="RecentGames" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 1
+button_group = SubResource("ButtonGroup_guept")
 text = "Recent"
-clip_text = true
 
-[node name="FavoriteGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container"]
+[node name="FavoriteGames" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 1
+button_group = SubResource("ButtonGroup_dorua")
 text = "Favorites"
-clip_text = true
 
-[node name="LibraryGames" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container"]
+[node name="Library" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 1
+button_group = SubResource("ButtonGroup_ymns5")
 text = "Library"
-clip_text = true
 
 [node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container"]
 layout_mode = 2
@@ -413,6 +418,7 @@ libraries = {
 [connection signal="search_additive_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search_add"]
 [connection signal="search_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search"]
 [connection signal="search_subtractive_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search_sub"]
+[connection signal="scroll_vertical_tick" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer" to="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container" method="_on_games_container_scroll_vertical_tick"]
 [connection signal="calculate_label_positions" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" to="GameSelector/HBoxContainer/VBoxContainer/MarginContainer/Container" method="_on_logic_calculate_label_positions"]
 [connection signal="focus_top_element" from="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/MarginContainer/Container/RecentGames" to="." method="_on_recent_games_focus_top_element"]
 [connection signal="on_back_pressed" from="GameView" to="." method="_on_game_view_on_back_pressed"]

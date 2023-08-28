@@ -81,7 +81,9 @@ func grab_focus_top():
 	if last_input:
 		if last_input.is_action("ui_up") and prev_container:
 			prev_container.grab_focus_bottom()
-		if last_input.is_action("ui_down"):
+		elif last_input.is_action("ui_down"):
+			n_container.get_child(0).grab_focus()
+		else:
 			n_container.get_child(0).grab_focus()
 
 func grab_focus_bottom():
@@ -97,8 +99,13 @@ func grab_focus_bottom():
 					return
 				last_child = n_container.get_child(idx)
 			last_child.grab_focus()
-		if last_input.is_action("ui_down") and next_container:
-			next_container.grab_focus_top()
+		elif last_input.is_action("ui_down"):
+			if next_container:
+				next_container.grab_focus_top()
+			else:
+				n_container.get_child(n_container.get_child_count()-1).grab_focus()
+		else:
+			n_container.get_child(0).grab_focus()
 
 
 func _on_focus_handler_top_focus_entered():
