@@ -6,7 +6,6 @@ signal media_ready
 
 @onready var n_name := %Name
 @onready var n_logo := %Logo
-@onready var n_age_rating := %AgeRating
 @onready var n_media_selection := %MediaSelection
 @onready var n_box_render := %BoxRender
 @onready var n_support_render := %SupportRender
@@ -55,11 +54,6 @@ func populate():
 	n_name.text = game_data.name
 
 	n_logo.visible = false
-	for child in n_age_rating.get_children():
-		child.queue_free()
-
-	var age_rating_node := RegionUtils.localize_age_rating(game_data.age_rating)
-	n_age_rating.add_child(age_rating_node)
 
 	n_media_selection.populate(game_data)
 	media_ready_emitted = false

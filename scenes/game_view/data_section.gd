@@ -3,6 +3,7 @@ extends Control
 @onready var n_info_bar := %InfoBar
 
 @onready var n_play := %Play
+@onready var n_age_rating := %AgeRating
 @onready var n_play_date := %PlayDate
 @onready var n_play_count := %PlayCount
 @onready var n_num_players := %NumPlayers
@@ -46,6 +47,12 @@ func populate():
 	n_publisher.text = n_base_text[n_publisher] % game_data.publisher
 	n_genres.text = n_base_text[n_genres] % game_data.genres[0] if not game_data.genres.is_empty() else "unknown"
 	n_release_date.text = n_base_text[n_release_date] % RegionUtils.localize_date(game_data.release_date)
+
+	for child in n_age_rating.get_children():
+		child.queue_free()
+
+	var age_rating_node := RegionUtils.localize_age_rating(game_data.age_rating)
+	n_age_rating.add_child(age_rating_node)
 
 func _on_favorite_toggled(button_pressed):
 	n_favorite_checked.visible = button_pressed
