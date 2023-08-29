@@ -26,9 +26,23 @@ func _on_game_receive_end():
 	visible = n_container.get_child_count() > 0
 
 func grab_first_focus() -> bool:
-	if not visible or n_container.get_child_count() < 0: return false
-	n_container.get_child(0).grab_focus()
+	if not visible or n_container.get_child_count() < 1: return false
+	grab_first_child()
 	return true
+
+func grab_first_child():
+	for child in n_container.get_children():
+		if child.visible:
+			child.grab_focus()
+			return
+
+func grab_last_child():
+	var children = n_container.get_children()
+	children.reverse()
+	for child in children:
+		if child.visible:
+			child.grab_focus()
+			return
 
 func reset_visibility():
 	for child in n_container.get_children():
@@ -82,9 +96,9 @@ func grab_focus_top():
 		if last_input.is_action("ui_up") and prev_container:
 			prev_container.grab_focus_bottom()
 		elif last_input.is_action("ui_down"):
-			n_container.get_child(0).grab_focus()
+			grab_first_child()
 		else:
-			n_container.get_child(0).grab_focus()
+			grab_first_child()
 
 func grab_focus_bottom():
 	if last_input:
@@ -93,7 +107,11 @@ func grab_focus_bottom():
 			for idx in range(n_container.get_child_count()-1, -1, -1):
 				if not last_child:
 					last_child = n_container.get_child(idx)
+					if not last_child.visible:
+						last_child = null
 					continue
+				var child = n_container.get_child(idx)
+				if not child.visible: continue
 				if n_container.get_child(idx).position.y < last_child.position.y:
 					last_child.grab_focus()
 					return
@@ -103,9 +121,9 @@ func grab_focus_bottom():
 			if next_container:
 				next_container.grab_focus_top()
 			else:
-				n_container.get_child(n_container.get_child_count()-1).grab_focus()
+				grab_last_child()
 		else:
-			n_container.get_child(0).grab_focus()
+			grab_first_child()
 
 
 func _on_focus_handler_top_focus_entered():

@@ -53,5 +53,3 @@ func _on_game_view_on_back_pressed():
 
 func _on_recent_games_focus_top_element():
 	n_search_bar.grab_focus()
-
-

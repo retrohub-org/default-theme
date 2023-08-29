@@ -18,12 +18,21 @@ var scroll_limit_idx := -1
 var scroll_limit_up := -1
 var scroll_limit_down := -1
 
+var focus_on := 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RetroHub.system_received.connect(_on_system_received)
 	n_recent_games.button_group = group
 	n_favorite_games.button_group = group
 	n_library.button_group = group
+
+func _on_system_button_focus_entered(button: Button):
+	focus_on += 1
+	button.button_pressed = true
+
+func _on_system_button_focus_exited():
+	focus_on -= 1
 
 func _on_system_received(data: RetroHubSystemData):
 	var btn := system_button.instantiate()
@@ -36,9 +45,16 @@ func _on_logic_calculate_label_positions(node):
 	# Meta buttons
 	await get_tree().process_frame
 	scroll_offsets.clear()
-	bind_button_to_offset(n_recent_games, node.n_recent_games)
-	bind_button_to_offset(n_favorite_games, node.n_favorite_games)
-	bind_button_to_offset(n_library, node.n_library_label)
+	for data in [
+		[n_recent_games, node.n_recent_games],
+		[n_favorite_games, node.n_favorite_games],
+		[n_library, node.n_library_label]
+	]:
+		var btn_node : Control = data[0]
+		var offset_node : Control = data[1]
+		bind_button_to_offset(btn_node, offset_node)
+		btn_node.focus_entered.connect(_on_system_button_focus_entered.bind(btn_node))
+		btn_node.focus_exited.connect(_on_system_button_focus_exited)
 
 	# System buttons
 	var system_nodes : Dictionary = node.n_system_nodes
@@ -46,6 +62,8 @@ func _on_logic_calculate_label_positions(node):
 		var btn : Button = system_buttons[system]
 		var system_container = system_nodes[system]
 		bind_button_to_offset(btn, system_container)
+		btn.focus_entered.connect(_on_system_button_focus_entered.bind(btn))
+		btn.focus_exited.connect(_on_system_button_focus_exited)
 
 	compute_scroll_limits()
 
@@ -60,6 +78,7 @@ func compute_scroll_limits():
 
 func focus_system_button():
 	var btn : Button = scroll_offsets[scroll_limit_idx][1]
+	if focus_on > 0: return
 	btn.button_pressed = true
 
 func bind_button_to_offset(btn: Button, node: Control):
@@ -82,7 +101,6 @@ func _on_btn_pressed(offset: int):
 	%GamesContainer.scroll_y_to(offset, time)
 
 
-
 func _on_games_container_scroll_vertical_tick(value):
 	# Add 1 due to precision errors (e.g. 2443.47729492188 < 2444)
 	value += 1
@@ -96,3 +114,20 @@ func _on_games_container_scroll_vertical_tick(value):
 		scroll_limit_up = scroll_offsets[scroll_limit_idx][0]
 		scroll_limit_down = scroll_offsets[scroll_limit_idx+1][0]
 		focus_system_button()
+
+
+func _on_focus_entered():
+	# Focus the currently selected button
+	if n_recent_games.button_pressed:
+		n_recent_games.grab_focus()
+		return
+	if n_favorite_games.button_pressed:
+		n_favorite_games.grab_focus()
+		return
+	if n_library.button_pressed:
+		n_library.grab_focus()
+		return
+	for btn in n_side_bar_container.get_children():
+		if btn.button_pressed:
+			btn.grab_focus()
+			return
