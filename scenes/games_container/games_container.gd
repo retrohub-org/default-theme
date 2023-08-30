@@ -8,12 +8,18 @@ signal calculate_label_positions(node)
 @onready var n_container := %Container
 @onready var n_recent_games := %RecentGames
 @onready var n_favorite_games := %FavoriteGames
-@onready var n_library_label = %LibraryLabel
+@onready var n_library_label := %LibraryLabel
+@onready var n_no_games_label := %NoGamesLabel
+
 
 var n_system_nodes := {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	RetroHub.system_receive_start.connect(func():
+		n_container.remove_child(n_no_games_label)
+		n_no_games_label.queue_free()
+	)
 	RetroHub.system_received.connect(_on_system_received)
 	RetroHub.game_receive_end.connect(_on_game_receive_end)
 

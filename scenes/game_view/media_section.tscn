@@ -145,16 +145,6 @@ grow_vertical = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HSeparator" type="HSeparator" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -4.0
-grow_horizontal = 2
-grow_vertical = 0
-
 [node name="MediaSelection" type="Panel" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)

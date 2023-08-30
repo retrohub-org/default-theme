@@ -18,9 +18,15 @@ var last_search_term := ""
 
 var _stored_focus_mode : FocusMode
 
+var any_game := false
+
+func _ready():
+	RetroHub.system_receive_start.connect(func():
+		any_game = true
+	)
+
 func grab_focus():
 	n_line_edit.grab_focus()
-
 
 func _on_line_edit_text_changed(new_text: String):
 	var searching := not new_text.is_empty()
@@ -29,6 +35,8 @@ func _on_line_edit_text_changed(new_text: String):
 	n_search_delay.start()
 
 func _on_search_delay_timeout():
+	# Only search if there are games
+	if not any_game: return
 	# Perform a search request
 	var search_term : String = n_line_edit.text
 	# If any term is empty, reset

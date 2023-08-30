@@ -30,6 +30,12 @@ var game_data : RetroHubGameData:
 		game_data = value
 		populate()
 
+func set_bottom_focus(node_path):
+	var n_play_node_path : NodePath = "../../../../../../" + node_path
+	var n_favorite_node_path : NodePath = "../../../../../" + node_path
+	n_play.focus_neighbor_bottom = n_play_node_path
+	n_favorite.focus_neighbor_bottom = n_favorite_node_path
+
 func _get_minimum_size():
 	if n_info_bar:
 		return n_info_bar.size
