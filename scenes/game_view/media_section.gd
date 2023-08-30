@@ -142,7 +142,8 @@ func set_fullscreen_video(time: float):
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
 	var preview_size : Vector2 = n_video_preview.get_video_texture().get_size()
-	var total_size := get_viewport().get_visible_rect().size
+	var screen_size := get_viewport().get_visible_rect().size
+	var total_size := screen_size
 	
 	var desired_size := Vector2(
 		total_size.x,

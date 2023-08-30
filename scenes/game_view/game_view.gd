@@ -25,12 +25,12 @@ func _input(event):
 
 func _gui_input(event):
 	if event is InputEventMouseButton:
-		if n_media_root.get_global_rect().has_point(event.global_position) and \
+		if n_media_root.get_rect().has_point(event.position) and \
 			event.pressed and event.button_index == MOUSE_BUTTON_LEFT and \
 			not media_expanded:
 				accept_event()
 				_on_media_focus_entered()
-		if n_data_root.get_global_rect().has_point(event.global_position) and \
+		if n_data_root.get_rect().has_point(event.position) and \
 			event.pressed and event.button_index == MOUSE_BUTTON_LEFT and \
 			media_expanded and not get_viewport().is_input_handled():
 				accept_event()

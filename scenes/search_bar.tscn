@@ -14,6 +14,7 @@ offset_bottom = 64.0
 grow_horizontal = 2
 focus_mode = 2
 theme = ExtResource("1_68cb2")
+color = Color(0.968627, 1, 1, 1)
 script = ExtResource("2_10c2x")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

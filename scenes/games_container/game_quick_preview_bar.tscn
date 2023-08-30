@@ -1,10 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://b710c8xqxeg0c"]
+[gd_scene load_steps=8 format=3 uid="uid://b710c8xqxeg0c"]
 
 [ext_resource type="Script" path="res://scenes/games_container/game_quick_preview_bar.gd" id="1_bt0f5"]
 [ext_resource type="Texture2D" uid="uid://cgkbrwyvcttb7" path="res://assets/icons/star-unfilled-bar.svg" id="2_qmqbc"]
 [ext_resource type="Texture2D" uid="uid://dft2rslfadcw2" path="res://assets/icons/star-filled-bar.svg" id="3_2y6ps"]
 [ext_resource type="Texture2D" uid="uid://dta8m1y7ed5vf" path="res://assets/icons/calendar.svg" id="4_0wt3e"]
 [ext_resource type="Texture2D" uid="uid://ch8uglk4auwl8" path="res://assets/icons/count.svg" id="5_eh2cw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30hh1"]
+bg_color = Color(0.294118, 0.372549, 0.462745, 1)
+border_width_top = 2
+border_color = Color(0.227451, 0.286275, 0.356863, 1)
+corner_detail = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_iwh0m"]
 font_size = 22
@@ -21,6 +27,7 @@ script = ExtResource("1_bt0f5")
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_30hh1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1

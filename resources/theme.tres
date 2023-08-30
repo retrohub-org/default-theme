@@ -1,4 +1,10 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://btvhohyurcn0u"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://btvhohyurcn0u"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q4867"]
+color = Color(0, 0, 0, 0.317647)
+grow_begin = -2.0
+grow_end = -2.0
+thickness = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1m02"]
 content_margin_left = 4.0
@@ -23,8 +29,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-corner_radius_top_left = 3
-corner_radius_top_right = 3
+border_color = Color(1, 0.733333, 0.537255, 1)
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
@@ -86,12 +91,13 @@ content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.75)
+bg_color = Color(1, 1, 1, 0.74902)
 draw_center = false
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color(1, 0.733333, 0.537255, 1)
 corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
@@ -189,6 +195,7 @@ corner_radius_bottom_left = 3
 corner_detail = 4
 
 [resource]
+HSeparator/styles/separator = SubResource("StyleBoxLine_q4867")
 InvisibleButton/styles/disabled = SubResource("StyleBoxFlat_d1m02")
 InvisibleButton/styles/focus = SubResource("StyleBoxFlat_p20n8")
 InvisibleButton/styles/hover = SubResource("StyleBoxFlat_6imyg")
