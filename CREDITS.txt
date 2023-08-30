@@ -3,3 +3,5 @@ https://www.svgrepo.com/svg/466295/sound-max
 https://www.svgrepo.com/svg/450948/group
 https://www.svgrepo.com/svg/532228/table-list
 https://www.svgrepo.com/svg/533381/calendar-alt
+https://www.svgrepo.com/svg/441919/cog
+https://www.svgrepo.com/svg/533620/arrow-sm-left

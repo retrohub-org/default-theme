@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://71ahm1a4h667"]
+
+[ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_68cb2"]
+[ext_resource type="Script" path="res://scenes/theme/search_bar.gd" id="2_10c2x"]
+[ext_resource type="Texture2D" uid="uid://bin0o0wcnpt7r" path="res://assets/theme/icons/close.svg" id="3_5f2fr"]
+[ext_resource type="Texture2D" uid="uid://bp8jt84tmdkgw" path="res://assets/theme/icons/search.svg" id="4_qqnnl"]
+[ext_resource type="Texture2D" uid="uid://tgl2yvpogyx3" path="res://assets/theme/icons/close_hover.svg" id="5_bn13l"]
+
+[node name="SearchBar" type="ColorRect"]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+focus_mode = 2
+theme = ExtResource("1_68cb2")
+color = Color(0.968627, 1, 1, 1)
+script = ExtResource("2_10c2x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureButton" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+focus_mode = 0
+disabled = true
+texture_normal = ExtResource("3_5f2fr")
+texture_disabled = ExtResource("4_qqnnl")
+texture_focused = ExtResource("5_bn13l")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search..."
+context_menu_enabled = false
+
+[node name="SearchDelay" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="pressed" from="HBoxContainer/Icon" to="." method="_on_icon_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_mouse_entered"]
+[connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="timeout" from="SearchDelay" to="." method="_on_search_delay_timeout"]

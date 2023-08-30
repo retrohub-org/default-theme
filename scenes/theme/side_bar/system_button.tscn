@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c285fljwfrovu"]
+
+[ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_0dhq2"]
+
+[node name="RecentGames" type="Button"]
+offset_right = 180.0
+offset_bottom = 54.0
+mouse_filter = 1
+theme = ExtResource("1_0dhq2")
+theme_type_variation = &"SystemButton"
+toggle_mode = true
+text = "name"
+clip_text = true

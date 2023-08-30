@@ -1,15 +1,15 @@
 [gd_scene load_steps=19 format=3 uid="uid://b6853ld7uweea"]
 
 [ext_resource type="Script" path="res://Logic.gd" id="1"]
-[ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme.tres" id="1_bikpb"]
-[ext_resource type="Texture2D" uid="uid://dor11qrjt8m2h" path="res://assets/icons/settings.svg" id="3_0ubs1"]
+[ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_bikpb"]
+[ext_resource type="Texture2D" uid="uid://dor11qrjt8m2h" path="res://assets/theme/icons/settings.svg" id="3_vyfh0"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_qs61x"]
-[ext_resource type="PackedScene" uid="uid://c285fljwfrovu" path="res://scenes/side_bar/system_button.tscn" id="6_b27ka"]
-[ext_resource type="Script" path="res://scenes/side_bar/SideBarContainer.gd" id="6_wpam4"]
-[ext_resource type="PackedScene" uid="uid://71ahm1a4h667" path="res://scenes/search_bar.tscn" id="7_e0ju2"]
-[ext_resource type="PackedScene" uid="uid://bniifqdnola0v" path="res://scenes/games_container/games_container.tscn" id="8_gcxl4"]
-[ext_resource type="PackedScene" uid="uid://b710c8xqxeg0c" path="res://scenes/games_container/game_quick_preview_bar.tscn" id="9_0lenf"]
-[ext_resource type="PackedScene" uid="uid://ckgpsfhm3urnw" path="res://scenes/game_view/game_view.tscn" id="10_8vcaa"]
+[ext_resource type="PackedScene" uid="uid://c285fljwfrovu" path="res://scenes/theme/side_bar/system_button.tscn" id="6_b27ka"]
+[ext_resource type="Script" path="res://scenes/theme/side_bar/SideBarContainer.gd" id="6_wpam4"]
+[ext_resource type="PackedScene" uid="uid://71ahm1a4h667" path="res://scenes/theme/search_bar.tscn" id="7_e0ju2"]
+[ext_resource type="PackedScene" uid="uid://bniifqdnola0v" path="res://scenes/theme/games_container/games_container.tscn" id="8_gcxl4"]
+[ext_resource type="PackedScene" uid="uid://b710c8xqxeg0c" path="res://scenes/theme/games_container/game_quick_preview_bar.tscn" id="9_0lenf"]
+[ext_resource type="PackedScene" uid="uid://ckgpsfhm3urnw" path="res://scenes/theme/game_view/game_view.tscn" id="10_8vcaa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eiyug"]
 bg_color = Color(0.337255, 0.423529, 0.52549, 1)
@@ -322,7 +322,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_type_variation = &"InvisibleButton"
-icon = ExtResource("3_0ubs1")
+icon = ExtResource("3_vyfh0")
 icon_alignment = 1
 expand_icon = true
 

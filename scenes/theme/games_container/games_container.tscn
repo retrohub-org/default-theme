@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://bniifqdnola0v"]
+
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="1_321nt"]
+[ext_resource type="PackedScene" uid="uid://3ttwxnv6byn" path="res://scenes/theme/games_container/system_games_container.tscn" id="2_df3ex"]
+[ext_resource type="Script" path="res://scenes/theme/games_container/games_container.gd" id="2_gq5ji"]
+[ext_resource type="PackedScene" uid="uid://ftyg4jgq44jd" path="res://scenes/theme/games_container/recent_games_container.tscn" id="2_m6kvt"]
+[ext_resource type="PackedScene" uid="uid://dxr0vs3px8qqx" path="res://scenes/theme/games_container/favorite_games_container.tscn" id="5_7hw26"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3t8hg"]
+font_size = 24
+
+[node name="GamesContainer" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 3
+script = ExtResource("1_321nt")
+damping_scroll = 0.2
+damping_drag = 0.2
+drag_min_distance = 20
+
+[node name="Logic" type="Control" parent="."]
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_gq5ji")
+system_games_container = ExtResource("2_df3ex")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Container" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RecentGames" parent="MarginContainer/Container" instance=ExtResource("2_m6kvt")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FavoriteGames" parent="MarginContainer/Container" instance=ExtResource("5_7hw26")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LibraryLabel" type="Label" parent="MarginContainer/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+text = "Library"
+label_settings = SubResource("LabelSettings_3t8hg")
+
+[node name="NoGamesLabel" type="Label" parent="MarginContainer/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+text = "RetroHub couldn't find any games. Ensure your games directory is properly set, and with the structure required.
+
+You may also need to look at the game files extensions and see if they match what each system is expecting. If not, you can configure accepted extensions from the main menu."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
