@@ -44,6 +44,7 @@ func check_unload_media(y: float, delta: float):
 		hash_loaded = false
 		n_preview.texture = null
 		n_blurhash.texture = null
+		RetroHubMedia.clear_media_cache(game_data)
 
 func check_load_media(y: float, delta: float):
 	# Load if we are inside the limits
