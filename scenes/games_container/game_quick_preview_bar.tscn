@@ -112,9 +112,10 @@ size_flags_horizontal = 3
 tooltip_text = "Total play count"
 mouse_filter = 1
 
-[node name="AgeRatingContainer" type="AspectRatioContainer" parent="Panel/HBoxContainer"]
+[node name="AgeRatingContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-ratio = 0.8
-stretch_mode = 1
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2

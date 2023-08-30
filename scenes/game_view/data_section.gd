@@ -52,6 +52,8 @@ func populate():
 		child.queue_free()
 
 	var age_rating_node := RegionUtils.localize_age_rating(game_data.age_rating)
+	age_rating_node.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	age_rating_node.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	n_age_rating.add_child(age_rating_node)
 
 func _on_favorite_toggled(button_pressed):

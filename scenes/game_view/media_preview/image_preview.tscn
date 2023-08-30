@@ -1,12 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://nifvpclnv1mq"]
+[gd_scene load_steps=5 format=3 uid="uid://nifvpclnv1mq"]
 
 [ext_resource type="Script" path="res://scenes/game_view/media_preview/image_preview.gd" id="1_y6v7m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cp7e7"]
+bg_color = Color(0.243137, 0.294118, 0.388235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xw0f3"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.152941, 0.188235, 0.247059, 0.835294)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcuaj"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.733333, 0.537255, 1)
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="ImagePreview" type="Button"]
 custom_minimum_size = Vector2(160, 160)
 offset_right = 127.0
 offset_bottom = 131.0
 mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_cp7e7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xw0f3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vcuaj")
 toggle_mode = true
 icon_alignment = 1
 expand_icon = true

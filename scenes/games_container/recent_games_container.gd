@@ -124,20 +124,7 @@ func search_sub_requested(term: String):
 func grab_focus_bottom():
 	if last_input:
 		if last_input.is_action("ui_up"):
-			var last_child : Control
-			for idx in range(n_container.get_child_count()-1, -1, -1):
-				if not last_child:
-					last_child = n_container.get_child(idx)
-					if not last_child.visible:
-						last_child = null
-					continue
-				var child = n_container.get_child(idx)
-				if not child.visible: continue
-				if n_container.get_child(idx).position.y < last_child.position.y:
-					last_child.grab_focus()
-					return
-				last_child = n_container.get_child(idx)
-			last_child.grab_focus()
+			grab_first_child()
 		elif last_input.is_action("ui_down"):
 			if next_container:
 				next_container.grab_focus_top()

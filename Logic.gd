@@ -26,7 +26,7 @@ func _on_config_updated(key: String, _old, _new):
 	if key == ConfigData.KEY_GAMES_DIR:
 		RetroHub.request_theme_reload()
 
-func _on_controller_button_pressed():
+func _on_menu_button_pressed():
 	RetroHubUI.open_app_config()
 
 

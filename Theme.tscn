@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://b6853ld7uweea"]
+[gd_scene load_steps=19 format=3 uid="uid://b6853ld7uweea"]
 
 [ext_resource type="Script" path="res://Logic.gd" id="1"]
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme.tres" id="1_bikpb"]
-[ext_resource type="Texture2D" uid="uid://ddoiw1qbo1nqo" path="res://addons/controller_icons/assets/xboxone/menu.png" id="2_w8ile"]
-[ext_resource type="Script" path="res://addons/controller_icons/objects/Button.gd" id="4_lxqt5"]
+[ext_resource type="Texture2D" uid="uid://dor11qrjt8m2h" path="res://assets/icons/settings.svg" id="3_0ubs1"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_qs61x"]
 [ext_resource type="PackedScene" uid="uid://c285fljwfrovu" path="res://scenes/side_bar/system_button.tscn" id="6_b27ka"]
 [ext_resource type="Script" path="res://scenes/side_bar/SideBarContainer.gd" id="6_wpam4"]
@@ -319,14 +318,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ControllerButton" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-icon = ExtResource("2_w8ile")
+theme_type_variation = &"InvisibleButton"
+icon = ExtResource("3_0ubs1")
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("4_lxqt5")
-path = "xboxone/menu"
 
 [node name="MarginContainer" type="MarginContainer" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -423,7 +421,7 @@ libraries = {
 "": SubResource("AnimationLibrary_u02g1")
 }
 
-[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/ControllerButton" to="." method="_on_controller_button_pressed"]
+[connection signal="pressed" from="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="focus_entered" from="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" to="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" method="_on_focus_entered"]
 [connection signal="search_additive_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search_add"]
 [connection signal="search_requested" from="GameSelector/HBoxContainer/VBoxContainer2/SearchBar" to="GameSelector/HBoxContainer/VBoxContainer2/GamesContainer/Logic" method="search"]
