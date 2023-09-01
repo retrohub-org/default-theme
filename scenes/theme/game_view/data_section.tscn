@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cp3jlic4qi076"]
+[gd_scene load_steps=21 format=3 uid="uid://cp3jlic4qi076"]
 
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_3dva8"]
 [ext_resource type="Script" path="res://scenes/theme/game_view/data_section.gd" id="1_gsq0a"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dft2rslfadcw2" path="res://assets/theme/icons/star-filled-bar.svg" id="8_gvvv6"]
 [ext_resource type="Texture2D" uid="uid://bkpb8incwdkr8" path="res://assets/theme/icons/star-filled.svg" id="9_sobwa"]
 [ext_resource type="Texture2D" uid="uid://b384mq6py02a7" path="res://assets/theme/icons/star-unfilled.svg" id="10_svkcj"]
+[ext_resource type="Texture2D" uid="uid://b5kitqyik3m7s" path="res://assets/theme/icons/edit_game_data.png" id="12_q2hxs"]
+[ext_resource type="Texture2D" uid="uid://ckirnuvl1aofi" path="res://assets/theme/icons/scrape_game_data.png" id="13_g6u71"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5yej"]
 bg_color = Color(0.2, 0.235294, 0.341176, 0.858824)
@@ -115,6 +117,7 @@ theme_override_constants/separation = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+focus_neighbor_right = NodePath("../../Favorite")
 theme_override_colors/font_color = Color(0.466667, 0.34902, 0.266667, 1)
 theme_override_colors/font_pressed_color = Color(0.337255, 0.25098, 0.192157, 1)
 theme_override_colors/font_hover_color = Color(0.466667, 0.34902, 0.266667, 1)
@@ -223,6 +226,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../HBoxContainer3/Play")
 theme_type_variation = &"RoundButton"
 
 [node name="StarFilled" type="TextureRect" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/Favorite"]
@@ -258,14 +262,15 @@ mouse_filter = 2
 texture = ExtResource("10_svkcj")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Metadata" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Metadata"]
 layout_mode = 2
 
-[node name="Developer" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Developer" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -274,7 +279,7 @@ text = "Developer: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="Publisher" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Publisher" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -283,7 +288,7 @@ text = "Publisher: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="Genres" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Genres" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -292,7 +297,7 @@ text = "Genre: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="ReleaseDate" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ReleaseDate" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -301,24 +306,24 @@ text = "Release date: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Metadata"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Metadata"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 
-[node name="SmoothScrollContainer" type="ScrollContainer" parent="VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="VBoxContainer/Metadata/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 script = ExtResource("7_u0kaw")
 allow_horizontal_scroll = false
 
-[node name="Description" type="Label" parent="VBoxContainer/VBoxContainer/MarginContainer/SmoothScrollContainer"]
+[node name="Description" type="Label" parent="VBoxContainer/Metadata/MarginContainer/SmoothScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -327,7 +332,62 @@ mouse_filter = 1
 text = "Game details"
 autowrap_mode = 2
 
+[node name="NoMetadata" type="VBoxContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="VBoxContainer/NoMetadata"]
+layout_mode = 2
+text = "This game has no metadata to show"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/NoMetadata"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/NoMetadata"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="EditMetadata" type="Button" parent="VBoxContainer/NoMetadata/VBoxContainer"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../InfoBar/Panel/HBoxContainer/HBoxContainer3/Play")
+text = "Edit this game metadata"
+icon = ExtResource("12_q2hxs")
+expand_icon = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/NoMetadata/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/NoMetadata/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/NoMetadata/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "or"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/NoMetadata/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrapeMetadata" type="Button" parent="VBoxContainer/NoMetadata/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+text = "Scrape metadata automatically"
+icon = ExtResource("13_g6u71")
+icon_alignment = 2
+expand_icon = true
+
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/InfoBar/Panel/HBoxContainer/HBoxContainer3/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/InfoBar/Panel/HBoxContainer/Favorite" to="." method="_on_favorite_pressed"]
 [connection signal="toggled" from="VBoxContainer/InfoBar/Panel/HBoxContainer/Favorite" to="." method="_on_favorite_toggled"]
+[connection signal="pressed" from="VBoxContainer/NoMetadata/VBoxContainer/EditMetadata" to="." method="_on_edit_metadata_pressed"]
+[connection signal="pressed" from="VBoxContainer/NoMetadata/VBoxContainer/ScrapeMetadata" to="." method="_on_scrape_metadata_pressed"]

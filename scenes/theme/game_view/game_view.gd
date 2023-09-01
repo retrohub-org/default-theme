@@ -36,15 +36,13 @@ func _gui_input(event):
 				accept_event()
 				_on_data_focus_entered()
 
-func _ready():
-	n_data_root.set_bottom_focus("../Back")
-
 func _on_game_pressed(data: RetroHubGameData, preview: Control):
 	self.data = data
 
 	_on_data_focus_entered(0.0)
 	n_data_root.game_data = data
 	n_media_root.game_data = data
+	n_data_root.set_bottom_focus("../Back")
 	n_preview_load_timer.start()
 
 func _on_back_pressed():
