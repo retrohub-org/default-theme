@@ -12,6 +12,10 @@ var data : RetroHubGameData
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RetroHubMedia.media_loaded.connect(_on_media_loaded)
+	RetroHubConfig.game_data_updated.connect(func(data: RetroHubGameData):
+		if self.data == data and is_visible_in_tree():
+			_on_game_preview_selected(data, false)
+	)
 
 func _on_media_loaded(media_data: RetroHubGameMediaData, game_data: RetroHubGameData, types: int):
 	if game_data == data and media_data.logo:

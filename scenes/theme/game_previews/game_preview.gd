@@ -13,15 +13,23 @@ signal game_pressed(data: RetroHubGameData, preview: Control)
 var media_loaded := false
 var hash_loaded := false
 
+var media_failed := false
+
 var game_data : RetroHubGameData:
 	set(value):
 		game_data = value
 
-		if not game_data.has_media:
-			text = game_data.name
+		text = game_data.name
+		media_loaded = false
+		hash_loaded = false
 
 func _ready():
 	RetroHubMedia.media_loaded.connect(_on_media_loaded)
+
+	RetroHubConfig.game_data_updated.connect(func(game_data: RetroHubGameData):
+		if self.game_data == game_data and is_visible_in_tree():
+			self.game_data = game_data
+	)
 
 var last_global_y := global_position.y
 func _process(_delta):
@@ -94,8 +102,6 @@ func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, type
 	elif types == RetroHubMedia.Type.BOX_RENDER:
 		if media.box_render:
 			n_preview.texture = media.box_render
-		else:
-			text = game_data.name
 
 func _on_mouse_entered():
 	game_preview_selected.emit(game_data, false)
