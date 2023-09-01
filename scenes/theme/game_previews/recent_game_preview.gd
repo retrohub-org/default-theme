@@ -10,6 +10,12 @@ var game_data : RetroHubGameData:
 
 		n_label.text = game_data.name
 
+func _ready():
+	RetroHubConfig.game_data_updated.connect(func(game_data: RetroHubGameData):
+		if self.game_data == game_data and is_visible_in_tree():
+			self.game_data = game_data
+	)
+
 func grab_focus():
 	n_game_preview.grab_focus()
 
