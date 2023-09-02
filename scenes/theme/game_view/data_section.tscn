@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cp3jlic4qi076"]
+[gd_scene load_steps=22 format=3 uid="uid://cp3jlic4qi076"]
 
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_3dva8"]
 [ext_resource type="Script" path="res://scenes/theme/game_view/data_section.gd" id="1_gsq0a"]
 [ext_resource type="Texture2D" uid="uid://wdi7id6fbtjw" path="res://assets/theme/icons/play.svg" id="3_roefq"]
 [ext_resource type="Texture2D" uid="uid://dta8m1y7ed5vf" path="res://assets/theme/icons/calendar.svg" id="4_gprg5"]
+[ext_resource type="Script" path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" id="5_8mxx3"]
 [ext_resource type="Texture2D" uid="uid://ch8uglk4auwl8" path="res://assets/theme/icons/count.svg" id="5_af6f8"]
 [ext_resource type="Texture2D" uid="uid://cgohvfgp74isp" path="res://assets/theme/icons/players.svg" id="6_gcr4f"]
 [ext_resource type="Texture2D" uid="uid://cgkbrwyvcttb7" path="res://assets/theme/icons/star-unfilled-bar.svg" id="7_blmvy"]
@@ -134,6 +135,9 @@ text = "Play "
 icon = ExtResource("3_roefq")
 expand_icon = true
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/HBoxContainer3/Play"]
+script = ExtResource("5_8mxx3")
+
 [node name="AgeRating" type="HBoxContainer" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
@@ -164,6 +168,9 @@ text = "%s"
 clip_text = true
 text_overrun_behavior = 3
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/VBoxContainer2/HBoxContainer2/PlayDate"]
+script = ExtResource("5_8mxx3")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 2
@@ -183,6 +190,9 @@ tooltip_text = "Total play cont"
 mouse_filter = 1
 text = "%d"
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/VBoxContainer2/HBoxContainer/PlayCount"]
+script = ExtResource("5_8mxx3")
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/InfoBar/Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -199,6 +209,9 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "%s"
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/HBoxContainer2/NumPlayers"]
+script = ExtResource("5_8mxx3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/InfoBar/Panel/HBoxContainer"]
 layout_mode = 2
@@ -220,6 +233,9 @@ value = 0.65
 nine_patch_stretch = true
 texture_under = ExtResource("7_blmvy")
 texture_progress = ExtResource("8_gvvv6")
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoBar/Panel/HBoxContainer/HBoxContainer/Rating"]
+script = ExtResource("5_8mxx3")
 
 [node name="Favorite" type="Button" parent="VBoxContainer/InfoBar/Panel/HBoxContainer"]
 unique_name_in_owner = true
@@ -279,6 +295,9 @@ text = "Developer: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/Developer"]
+script = ExtResource("5_8mxx3")
+
 [node name="Publisher" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
@@ -287,6 +306,9 @@ size_flags_horizontal = 3
 text = "Publisher: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/Publisher"]
+script = ExtResource("5_8mxx3")
 
 [node name="Genres" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
@@ -297,6 +319,9 @@ text = "Genre: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/Genres"]
+script = ExtResource("5_8mxx3")
+
 [node name="ReleaseDate" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
@@ -305,6 +330,9 @@ size_flags_horizontal = 3
 text = "Release date: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/ReleaseDate"]
+script = ExtResource("5_8mxx3")
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/Metadata"]
 layout_mode = 2
@@ -332,6 +360,9 @@ mouse_filter = 1
 text = "Game details"
 autowrap_mode = 2
 
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/MarginContainer/SmoothScrollContainer/Description"]
+script = ExtResource("5_8mxx3")
+
 [node name="NoMetadata" type="VBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
@@ -344,6 +375,9 @@ theme_override_constants/separation = 25
 layout_mode = 2
 text = "This game has no metadata to show"
 horizontal_alignment = 1
+
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/NoMetadata/Label"]
+script = ExtResource("5_8mxx3")
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/NoMetadata"]
 layout_mode = 2

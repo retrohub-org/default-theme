@@ -41,10 +41,17 @@ func _ready():
 			self.game_data = game_data
 	)
 
+func set_prev_focus(node_path):
+	var n_play_node_path : NodePath = "../../../../../../" + node_path
+	n_play.focus_previous = n_play_node_path
+
 func set_bottom_focus(node_path):
 	if n_no_metadata.visible:
-		var n_scrape_metadata_path : NodePath = "../../../../" + node_path
-		n_scrape_metadata.focus_neighbor_bottom = n_scrape_metadata_path
+		var n_scrape_metadata_node_path : NodePath = "../../../../" + node_path
+		n_scrape_metadata.focus_neighbor_bottom = n_scrape_metadata_node_path
+	elif RetroHubConfig.config.accessibility_screen_reader_enabled:
+		var n_description_node_path : NodePath = "../../../../../" + node_path
+		n_description.focus_neighbor_bottom = n_description_node_path
 	else:
 		var n_play_node_path : NodePath = "../../../../../../" + node_path
 		var n_favorite_node_path : NodePath = "../../../../../" + node_path

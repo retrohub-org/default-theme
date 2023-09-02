@@ -42,7 +42,10 @@ func _on_game_pressed(data: RetroHubGameData, preview: Control):
 	_on_data_focus_entered(0.0)
 	n_data_root.game_data = data
 	n_media_root.game_data = data
-	n_data_root.set_bottom_focus("../Back")
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		n_data_root.set_prev_focus("../Back")
+	else:
+		n_data_root.set_bottom_focus("../Back")
 	n_preview_load_timer.start()
 
 func _on_back_pressed():

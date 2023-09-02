@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://3ttwxnv6byn"]
+[gd_scene load_steps=4 format=3 uid="uid://3ttwxnv6byn"]
 
 [ext_resource type="Script" path="res://scenes/theme/games_container/system_games_container.gd" id="1_it0md"]
 [ext_resource type="PackedScene" uid="uid://bue0mn1ssj8cg" path="res://scenes/theme/game_previews/game_preview.tscn" id="2_mendw"]
+[ext_resource type="Script" path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" id="3_8pbh7"]
 
 [node name="SystemGamesContainer" type="VBoxContainer"]
 anchors_preset = 15
@@ -17,6 +18,9 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 text = "System full name"
+
+[node name="AccessibilityFocus" type="Node" parent="SystemName"]
+script = ExtResource("3_8pbh7")
 
 [node name="HSeparator" type="HSeparator" parent="."]
 layout_mode = 2
@@ -40,5 +44,6 @@ size_flags_horizontal = 0
 focus_mode = 2
 mouse_filter = 2
 
+[connection signal="focus_entered" from="SystemName" to="." method="_on_system_name_focus_entered"]
 [connection signal="focus_entered" from="FocusHandlerTop" to="." method="_on_focus_handler_top_focus_entered"]
 [connection signal="focus_entered" from="FocusHandlerBottom" to="." method="_on_focus_handler_bottom_focus_entered"]
