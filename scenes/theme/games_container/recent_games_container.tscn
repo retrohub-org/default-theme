@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ftyg4jgq44jd"]
+[gd_scene load_steps=6 format=3 uid="uid://ftyg4jgq44jd"]
 
 [ext_resource type="Script" path="res://scenes/theme/games_container/recent_games_container.gd" id="1_p34yk"]
 [ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="1_uqkon"]
 [ext_resource type="PackedScene" uid="uid://ciumb2hv5eapa" path="res://scenes/theme/game_previews/recent_game_preview.tscn" id="2_6hbxi"]
+[ext_resource type="Script" path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" id="3_pfr8n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_851ug"]
 font_size = 24
@@ -21,6 +22,9 @@ layout_mode = 2
 mouse_filter = 1
 text = "Recent games"
 label_settings = SubResource("LabelSettings_851ug")
+
+[node name="AccessibilityFocus" type="Node" parent="Label"]
+script = ExtResource("3_pfr8n")
 
 [node name="SmoothScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2

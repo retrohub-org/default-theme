@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ckgpsfhm3urnw"]
+[gd_scene load_steps=7 format=3 uid="uid://ckgpsfhm3urnw"]
 
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_ggxve"]
 [ext_resource type="Script" path="res://scenes/theme/game_view/game_view.gd" id="1_sdgry"]
 [ext_resource type="PackedScene" uid="uid://dtgfhatyhvq47" path="res://scenes/theme/game_view/media_section.tscn" id="3_ppox2"]
+[ext_resource type="Script" path="res://addons/retrohub_theme_helper/ui/AccessibilityFocus.gd" id="4_3f5di"]
 [ext_resource type="PackedScene" uid="uid://cp3jlic4qi076" path="res://scenes/theme/game_view/data_section.tscn" id="4_41pxw"]
 [ext_resource type="Texture2D" uid="uid://cmulr4g42bn35" path="res://assets/theme/icons/back.svg" id="5_fnseg"]
 
@@ -38,6 +39,10 @@ focus_neighbor_bottom = NodePath("../../Data")
 mouse_filter = 2
 theme_type_variation = &"InvisibleButton"
 
+[node name="AccessibilityFocus" type="Node" parent="Media/KeyboardFocusButton"]
+script = ExtResource("4_3f5di")
+mode = 0
+
 [node name="Data" parent="." instance=ExtResource("4_41pxw")]
 unique_name_in_owner = true
 layout_mode = 1
@@ -54,6 +59,7 @@ offset_right = 58.0
 offset_bottom = 58.0
 focus_neighbor_top = NodePath("../Data")
 focus_neighbor_bottom = NodePath("../Media/KeyboardFocusButton")
+focus_next = NodePath("../Data")
 theme_type_variation = &"RoundButton"
 icon = ExtResource("5_fnseg")
 icon_alignment = 1

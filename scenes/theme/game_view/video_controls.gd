@@ -16,6 +16,10 @@ var max_time : float
 func _ready():
 	n_time_timer.stop()
 
+	if RetroHubConfig.config.accessibility_screen_reader_enabled:
+		# Mutes the video stream when TTS is enabled
+		n_sound.button_pressed = true
+
 func _input(event):
 	if not visible: return
 	if n_volume_popup.visible:
@@ -82,7 +86,8 @@ func set_time_label():
 	n_time_label.text = time_label_text % [curr_time, total_time]
 
 func set_volume(value: float):
-	video_player.volume_db = linear_to_db(value)
+	if video_player:
+		video_player.volume_db = linear_to_db(value)
 
 
 func _on_play_pause_toggled(button_pressed):

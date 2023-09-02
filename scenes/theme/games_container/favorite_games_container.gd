@@ -2,7 +2,10 @@ extends VBoxContainer
 
 @export var game_preview : PackedScene
 
+@onready var n_favorite := %Favorite
 @onready var n_container := %Container
+
+var accessibility_label_focused := false
 
 var next_container : Control
 var prev_container : Control
@@ -95,10 +98,19 @@ func grab_focus_top():
 	if last_input:
 		if last_input.is_action("ui_up") and prev_container:
 			prev_container.grab_focus_bottom()
+			accessibility_label_focused = false
 		elif last_input.is_action("ui_down"):
 			grab_first_child()
+			accessibility_label_focused = false
+		elif last_input.is_action("ui_focus_prev") or last_input.is_action("ui_focus_next"):
+			if accessibility_label_focused:
+				grab_first_child()
+				accessibility_label_focused = false
+			else:
+				n_favorite.grab_focus()
 		else:
 			grab_first_child()
+			accessibility_label_focused = false
 
 func grab_focus_bottom():
 	if last_input:
@@ -117,13 +129,16 @@ func grab_focus_bottom():
 					return
 				last_child = n_container.get_child(idx)
 			last_child.grab_focus()
-		elif last_input.is_action("ui_down"):
+		elif last_input.is_action("ui_focus_prev"):
+			grab_last_child()
+		elif last_input.is_action("ui_down") or last_input.is_action("ui_focus_next"):
 			if next_container:
 				next_container.grab_focus_top()
 			else:
 				grab_last_child()
 		else:
 			grab_first_child()
+	accessibility_label_focused = false
 
 
 func _on_focus_handler_top_focus_entered():
@@ -131,3 +146,7 @@ func _on_focus_handler_top_focus_entered():
 
 func _on_focus_handler_bottom_focus_entered():
 	grab_focus_bottom()
+
+
+func _on_favorite_focus_entered():
+	accessibility_label_focused = true
