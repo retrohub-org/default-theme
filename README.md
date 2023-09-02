@@ -2,6 +2,10 @@
 
 ![](github_media/ss1.png)
 ![](github_media/ss2.png)
+![](github_media/ss3.png)
+![](github_media/ss4.png)
+![](github_media/ss5.png)
+![](github_media/ss6.png)
 
 ## Installation
 
