@@ -23,10 +23,10 @@ func _ready():
 func _input(event):
 	if not visible: return
 	if n_volume_popup.visible:
-		if event.is_action_pressed("ui_up"):
+		if event.is_action_pressed("ui_up", true):
 			get_viewport().set_input_as_handled()
 			n_volume_slider.value += 0.05
-		if event.is_action_pressed("ui_down"):
+		if event.is_action_pressed("ui_down", true):
 			get_viewport().set_input_as_handled()
 			n_volume_slider.value -= 0.05
 	if get_viewport().gui_get_focus_owner() == n_time:
@@ -35,20 +35,20 @@ func _input(event):
 			if event.is_action_released("rh_accept"):
 				get_viewport().set_input_as_handled()
 				_on_time_drag_ended(null)
-			if event.is_action_pressed("ui_left"):
+			if event.is_action_pressed("ui_left", true):
 				get_viewport().set_input_as_handled()
 				n_time.value -= n_time.max_value / 100.0
-			if event.is_action_pressed("ui_right"):
+			if event.is_action_pressed("ui_right", true):
 				get_viewport().set_input_as_handled()
 				n_time.value += n_time.max_value / 100.0
 		else:
 			if event.is_action_pressed("rh_accept"):
 				get_viewport().set_input_as_handled()
 				_on_time_drag_started()
-			if event.is_action_pressed("ui_left"):
+			if event.is_action_pressed("ui_left", true):
 				get_viewport().set_input_as_handled()
 				n_time.get_node(n_time.focus_neighbor_left).grab_focus()
-			if event.is_action_pressed("ui_right"):
+			if event.is_action_pressed("ui_right", true):
 				get_viewport().set_input_as_handled()
 				n_time.get_node(n_time.focus_neighbor_right).grab_focus()
 

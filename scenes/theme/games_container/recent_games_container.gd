@@ -123,9 +123,9 @@ func search_sub_requested(term: String):
 
 func grab_focus_bottom():
 	if last_input:
-		if last_input.is_action("ui_up") or last_input.is_action("ui_focus_prev"):
+		if last_input.is_action("ui_up", true) or last_input.is_action("ui_focus_prev", true):
 			grab_first_child()
-		elif last_input.is_action("ui_down") or last_input.is_action("ui_focus_next"):
+		elif last_input.is_action("ui_down", true) or last_input.is_action("ui_focus_next", true):
 			if next_container:
 				next_container.grab_focus_top()
 			else:
@@ -140,7 +140,7 @@ func _on_focus_handler_bottom_focus_entered():
 
 func _on_focus_handler_top_focus_entered():
 	if last_input:
-		if last_input.is_action("ui_up") or last_input.is_action("ui_focus_prev"):
+		if last_input.is_action("ui_up", true) or last_input.is_action("ui_focus_prev", true):
 			focus_top_element.emit()
 		else:
 			grab_first_child()
