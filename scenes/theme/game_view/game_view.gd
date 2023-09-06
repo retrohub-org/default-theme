@@ -101,9 +101,11 @@ func _on_data_focus_entered(time := 0.3):
 	n_data_root.focus_mode = FOCUS_ALL
 	n_keyboard_focus_btn.focus_mode = FOCUS_ALL
 	n_back.focus_neighbor_bottom = "../Media/KeyboardFocusButton"
-	n_data_root.grab_focus()
 
 	media_expanded = false
+
+func _grab_play_button():
+	n_data_root.grab_focus()
 
 
 func _on_preview_load_timer_timeout():
