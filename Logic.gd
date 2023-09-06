@@ -43,13 +43,14 @@ func _on_game_view_on_back_pressed():
 		await n_anim.animation_finished
 	is_on_game_view = false
 	n_anim.play("transition_seletor")
-	if last_preview:
-		print("Grabbing focus")
-		last_preview.grab_focus()
 	await n_anim.animation_finished
 	if not is_on_game_view:
 		n_game_view.free_media()
 
+func _grab_last_preview():
+	if last_preview:
+		print("Grabbing focus")
+		last_preview.grab_focus()
 
 func _on_recent_games_focus_top_element():
 	n_search_bar.grab_focus()
