@@ -96,13 +96,13 @@ func search_sub_requested(term: String):
 
 func grab_focus_top():
 	if last_input:
-		if last_input.is_action("ui_up") and prev_container:
+		if last_input.is_action("ui_up", true) and prev_container:
 			prev_container.grab_focus_bottom()
 			accessibility_label_focused = false
-		elif last_input.is_action("ui_down"):
+		elif last_input.is_action("ui_down", true):
 			grab_first_child()
 			accessibility_label_focused = false
-		elif last_input.is_action("ui_focus_prev") or last_input.is_action("ui_focus_next"):
+		elif last_input.is_action("ui_focus_prev", true) or last_input.is_action("ui_focus_next", true):
 			if accessibility_label_focused:
 				grab_first_child()
 				accessibility_label_focused = false
@@ -114,7 +114,7 @@ func grab_focus_top():
 
 func grab_focus_bottom():
 	if last_input:
-		if last_input.is_action("ui_up"):
+		if last_input.is_action("ui_up", true):
 			var last_child : Control
 			for idx in range(n_container.get_child_count()-1, -1, -1):
 				if not last_child:
@@ -129,9 +129,9 @@ func grab_focus_bottom():
 					return
 				last_child = n_container.get_child(idx)
 			last_child.grab_focus()
-		elif last_input.is_action("ui_focus_prev"):
+		elif last_input.is_action("ui_focus_prev", true):
 			grab_last_child()
-		elif last_input.is_action("ui_down") or last_input.is_action("ui_focus_next"):
+		elif last_input.is_action("ui_down", true) or last_input.is_action("ui_focus_next", true):
 			if next_container:
 				next_container.grab_focus_top()
 			else:
