@@ -2,12 +2,15 @@
 
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_0dhq2"]
 
-[node name="RecentGames" type="Button"]
+[node name="SystemButton" type="Button"]
+texture_filter = 4
+custom_minimum_size = Vector2(0, 55)
 offset_right = 180.0
 offset_bottom = 54.0
 mouse_filter = 1
 theme = ExtResource("1_0dhq2")
 theme_type_variation = &"SystemButton"
 toggle_mode = true
-text = "name"
 clip_text = true
+icon_alignment = 1
+expand_icon = true
