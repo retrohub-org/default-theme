@@ -36,7 +36,13 @@ func _on_system_button_focus_exited():
 
 func _on_system_received(data: RetroHubSystemData):
 	var btn := system_button.instantiate()
-	btn.text = data.name
+	var logo_path := "res://assets/theme/system_icons/%s.png" % data.name
+	if ResourceLoader.exists(logo_path):
+		btn.icon = load(logo_path)
+		btn.text = " "
+	else:
+		print("Nor")
+		btn.text = data.name
 	btn.button_group = group
 	n_side_bar_container.add_child(btn)
 	system_buttons[data] = btn
