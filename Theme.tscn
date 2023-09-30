@@ -373,21 +373,21 @@ system_button = ExtResource("6_b27ka")
 
 [node name="RecentGames" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 0)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_group = SubResource("ButtonGroup_guept")
 text = "Recent"
 
 [node name="FavoriteGames" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 0)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_group = SubResource("ButtonGroup_dorua")
 text = "Favorites"
 
 [node name="Library" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 0)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_group = SubResource("ButtonGroup_ymns5")
 text = "Library"

@@ -18,13 +18,12 @@ signal media_ready
 @onready var n_game_title := %GameTitle
 @onready var n_game_renders := %GameRenders
 
-@onready var media_selection_orig_rect : Rect2 = n_media_selection.get_rect()
-@onready var image_preview_orig_rect : Rect2 = n_image_preview.get_rect()
-
 var media_expanded := false
 var media_ready_emitted := false
 
 var allocated_size : Vector2
+
+@onready var window_size := get_viewport_rect().size
 
 var game_data : RetroHubGameData:
 	set(value):
@@ -36,6 +35,10 @@ func _ready():
 	RetroHubConfig.game_data_updated.connect(func(game_data: RetroHubGameData):
 		if self.game_data == game_data and is_visible_in_tree():
 			self.game_data = game_data
+	)
+	
+	get_viewport().size_changed.connect(func():
+		window_size = get_viewport_rect().size
 	)
 
 func signal_media_ready():
@@ -95,8 +98,7 @@ func set_image_size(node: Control, texture: Texture2D, time: float):
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
 	var preview_size : Vector2 = texture.get_size()
-	var screen_size := get_viewport().get_visible_rect().size
-	var total_size := Vector2(screen_size.x - n_media_selection.size.x, allocated_size.y)
+	var total_size := Vector2(window_size.x - n_media_selection.size.x, allocated_size.y)
 
 	# Clamp preview size taking into account ratio
 	if preview_size.x > total_size.x:
@@ -131,8 +133,8 @@ func set_fullscreen_image(time: float):
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
-	tween.tween_property(n_image_preview, "position", image_preview_orig_rect.position, time)
-	tween.tween_property(n_image_preview, "size", image_preview_orig_rect.size, time)
+	tween.tween_property(n_image_preview, "position", Vector2.ZERO, time)
+	tween.tween_property(n_image_preview, "size", window_size, time)
 
 func set_fullscreen_video(time: float):
 	# This is needed because Godot doesn't offer an expand with aspect ratio covered
@@ -146,16 +148,14 @@ func set_fullscreen_video(time: float):
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
 	var preview_size : Vector2 = n_video_preview.get_video_texture().get_size()
-	var screen_size := get_viewport().get_visible_rect().size
-	var total_size := screen_size
 	
 	var desired_size := Vector2(
-		total_size.x,
-		total_size.x * preview_size.y / preview_size.x
+		window_size.x,
+		window_size.x * preview_size.y / preview_size.x
 	)
 	var desired_pos := Vector2(
 		0,
-		(total_size.y - desired_size.y) / 2.0
+		(window_size.y - desired_size.y) / 2.0
 	)
 	tween.tween_property(n_video_preview, "position", desired_pos, time)
 	tween.tween_property(n_video_preview, "size", desired_size, time)
@@ -175,7 +175,7 @@ func animate_exit(time: float):
 
 	tween.tween_property(n_game_title, "modulate:a", 1.0, time)
 	tween.tween_property(n_game_renders, "modulate:a", 1.0, time)
-	tween.tween_property(n_media_selection, "position:x", media_selection_orig_rect.position.x, time)
+	tween.tween_property(n_media_selection, "position:x", window_size.x, time)
 
 	set_fullscreen_image(time)
 	set_fullscreen_video(time)

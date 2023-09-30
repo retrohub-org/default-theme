@@ -12,10 +12,16 @@ signal on_back_pressed
 @onready var n_keyboard_focus_btn := %KeyboardFocusButton
 @onready var n_preview_load_timer := %PreviewLoadTimer
 
-@onready var media_orig_rect : Rect2 = n_media_root.get_rect()
-@onready var data_orig_rect : Rect2 = n_data_root.get_rect()
+@onready var window_size := get_viewport_rect().size
+@onready var media_orig_ratio : float = n_media_root.get_rect().size.y / window_size.y
+@onready var data_orig_ratio : float = n_data_root.get_rect().size.y / window_size.y
 
 var media_expanded := false
+
+func _ready():
+	get_viewport().size_changed.connect(func():
+		window_size = get_viewport_rect().size
+	)
 
 func _input(event):
 	if not visible: return
@@ -91,8 +97,8 @@ func _on_data_focus_entered(time := 0.3):
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
-	tween.tween_property(n_media_root, "size:y", media_orig_rect.size.y, time)
-	tween.tween_property(n_data_root, "position:y", data_orig_rect.position.y, time)
+	tween.tween_property(n_media_root, "size:y", window_size.y * media_orig_ratio, time)
+	tween.tween_property(n_data_root, "position:y", window_size.y * media_orig_ratio, time)
 
 	# Re-order media elements
 	n_media_root.animate_exit(time)
