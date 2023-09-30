@@ -107,6 +107,8 @@ func _on_data_focus_entered(time := 0.3):
 	n_data_root.focus_mode = FOCUS_ALL
 	n_keyboard_focus_btn.focus_mode = FOCUS_ALL
 	n_back.focus_neighbor_bottom = "../Media/KeyboardFocusButton"
+	if get_viewport().gui_get_focus_owner() != n_back:
+		n_data_root.grab_focus()
 
 	media_expanded = false
 

@@ -3,6 +3,7 @@ extends VBoxContainer
 @export var system_button : PackedScene
 
 @onready var n_games_container := %GamesContainer
+@onready var n_side_bar := %SideBar
 @onready var n_side_bar_container := %SideBarContainer
 @onready var n_recent_games := %RecentGames
 @onready var n_favorite_games := %FavoriteGames
@@ -32,7 +33,7 @@ func _on_system_button_focus_entered(button: Button):
 	button.button_pressed = true
 
 func _on_system_button_focus_exited():
-	focus_on -= 1
+	focus_on = max(focus_on - 1, 0)
 
 func _on_system_received(data: RetroHubSystemData):
 	var btn := system_button.instantiate()
@@ -85,6 +86,7 @@ func focus_system_button():
 	var btn : Button = scroll_offsets[scroll_limit_idx][1]
 	if focus_on > 0: return
 	btn.button_pressed = true
+	n_side_bar.scroll_y_to(-btn.position.y)
 
 func bind_button_to_offset(btn: Button, node: Control):
 	if not node.visible:
@@ -136,3 +138,7 @@ func _on_focus_entered():
 		if btn.button_pressed:
 			btn.grab_focus()
 			return
+
+
+func _on_side_bar_mouse_exited():
+	focus_on = 0

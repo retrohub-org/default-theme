@@ -54,6 +54,5 @@ one_shot = true
 
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="pressed" from="HBoxContainer/Icon" to="." method="_on_icon_pressed"]
-[connection signal="mouse_entered" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_mouse_entered"]
 [connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="timeout" from="SearchDelay" to="." method="_on_search_delay_timeout"]
