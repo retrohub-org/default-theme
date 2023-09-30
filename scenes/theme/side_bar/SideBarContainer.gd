@@ -41,7 +41,6 @@ func _on_system_received(data: RetroHubSystemData):
 		btn.icon = load(logo_path)
 		btn.text = " "
 	else:
-		print("Nor")
 		btn.text = data.name
 	btn.button_group = group
 	n_side_bar_container.add_child(btn)

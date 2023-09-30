@@ -33,7 +33,6 @@ gdscript/warnings/native_method_override=1
 
 [display]
 
-window/size/viewport_height=576
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 

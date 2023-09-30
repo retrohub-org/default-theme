@@ -60,7 +60,7 @@ func set_bottom_focus(node_path):
 
 func _get_minimum_size():
 	if n_info_bar:
-		return n_info_bar.size
+		return Vector2(0, n_info_bar.size.y)
 	return Vector2.ZERO
 
 func populate():
