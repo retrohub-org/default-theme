@@ -12,6 +12,7 @@ signal game_pressed(data: RetroHubGameData, preview: Control)
 
 var media_loaded := false
 var hash_loaded := false
+var requested_type : RetroHubMedia.Type
 
 var media_failed := false
 
@@ -67,7 +68,8 @@ func check_load_media(y: float, delta: float):
 		else:
 			# Load full media
 			media_loaded = true
-			var media := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, RetroHubMedia.Type.TITLE_SCREEN)
+			requested_type = RetroHubMedia.Type.TITLE_SCREEN
+			var media := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, requested_type)
 			n_blurhash.texture = media.title_screen
 
 func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, types: int):
@@ -77,27 +79,32 @@ func _on_media_loaded(media: RetroHubGameMediaData, data: RetroHubGameData, type
 	if n_preview.texture: return
 	# Has media been unloaded meanwhile?
 	if media_loaded == false: return
+	# If this wasn't the requested type, we are catching a request from some other node
+	if requested_type != types: return
 
 	if types == RetroHubMedia.Type.TITLE_SCREEN:
 		if media.title_screen:
 			n_preview.texture = media.title_screen
 			n_anim.play("fade_preview")
 		else:
-			var preview := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, RetroHubMedia.Type.SCREENSHOT)
+			requested_type = RetroHubMedia.Type.SCREENSHOT
+			var preview := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, requested_type)
 			n_blurhash.texture = preview.screenshot
 	elif types == RetroHubMedia.Type.SCREENSHOT:
 		if media.screenshot:
 			n_preview.texture = media.screenshot
 			n_anim.play("fade_preview")
 		else:
-			var preview := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, RetroHubMedia.Type.LOGO)
+			requested_type = RetroHubMedia.Type.LOGO
+			var preview := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, requested_type)
 			n_blurhash.texture = preview.logo
 	elif types == RetroHubMedia.Type.LOGO:
 		if media.logo:
 			n_preview.texture = media.logo
 			n_anim.play("fade_preview")
 		else:
-			var preview := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, RetroHubMedia.Type.BOX_RENDER)
+			requested_type = RetroHubMedia.Type.BOX_RENDER
+			var preview := RetroHubMedia.retrieve_media_data_and_blurhash_async(game_data, requested_type)
 			n_blurhash.texture = preview.box_render
 	elif types == RetroHubMedia.Type.BOX_RENDER:
 		if media.box_render:
