@@ -11,7 +11,12 @@ extends Panel
 @onready var n_volume_hide_timer := %VolumeHideTimer
 
 @onready var time_label_text : String = n_time_label.text
+
+@export var sound_delay : int
+
 var max_time : float
+var dragging := false
+var sound_timestamp : int
 
 func _ready():
 	n_time_timer.stop()
@@ -99,6 +104,8 @@ func _on_time_drag_started():
 	was_paused = video_player.paused
 	video_player.paused = true
 	n_time_timer.stop()
+	dragging = true
+	sound_timestamp = Time.get_ticks_msec()
 
 
 func _on_time_drag_ended(_value_changed):
@@ -109,6 +116,7 @@ func _on_time_drag_ended(_value_changed):
 	video_player.paused = was_paused
 	video_player.volume = volume
 	n_time_timer.start()
+	dragging = false
 
 func show_volume_popup():
 	n_volume_hide_timer.stop()
@@ -160,4 +168,7 @@ func _on_visibility_changed():
 
 func _on_time_value_changed(_value):
 	set_time_label()
+	if dragging and sound_timestamp < Time.get_ticks_msec():
+		RetroHubUI.play_sound(RetroHubUI.AudioKeys.SLIDER_TICK)
+		sound_timestamp = Time.get_ticks_msec() + sound_delay
 
