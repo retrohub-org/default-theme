@@ -27,9 +27,10 @@ var game_data : RetroHubGameData:
 func _ready():
 	RetroHubMedia.media_loaded.connect(_on_media_loaded)
 
-	RetroHubConfig.game_data_updated.connect(func(game_data: RetroHubGameData):
-		if self.game_data == game_data and is_visible_in_tree():
-			self.game_data = game_data
+	RetroHubConfig.game_data_updated.connect(
+		func(data: RetroHubGameData):
+			if self.game_data == data and is_visible_in_tree():
+				self.game_data = data
 	)
 
 var last_global_y := global_position.y
@@ -43,10 +44,10 @@ func _process(_delta):
 		if not media_loaded:
 			check_load_media(global_y, delta)
 		if media_loaded or hash_loaded:
-			check_unload_media(global_y, delta)
+			check_unload_media(global_y)
 
 # Check if we should unload media
-func check_unload_media(y: float, delta: float):
+func check_unload_media(y: float):
 	# Unload if we leave the limits
 	if y + size.y < min_y or y > max_y:
 		media_loaded = false

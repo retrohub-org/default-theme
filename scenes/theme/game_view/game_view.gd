@@ -42,12 +42,12 @@ func _gui_input(event):
 				accept_event()
 				_on_data_focus_entered()
 
-func _on_game_pressed(data: RetroHubGameData, preview: Control):
-	self.data = data
+func _on_game_pressed(_data: RetroHubGameData, _preview: Control):
+	self.data = _data
 
 	_on_data_focus_entered(0.0)
-	n_data_root.game_data = data
-	n_media_root.game_data = data
+	n_data_root.game_data = _data
+	n_media_root.game_data = _data
 	if RetroHubConfig.config.accessibility_screen_reader_enabled:
 		n_data_root.set_prev_focus("../Back")
 	else:

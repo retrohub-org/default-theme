@@ -32,9 +32,10 @@ var game_data : RetroHubGameData:
 
 func _ready():
 	RetroHubMedia.media_loaded.connect(_on_media_loaded)
-	RetroHubConfig.game_data_updated.connect(func(game_data: RetroHubGameData):
-		if self.game_data == game_data and is_visible_in_tree():
-			self.game_data = game_data
+	RetroHubConfig.game_data_updated.connect(
+		func(data: RetroHubGameData):
+			if self.game_data == data and is_visible_in_tree():
+				self.game_data = data
 	)
 	
 	get_viewport().size_changed.connect(func():

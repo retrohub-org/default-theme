@@ -16,8 +16,6 @@ signal search_subtractive_requested(term)
 
 var last_search_term := ""
 
-var _stored_focus_mode : FocusMode
-
 var any_game := false
 
 func _ready():
