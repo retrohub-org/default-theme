@@ -101,13 +101,11 @@ func _on_time_drag_started():
 	n_time_timer.stop()
 
 
-func _on_time_drag_ended(value_changed):
+func _on_time_drag_ended(_value_changed):
 	video_player.stream_position = n_time.value
 	video_player.paused = false
 	var volume = video_player.volume
 	video_player.volume = 0
-	await get_tree().physics_frame
-	await get_tree().physics_frame
 	video_player.paused = was_paused
 	video_player.volume = volume
 	n_time_timer.start()
@@ -160,6 +158,6 @@ func _on_visibility_changed():
 		n_time_timer.stop()
 
 
-func _on_time_value_changed(value):
+func _on_time_value_changed(_value):
 	set_time_label()
 

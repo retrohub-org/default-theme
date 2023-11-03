@@ -38,7 +38,10 @@ func _on_game_received(data: RetroHubGameData):
 			games.push_back(data)
 		else:
 			# Replace the oldest game; sorting comes later
-			var oldest = games.reduce(func(min, val): return val if is_older(val, min) else min)
+			var oldest = games.reduce(
+				func(_min, val):
+					return val if is_older(val, _min) else _min
+			)
 			games[games.find(oldest)] = data
 
 func _on_game_receive_end():

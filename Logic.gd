@@ -11,7 +11,7 @@ var is_on_game_view := false
 
 var last_preview : Control
 
-func _on_game_pressed(data: RetroHubGameData, preview: Control):
+func _on_game_pressed(_data: RetroHubGameData, preview: Control):
 	last_preview = preview
 
 func _ready():
@@ -19,7 +19,7 @@ func _ready():
 
 	OS.low_processor_usage_mode = true
 
-func _process(delta):
+func _process(_delta):
 	n_search_bar.focus_mode = FOCUS_ALL if n_games_container.scroll_vertical < 100 else FOCUS_CLICK
 
 func _on_config_updated(key: String, _old, _new):

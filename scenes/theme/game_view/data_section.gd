@@ -36,9 +36,10 @@ var game_data : RetroHubGameData:
 		populate()
 
 func _ready():
-	RetroHubConfig.game_data_updated.connect(func(game_data: RetroHubGameData):
-		if self.game_data == game_data and is_visible_in_tree():
-			self.game_data = game_data
+	RetroHubConfig.game_data_updated.connect(
+		func(data: RetroHubGameData):
+			if self.game_data == data and is_visible_in_tree():
+				self.game_data = data
 	)
 
 func set_prev_focus(node_path):
