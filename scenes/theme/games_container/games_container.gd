@@ -67,6 +67,7 @@ func _on_game_receive_end():
 	if n_recent_games.grab_first_focus(): return
 	if n_favorite_games.grab_first_focus(): return
 	for system in n_container.get_children():
+		if not system.has_method("grab_first_focus"): continue
 		if system.grab_first_focus(): return
 
 func search(search_term: String):
