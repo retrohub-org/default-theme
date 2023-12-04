@@ -47,6 +47,15 @@ func _on_system_received(data: RetroHubSystemData):
 	n_side_bar_container.add_child(btn)
 	system_buttons[data] = btn
 
+func _handle_signal_connections(node: Control):
+	for data in [
+		["focus_entered", _on_system_button_focus_entered.bind(node)],
+		["focus_exited", _on_system_button_focus_exited]
+	]:
+		if node.is_connected(data[0], data[1]):
+			node.disconnect(data[0], data[1])
+		node.connect(data[0], data[1])
+
 func _on_logic_calculate_label_positions(node):
 	# Meta buttons
 	await get_tree().process_frame
@@ -59,8 +68,7 @@ func _on_logic_calculate_label_positions(node):
 		var btn_node : Control = data[0]
 		var offset_node : Control = data[1]
 		bind_button_to_offset(btn_node, offset_node)
-		btn_node.focus_entered.connect(_on_system_button_focus_entered.bind(btn_node))
-		btn_node.focus_exited.connect(_on_system_button_focus_exited)
+		_handle_signal_connections(btn_node)
 
 	# System buttons
 	var system_nodes : Dictionary = node.n_system_nodes
@@ -68,8 +76,7 @@ func _on_logic_calculate_label_positions(node):
 		var btn : Button = system_buttons[system]
 		var system_container = system_nodes[system]
 		bind_button_to_offset(btn, system_container)
-		btn.focus_entered.connect(_on_system_button_focus_entered.bind(btn))
-		btn.focus_exited.connect(_on_system_button_focus_exited)
+		_handle_signal_connections(btn)
 
 	compute_scroll_limits()
 
