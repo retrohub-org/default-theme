@@ -1,6 +1,9 @@
 extends Control
 
+signal resize_needed()
+
 @onready var n_info_bar := %InfoBar
+@onready var n_info_tab := %InfoTab
 
 @onready var n_metadata := %Metadata
 @onready var n_no_metadata := %NoMetadata
@@ -23,6 +26,9 @@ extends Control
 @onready var n_favorite_checked := %StarFilled
 @onready var n_favorite_unchecked := %StarUnfilled
 
+@onready var n_achievements := %Achievements
+
+
 @onready var n_base_text := {
 	n_developer: n_developer.text,
 	n_publisher: n_publisher.text,
@@ -41,6 +47,25 @@ func _ready():
 			if self.game_data == data and is_visible_in_tree():
 				self.game_data = data
 	)
+
+func _unhandled_input(event):
+	if not is_visible_in_tree(): return
+	if event.is_action_pressed("rh_left_shoulder"):
+		get_viewport().set_input_as_handled()
+		var tab : int = (n_info_tab.current_tab - 1)
+		if tab < 0: tab = n_info_tab.current_tab-1
+		n_info_tab.current_tab = tab
+	if event.is_action_pressed("rh_right_shoulder"):
+		get_viewport().set_input_as_handled()
+		var tab : int = (n_info_tab.current_tab + 1) % n_info_tab.get_tab_count()
+		n_info_tab.current_tab = tab
+
+func get_desired_ratio() -> float:
+	match n_info_tab.current_tab:
+		1: # RetroAchievements:
+			return 0.75
+		_:
+			return 0.6
 
 func set_prev_focus(node_path):
 	var n_play_node_path : NodePath = "../../../../../../" + node_path
@@ -67,6 +92,7 @@ func _get_minimum_size():
 func populate():
 	n_metadata.visible = game_data.has_metadata
 	n_no_metadata.visible = not game_data.has_metadata
+	n_achievements.game_data = game_data
 	for child in n_age_rating.get_children():
 		child.queue_free()
 	if game_data.has_metadata:
@@ -123,3 +149,9 @@ func _on_edit_metadata_pressed():
 
 func _on_scrape_metadata_pressed():
 	RetroHubUI.open_app_config(RetroHubUI.ConfigTabs.SCRAPER)
+
+func set_expected_height(height: float):
+	custom_minimum_size.y = height
+
+func _on_info_tab_tab_changed(tab):
+	resize_needed.emit()

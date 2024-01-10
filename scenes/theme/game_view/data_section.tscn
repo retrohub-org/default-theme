@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cp3jlic4qi076"]
+[gd_scene load_steps=27 format=3 uid="uid://cp3jlic4qi076"]
 
 [ext_resource type="Theme" uid="uid://btvhohyurcn0u" path="res://resources/theme/theme.tres" id="1_3dva8"]
 [ext_resource type="Script" path="res://scenes/theme/game_view/data_section.gd" id="1_gsq0a"]
@@ -12,8 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://dft2rslfadcw2" path="res://assets/theme/icons/star-filled-bar.svg" id="8_gvvv6"]
 [ext_resource type="Texture2D" uid="uid://bkpb8incwdkr8" path="res://assets/theme/icons/star-filled.svg" id="9_sobwa"]
 [ext_resource type="Texture2D" uid="uid://b384mq6py02a7" path="res://assets/theme/icons/star-unfilled.svg" id="10_svkcj"]
+[ext_resource type="Texture2D" uid="uid://dim5mk7g4q043" path="res://addons/controller_icons/assets/key/q.png" id="12_4peac"]
+[ext_resource type="Script" path="res://addons/controller_icons/objects/TextureRect.gd" id="12_byqss"]
 [ext_resource type="Texture2D" uid="uid://b5kitqyik3m7s" path="res://assets/theme/icons/edit_game_data.png" id="12_q2hxs"]
 [ext_resource type="Texture2D" uid="uid://ckirnuvl1aofi" path="res://assets/theme/icons/scrape_game_data.png" id="13_g6u71"]
+[ext_resource type="Texture2D" uid="uid://xe4n818le3p8" path="res://addons/controller_icons/assets/key/e.png" id="14_xk7cp"]
+[ext_resource type="PackedScene" uid="uid://mvr00r2pbjmw" path="res://scenes/theme/game_view/achievements/achievements.tscn" id="15_sb5h8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b5yej"]
 bg_color = Color(0.2, 0.235294, 0.341176, 0.858824)
@@ -63,6 +67,8 @@ corner_radius_bottom_right = 25
 corner_detail = 10
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rcerr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jlgt7"]
 font_size = 19
@@ -278,15 +284,63 @@ mouse_filter = 2
 texture = ExtResource("10_svkcj")
 expand_mode = 1
 
-[node name="Metadata" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ControllerTextureRect" type="TextureRect" parent="VBoxContainer/Control"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 2.0
+offset_right = 45.0
+offset_bottom = 32.0
+texture = ExtResource("12_4peac")
+expand_mode = 1
+script = ExtResource("12_byqss")
+path = "rh_left_shoulder"
+max_width = 30
+
+[node name="ControllerTextureRect2" type="TextureRect" parent="VBoxContainer/Control"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = 2.0
+offset_right = -15.0
+offset_bottom = 32.0
+grow_horizontal = 0
+texture = ExtResource("14_xk7cp")
+expand_mode = 1
+script = ExtResource("12_byqss")
+path = "rh_right_shoulder"
+max_width = 30
+
+[node name="InfoTab" type="TabContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rcerr")
+tab_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Metadata"]
+[node name="Info" type="Control" parent="VBoxContainer/InfoTab"]
 layout_mode = 2
 
-[node name="Developer" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
+[node name="Metadata" type="VBoxContainer" parent="VBoxContainer/InfoTab/Info"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/InfoTab/Info/Metadata"]
+layout_mode = 2
+
+[node name="Developer" type="Label" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -295,10 +349,10 @@ text = "Developer: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/Developer"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer/Developer"]
 script = ExtResource("5_8mxx3")
 
-[node name="Publisher" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
+[node name="Publisher" type="Label" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -307,10 +361,10 @@ text = "Publisher: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/Publisher"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer/Publisher"]
 script = ExtResource("5_8mxx3")
 
-[node name="Genres" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
+[node name="Genres" type="Label" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -319,10 +373,10 @@ text = "Genre: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/Genres"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer/Genres"]
 script = ExtResource("5_8mxx3")
 
-[node name="ReleaseDate" type="Label" parent="VBoxContainer/Metadata/HBoxContainer"]
+[node name="ReleaseDate" type="Label" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -331,27 +385,27 @@ text = "Release date: %s"
 label_settings = SubResource("LabelSettings_jlgt7")
 autowrap_mode = 3
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/HBoxContainer/ReleaseDate"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoTab/Info/Metadata/HBoxContainer/ReleaseDate"]
 script = ExtResource("5_8mxx3")
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Metadata"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/InfoTab/Info/Metadata"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Metadata"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/InfoTab/Info/Metadata"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 
-[node name="SmoothScrollContainer" type="ScrollContainer" parent="VBoxContainer/Metadata/MarginContainer"]
+[node name="SmoothScrollContainer" type="ScrollContainer" parent="VBoxContainer/InfoTab/Info/Metadata/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 script = ExtResource("7_u0kaw")
 allow_horizontal_scroll = false
 
-[node name="Description" type="Label" parent="VBoxContainer/Metadata/MarginContainer/SmoothScrollContainer"]
+[node name="Description" type="Label" parent="VBoxContainer/InfoTab/Info/Metadata/MarginContainer/SmoothScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -360,57 +414,69 @@ mouse_filter = 1
 text = "Game details"
 autowrap_mode = 2
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/Metadata/MarginContainer/SmoothScrollContainer/Description"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoTab/Info/Metadata/MarginContainer/SmoothScrollContainer/Description"]
 script = ExtResource("5_8mxx3")
 
-[node name="NoMetadata" type="VBoxContainer" parent="VBoxContainer"]
+[node name="NoMetadata" type="VBoxContainer" parent="VBoxContainer/InfoTab/Info"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -134.0
+offset_right = 250.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_constants/separation = 25
 
-[node name="Label" type="Label" parent="VBoxContainer/NoMetadata"]
+[node name="Label" type="Label" parent="VBoxContainer/InfoTab/Info/NoMetadata"]
 layout_mode = 2
 text = "This game has no metadata to show"
 horizontal_alignment = 1
 
-[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/NoMetadata/Label"]
+[node name="AccessibilityFocus" type="Node" parent="VBoxContainer/InfoTab/Info/NoMetadata/Label"]
 script = ExtResource("5_8mxx3")
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/NoMetadata"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/InfoTab/Info/NoMetadata"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/NoMetadata"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InfoTab/Info/NoMetadata"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="EditMetadata" type="Button" parent="VBoxContainer/NoMetadata/VBoxContainer"]
+[node name="EditMetadata" type="Button" parent="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer"]
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
-focus_neighbor_top = NodePath("../../../InfoBar/Panel/HBoxContainer/HBoxContainer3/Play")
+focus_neighbor_top = NodePath("../../../../../InfoBar/Panel/HBoxContainer/HBoxContainer3/Play")
 text = "Edit this game metadata"
 icon = ExtResource("12_q2hxs")
 expand_icon = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/NoMetadata/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/NoMetadata/VBoxContainer/HBoxContainer3"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/NoMetadata/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "or"
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/NoMetadata/VBoxContainer/HBoxContainer3"]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrapeMetadata" type="Button" parent="VBoxContainer/NoMetadata/VBoxContainer"]
+[node name="ScrapeMetadata" type="Button" parent="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(350, 80)
 layout_mode = 2
@@ -419,9 +485,15 @@ icon = ExtResource("13_g6u71")
 icon_alignment = 2
 expand_icon = true
 
+[node name="Achievements" parent="VBoxContainer/InfoTab" instance=ExtResource("15_sb5h8")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
 [connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
 [connection signal="pressed" from="VBoxContainer/InfoBar/Panel/HBoxContainer/HBoxContainer3/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/InfoBar/Panel/HBoxContainer/Favorite" to="." method="_on_favorite_pressed"]
 [connection signal="toggled" from="VBoxContainer/InfoBar/Panel/HBoxContainer/Favorite" to="." method="_on_favorite_toggled"]
-[connection signal="pressed" from="VBoxContainer/NoMetadata/VBoxContainer/EditMetadata" to="." method="_on_edit_metadata_pressed"]
-[connection signal="pressed" from="VBoxContainer/NoMetadata/VBoxContainer/ScrapeMetadata" to="." method="_on_scrape_metadata_pressed"]
+[connection signal="tab_changed" from="VBoxContainer/InfoTab" to="." method="_on_info_tab_tab_changed"]
+[connection signal="pressed" from="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer/EditMetadata" to="." method="_on_edit_metadata_pressed"]
+[connection signal="pressed" from="VBoxContainer/InfoTab/Info/NoMetadata/VBoxContainer/ScrapeMetadata" to="." method="_on_scrape_metadata_pressed"]
