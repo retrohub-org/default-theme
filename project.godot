@@ -42,7 +42,7 @@ export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/controller_icons/plugin.cfg", "res://addons/retrohub_theme_helper/plugin.cfg")
+enabled=PackedStringArray("res://addons/SmoothScroll/plugin.cfg", "res://addons/controller_icons/plugin.cfg", "res://addons/godot-accessibility/plugin.cfg", "res://addons/retrohub_theme_helper/plugin.cfg")
 
 [gui]
 

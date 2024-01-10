@@ -1,0 +1,143 @@
+[gd_scene load_steps=10 format=3 uid="uid://dkc8kr3533vaf"]
+
+[ext_resource type="Script" path="res://scenes/theme/game_view/achievements/achievement_data.gd" id="1_8643e"]
+[ext_resource type="Shader" path="res://scenes/theme/game_view/achievements/locked_grayscale.gdshader" id="2_rv10s"]
+[ext_resource type="Texture2D" uid="uid://bqb5m12c1vmg3" path="res://assets/theme/icons/image_downloading.svg" id="3_i3fgn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0haeu"]
+draw_center = false
+corner_radius_top_left = 1
+shadow_color = Color(0.8, 0.564706, 0, 1)
+shadow_size = 5
+anti_aliasing = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyjs8"]
+shader = ExtResource("2_rv10s")
+shader_parameter/enable = false
+shader_parameter/modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lq183"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_bbboa"]
+font_color = Color(0.741176, 0.741176, 0.741176, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xyg5o"]
+font_size = 14
+font_color = Color(0.603922, 0.603922, 0.603922, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ht1cu"]
+font_size = 15
+font_color = Color(0.780392, 0.780392, 0.780392, 1)
+
+[node name="AchievementData" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 77.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_8643e")
+unlocked_color = Color(0.858824, 0.858824, 0.858824, 1)
+unlocked_hard_core_color = Color(1, 0.784314, 0.188235, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Frame" type="Panel" parent="HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0haeu")
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/VBoxContainer2/Frame"]
+unique_name_in_owner = true
+show_behind_parent = true
+material = SubResource("ShaderMaterial_dyjs8")
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_i3fgn")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Type" type="TextureRect" parent="HBoxContainer/VBoxContainer2/Frame/Icon"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Achievement name"
+label_settings = SubResource("LabelSettings_lq183")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Time" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Unlocked: 01/01/2000 12:02:34"
+label_settings = SubResource("LabelSettings_bbboa")
+
+[node name="UnlockRate" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Unlocked by %d of players"
+label_settings = SubResource("LabelSettings_xyg5o")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Achievement description Achievement description Achievement description Achievement description Achievement description Achievement description Achievement description Achievement description Achievement description"
+label_settings = SubResource("LabelSettings_ht1cu")
+autowrap_mode = 2

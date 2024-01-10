@@ -1,0 +1,312 @@
+[gd_scene load_steps=13 format=3 uid="uid://mvr00r2pbjmw"]
+
+[ext_resource type="Script" path="res://scenes/theme/game_view/Achievements.gd" id="1_isnpy"]
+[ext_resource type="Texture2D" uid="uid://bwujw68japhya" path="res://assets/theme/icons/achievement_completion_under_filled.png" id="2_0w8a6"]
+[ext_resource type="Texture2D" uid="uid://d2dy3voqpfi4y" path="res://assets/theme/icons/achievement_completion_progress.png" id="3_c788e"]
+[ext_resource type="Texture2D" uid="uid://d4xbead4vgd4" path="res://assets/theme/icons/achievement_completion_total.png" id="4_r4iej"]
+[ext_resource type="Script" path="res://addons/SmoothScroll/SmoothScrollContainer.gd" id="5_twp75"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4sxl4"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_7wnrd"]
+font_size = 18
+font_color = Color(0.698039, 0.698039, 0.698039, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_51f5f"]
+font_size = 18
+font_color = Color(0.698039, 0.698039, 0.698039, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q1tjh"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 0.752941)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tnuj0"]
+font_size = 18
+font_color = Color(0.698039, 0.698039, 0.698039, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejjcb"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 0.752941)
+
+[sub_resource type="LabelSettings" id="LabelSettings_eacqw"]
+font_size = 14
+outline_size = 3
+outline_color = Color(0.0666667, 0, 0, 0.752941)
+
+[node name="Achievements" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_isnpy")
+mastery_color = Color(0.92549, 0.941176, 0.92549, 1)
+mastery_hardcore_color = Color(1, 0.611765, 0, 1)
+
+[node name="Data" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Data"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Data/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Data/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Data/HBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Completion"
+label_settings = SubResource("LabelSettings_4sxl4")
+
+[node name="CompletionProgressionDetails" type="Label" parent="Data/HBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "%d of %d progression achievements unlocked"
+label_settings = SubResource("LabelSettings_7wnrd")
+
+[node name="CompletionWinDetails" type="Label" parent="Data/HBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "No win achievement unlocked (%d possible)"
+label_settings = SubResource("LabelSettings_51f5f")
+
+[node name="CompletionBar" type="TextureProgressBar" parent="Data/HBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 1.0
+step = 0.01
+value = 1.0
+fill_mode = 4
+texture_under = ExtResource("2_0w8a6")
+texture_progress = ExtResource("3_c788e")
+tint_under = Color(0.0980392, 0.0980392, 0.0980392, 0.443137)
+tint_over = Color(0.623529, 1, 0.203922, 1)
+tint_progress = Color(0.623529, 1, 0.203922, 1)
+
+[node name="CompletionComplete" type="TextureRect" parent="Data/HBoxContainer/HBoxContainer2/CompletionBar"]
+unique_name_in_owner = true
+self_modulate = Color(0.215686, 0.658824, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_r4iej")
+
+[node name="CompletionProgress" type="Label" parent="Data/HBoxContainer/HBoxContainer2/CompletionBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -11.5
+offset_right = 21.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "100%"
+label_settings = SubResource("LabelSettings_q1tjh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Data/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Data/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Data/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Data/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mastery"
+label_settings = SubResource("LabelSettings_4sxl4")
+
+[node name="MasteryDetails" type="Label" parent="Data/HBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "%d of %d achievements unlocked"
+label_settings = SubResource("LabelSettings_tnuj0")
+
+[node name="MasteryDetailsHardcore" type="Label" parent="Data/HBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(%d in hardcore mode)"
+label_settings = SubResource("LabelSettings_tnuj0")
+
+[node name="MasteryBar" type="TextureProgressBar" parent="Data/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+value = 70.0
+fill_mode = 4
+texture_under = ExtResource("2_0w8a6")
+texture_progress = ExtResource("3_c788e")
+tint_under = Color(0.0980392, 0.0980392, 0.0980392, 0.443137)
+tint_progress = Color(0.615686, 0.615686, 0.615686, 1)
+
+[node name="MasteryBarHardcore" type="TextureProgressBar" parent="Data/HBoxContainer/HBoxContainer/MasteryBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+value = 45.0
+fill_mode = 4
+texture_progress = ExtResource("3_c788e")
+tint_over = Color(1, 0.792157, 0, 1)
+tint_progress = Color(1, 0.764706, 0, 1)
+
+[node name="MasteryComplete" type="TextureRect" parent="Data/HBoxContainer/HBoxContainer/MasteryBar"]
+unique_name_in_owner = true
+modulate = Color(1, 0.611765, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_r4iej")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Data/HBoxContainer/HBoxContainer/MasteryBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -11.5
+offset_right = 16.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -2
+
+[node name="MasteryProgressionHardcore" type="Label" parent="Data/HBoxContainer/HBoxContainer/MasteryBar/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "66%"
+label_settings = SubResource("LabelSettings_ejjcb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MasteryProgression" type="Label" parent="Data/HBoxContainer/HBoxContainer/MasteryBar/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(44%)"
+label_settings = SubResource("LabelSettings_eacqw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Data"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Data"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("5_twp75")
+
+[node name="AchievementContainer" type="VBoxContainer" parent="Data/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Loading" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Loading..."
+
+[node name="Error" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="ErrorLabel" type="Label" parent="Error"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+text = "Error text"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RetryButton" type="Button" parent="Error"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Retry"
+
+[node name="Unavailable" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Unavailable"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+text = "RetroAchievements is disabled. To get achievement information, you must enable and configure it in RetroHub's settings."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="OpenSettingsButton" type="Button" parent="Unavailable"]
+custom_minimum_size = Vector2(150, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Open settings"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Unavailable/OpenSettingsButton" to="." method="_on_open_settings_button_pressed"]
