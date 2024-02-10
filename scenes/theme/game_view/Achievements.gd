@@ -5,6 +5,7 @@ extends MarginContainer
 
 @onready var n_data := %Data
 @onready var n_achievement_cnt := %AchievementContainer
+@onready var n_achievement_cnt_scroll : ScrollContainer = n_achievement_cnt.get_parent()
 @onready var n_completion_progression_details := %CompletionProgressionDetails
 @onready var n_completion_win_details := %CompletionWinDetails
 @onready var n_completion_bar := %CompletionBar
@@ -53,6 +54,10 @@ func set_error_retry(error: String, retry_callable: Callable):
 		n_retry_button.connect("pressed", retry_callable, CONNECT_ONE_SHOT)
 	else:
 		n_retry_button.visible = false
+
+func _process(delta):
+	n_achievement_cnt_scroll.velocity.y += Input.get_axis("rh_rstick_down", "rh_rstick_up")
+
 
 func set_error(error: String):
 	set_node_visible(n_error)
@@ -104,6 +109,7 @@ func _on_visibility_changed():
 		for child in n_achievement_cnt.get_children():
 			n_achievement_cnt.remove_child(child)
 			child.queue_free()
+		n_achievement_cnt_scroll.scroll_to_top(0)
 
 func load_achievements():
 	var unlock_count := 0
