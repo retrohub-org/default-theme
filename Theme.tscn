@@ -16,11 +16,11 @@ bg_color = Color(0.337255, 0.423529, 0.52549, 1)
 border_width_right = 2
 border_color = Color(0.266667, 0.333333, 0.415686, 1)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_dj1cy"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_0dpb7"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_cemk0"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_j7eot"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_x3dq5"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_2j60d"]
 
 [sub_resource type="Animation" id="Animation_7ndt5"]
 length = 0.001
@@ -375,21 +375,21 @@ system_button = ExtResource("6_b27ka")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-button_group = SubResource("ButtonGroup_dj1cy")
+button_group = SubResource("ButtonGroup_0dpb7")
 text = "Recent"
 
 [node name="FavoriteGames" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-button_group = SubResource("ButtonGroup_cemk0")
+button_group = SubResource("ButtonGroup_j7eot")
 text = "Favorites"
 
 [node name="Library" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container" instance=ExtResource("6_b27ka")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-button_group = SubResource("ButtonGroup_x3dq5")
+button_group = SubResource("ButtonGroup_2j60d")
 text = "Library"
 
 [node name="HSeparator" type="HSeparator" parent="GameSelector/HBoxContainer/VBoxContainer/Panel/VBoxContainer/MarginContainer/Container"]
