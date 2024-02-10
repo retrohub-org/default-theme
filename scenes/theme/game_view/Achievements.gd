@@ -39,9 +39,19 @@ var game_info : RetroAchievementsIntegration.GameInfo
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_on_config_changed()
+	RetroHubConfig.config_updated.connect(func(key: String, old, new):
+		_on_config_changed()
+	)
+
+func _on_config_changed():
 	if RetroHubConfig.config.integration_rcheevos_enabled:
 		setup_achievements()
+		_on_visibility_changed()
 	else:
+		if is_instance_valid(rcheevos):
+			rcheevos.queue_free()
+			rcheevos = null
 		set_node_visible(n_unavailable)
 
 func set_error_retry(error: String, retry_callable: Callable):
