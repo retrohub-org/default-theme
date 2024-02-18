@@ -95,6 +95,8 @@ func animate_enter(time: float):
 	n_media_selection.grab_focus()
 
 func set_image_size(node: Control, texture: Texture2D, time: float):
+	if not texture: return
+
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE).set_parallel(true)
 
