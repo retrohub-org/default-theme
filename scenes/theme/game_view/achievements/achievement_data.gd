@@ -36,29 +36,29 @@ func _ready():
 func _process(_delta):
 	# Handle behavior differently if currently loaded media or not
 	if media_loaded:
-		check_unload_media(global_position.y)
+		check_unload_media()
 	else:
-		check_load_media(global_position.y)
+		check_load_media()
 
 # Check if we should unload media
-func check_unload_media(y: float):
+func check_unload_media():
 	# Unload if we leave the limits
-	var min_y = global_position.y - 50
-	if y + size.y < min_y or y > max_y:
+	var parent_y = get_parent().position.y
+	if parent_y + position.y + size.y < -50 or global_position.y > max_y:
 		media_loaded = false
 		n_icon.texture = null
 
-func check_load_media(y: float):
+func check_load_media():
 	# Load if we are inside the limits
-	var min_y = global_position.y - 50
-	if y + size.y >= min_y and y <= max_y:
+	var parent_y = get_parent().position.y
+	if parent_y + position.y + size.y >= -50 and global_position.y <= max_y:
 		media_loaded = true
 		n_icon.texture = await achievement.load_icon()
 
 func set_data(info: RetroAchievementsIntegration.GameInfo, achievement: RetroAchievementsIntegration.Achievement):
 	self.achievement = achievement
 	set_process(true)
-	
+
 	n_title.text = achievement.title
 	n_description.text = achievement.description
 

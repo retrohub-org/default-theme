@@ -193,10 +193,13 @@ func load_achievements():
 	for achievement in game_info.achievements:
 		var data := achievement_data_scene.instantiate()
 		n_achievement_cnt.add_child(data)
-		data.set_data(game_info, achievement)
 		instance_count += 1
 		# Instancing objects stalls the main thread. Multithreading cannot solve this sadly.
 		# So, we only instance 3 objects per frame, to prevent visible stutters.
 		if instance_count > 2:
 			instance_count = 0
 			await get_tree().process_frame
+	var idx = 0
+	for child in n_achievement_cnt.get_children():
+		child.set_data(game_info, game_info.achievements[idx])
+		idx += 1
