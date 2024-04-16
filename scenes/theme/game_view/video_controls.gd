@@ -64,9 +64,7 @@ var video_player : VideoStreamPlayer:
 		setup()
 
 func setup():
-	# Hack to find video length on kidrigger's addon.
-	video_player.stream_position = -1
-	max_time = video_player.stream_position
+	max_time = video_player.get_stream_length()
 	video_player.stream_position = 0
 
 	n_play_pause.button_pressed = false
